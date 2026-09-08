@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workshop Quiz</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --blue:#002244; --light:#0068B3; --green:#10b981; --amber:#f59e0b; --red:#ef4444; --purple:#7c3aed; --ink:#1e293b; --muted:#64748b; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f172a; color: white; min-height: 100vh; }
+  .screen { display: none; min-height: 100vh; } .screen.on { display: flex; flex-direction: column; }
+  /* SETUP */
+  #setup { background: #f4f6fa; color: var(--ink); }
+  .setup-wrap { max-width: 980px; margin: 0 auto; padding: 28px 20px 60px; width: 100%; }
+  h1 { font-size: 26px; font-weight: 800; color: var(--blue); }
+  .sub { color: var(--muted); font-size: 14px; margin: 4px 0 20px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .card { background: white; border-radius: 16px; padding: 20px 22px; box-shadow: 0 4px 14px rgba(0,0,0,.06); }
+  .card h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 10px; font-weight: 800; }
+  .step { display:inline-flex; align-items:center; justify-content:center; width: 22px; height: 22px; border-radius: 50%; background: var(--light); color: white; font-size: 12px; font-weight: 800; margin-right: 8px; }
+  .prompt { background: #f5f3ff; border: 1.5px solid #c4b5fd; border-radius: 10px; padding: 12px 14px; font-family: 'Courier New', monospace; font-size: 12.5px; color: #3730a3; line-height: 1.55; white-space: pre-wrap; }
+  textarea { width: 100%; min-height: 220px; border: 1.5px dashed #94a3b8; border-radius: 10px; padding: 12px; font-size: 13px; font-family: 'Courier New', monospace; resize: vertical; color: var(--ink); }
+  textarea:focus { outline: none; border-color: var(--light); border-style: solid; }
+  .row { display:flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; align-items: center; }
+  button.btn { border: none; border-radius: 10px; padding: 10px 16px; font-weight: 700; font-size: 14px; cursor: pointer; }
+  .btn.primary { background: var(--light); color: white; } .btn.primary:hover { background: #00568f; }
+  .btn.go { background: var(--green); color: white; font-size: 16px; padding: 12px 22px; } .btn.go:hover { background: #059669; }
+  .btn.ghost { background: #eef2f7; color: var(--blue); } .btn.ghost:hover { background: #e2e8f0; }
+  .hint { font-size: 12px; color: var(--muted); }
+  .teams { display:flex; gap: 8px; flex-wrap: wrap; }
+  .teams input { border: 1.5px solid #e2e8f0; border-radius: 8px; padding: 8px 10px; font-size: 14px; width: 150px; }
+  .settings { display:flex; gap: 14px; flex-wrap: wrap; align-items: center; font-size: 14px; }
+  .settings input[type=number] { width: 70px; border: 1.5px solid #e2e8f0; border-radius: 8px; padding: 6px 8px; font-size: 14px; }
+  /* PLAY */
+  #play { padding: 24px; }
+  .topbar { display:flex; justify-content: space-between; align-items: center; font-size: 15px; color: #94a3b8; font-weight: 700; }
+  .timer { font-size: 44px; font-weight: 900; font-variant-numeric: tabular-nums; color: white; min-width: 90px; text-align: center; }
+  .timer.warn { color: var(--amber); } .timer.zero { color: var(--red); }
+  .ring { width: 100%; height: 8px; background: #1e293b; border-radius: 99px; overflow: hidden; margin: 12px 0 26px; }
+  .ring > div { height: 100%; background: linear-gradient(90deg, #38bdf8, #a78bfa); transition: width 1s linear; }
+  .q { font-size: clamp(26px, 4vw, 44px); font-weight: 800; line-height: 1.25; text-align: center; margin: 10px auto 30px; max-width: 1000px; }
+  .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 1000px; margin: 0 auto; width: 100%; }
+  .opt { border-radius: 16px; padding: 26px 24px; font-size: clamp(18px, 2.4vw, 26px); font-weight: 700; display:flex; align-items:center; gap: 16px; min-height: 100px; transition: transform .2s, opacity .3s; }
+  .opt .k { width: 44px; height: 44px; border-radius: 12px; background: rgba(255,255,255,.25); display:flex; align-items:center; justify-content:center; font-size: 20px; font-weight: 900; flex-shrink: 0; }
+  .opt.a { background: #e11d48; } .opt.b { background: #2563eb; } .opt.c { background: #d97706; } .opt.d { background: #059669; }
+  .opt.dim { opacity: .25; } .opt.win { transform: scale(1.03); box-shadow: 0 0 0 5px white; }
+  .controls { display:flex; gap: 12px; justify-content: center; margin-top: 30px; flex-wrap: wrap; }
+  .btn.big { font-size: 16px; padding: 14px 26px; } .btn.light { background: white; color: var(--blue); } .btn.dark { background: #1e293b; color: white; }
+  .score { display:flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 22px; }
+  .team { background: #1e293b; border-radius: 12px; padding: 10px 14px; display:flex; align-items:center; gap: 10px; font-weight: 700; }
+  .team .pts { font-size: 22px; font-weight: 900; min-width: 34px; text-align: center; color: #a78bfa; }
+  .team button { border:none; border-radius: 8px; width: 30px; height: 30px; font-weight: 900; cursor: pointer; font-size: 16px; }
+  .team .plus { background: var(--green); color: white; } .team .minus { background: #334155; color: white; }
+  /* END */
+  #end { align-items: center; justify-content: center; padding: 40px 20px; text-align: center; }
+  #end h2 { font-size: 40px; font-weight: 900; margin-bottom: 8px; }
+  .podium { display:flex; gap: 14px; align-items: flex-end; justify-content: center; margin: 30px 0; flex-wrap: wrap; }
+  .pod { background: #1e293b; border-radius: 14px 14px 0 0; padding: 18px 22px; min-width: 150px; }
+  .pod .name { font-weight: 800; font-size: 18px; } .pod .pts { font-size: 34px; font-weight: 900; color: #a78bfa; }
+  .pod.first { background: linear-gradient(180deg, #f59e0b, #b45309); min-height: 190px; } .pod.first .pts { color: white; }
+  .pod.second { min-height: 150px; } .pod.third { min-height: 120px; }
+  .gold { font-size: 64px; }
+  @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } .opts { grid-template-columns: 1fr; } .opt { min-height: 70px; padding: 18px; } }
+</style>
+</head>
+<body>
+
+<!-- SETUP -->
+<div id="setup" class="screen on">
+  <div class="setup-wrap">
+    <h1>Workshop Quiz</h1>
+    <div class="sub">A live quiz for trainings, town halls and counterpart workshops. Runs from your laptop on the projector. No accounts, no wifi, no app for participants: they shout, you click.</div>
+    <div class="grid">
+      <div class="card">
+        <h2><span class="step">1</span>Get questions from AI (or write them)</h2>
+        <div class="prompt" id="promptText">Write 8 multiple-choice quiz questions about [TOPIC, e.g. the new procurement framework / our project's results / World Bank safeguards] for [AUDIENCE]. Mix easy and tricky. Format EXACTLY like this, one question per block, blank line between blocks, and mark the correct option with an asterisk:
+
+Q: question text
+A) option
+B) option
+C) option
+D) option
+Answer: B
+
+Then add one "fun fact" line after each answer.</div>
+        <div class="row"><button class="btn ghost" onclick="copyPrompt()">Copy prompt</button><span class="hint">Paste the answer on the right.</span></div>
+      </div>
+      <div class="card">
+        <h2><span class="step">2</span>Paste questions here</h2>
+        <textarea id="qtext"></textarea>
+        <div class="row"><button class="btn ghost" onclick="loadSample()">Load sample questions</button><span class="hint" id="qcount"></span></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h2><span class="step">3</span>Teams and timer</h2>
+      <div class="teams" id="teams"></div>
+      <div class="row">
+        <button class="btn ghost" onclick="addTeam()">+ Add team</button>
+        <div class="settings"><label>Seconds per question <input type="number" id="secs" value="30" min="5" max="180"></label></div>
+      </div>
+      <div class="row" style="margin-top:18px"><button class="btn go" onclick="startQuiz()">▶ Start quiz</button><span class="hint">Tip: press F11 for full screen. Keys: Space = reveal / next, R = restart timer.</span></div>
+    </div>
+    <div class="hint" style="margin-top:14px; line-height:1.6">From the AI Tuesday Toolbox. Want it different? Drop this file into Claude, ChatGPT or Copilot and ask: "add a sound when the timer ends", "let participants answer on their phones", "show an explanation after each answer", "make it Spanish".</div>
+  </div>
+</div>
+
+<!-- PLAY -->
+<div id="play" class="screen">
+  <div class="topbar"><span id="counter">Question 1 of 8</span><span class="timer" id="timer">30</span><span id="title"></span></div>
+  <div class="ring"><div id="ring" style="width:100%"></div></div>
+  <div class="q" id="qtxt"></div>
+  <div class="opts" id="opts"></div>
+  <div class="controls">
+    <button class="btn big light" id="revealBtn" onclick="reveal()">Reveal answer</button>
+    <button class="btn big dark" onclick="restartTimer()">Restart timer</button>
+    <button class="btn big dark" id="nextBtn" onclick="next()" hidden>Next question →</button>
+    <button class="btn big dark" onclick="finish()" style="opacity:.6">End quiz</button>
+  </div>
+  <div class="score" id="scoreboard"></div>
+</div>
+
+<!-- END -->
+<div id="end" class="screen">
+  <div class="gold">🏆</div>
+  <h2>Final scores</h2>
+  <div class="podium" id="podium"></div>
+  <div class="controls"><button class="btn big light" onclick="show('setup')">Back to setup</button><button class="btn big dark" onclick="startQuiz()">Play again</button></div>
+</div>
+
+<script>
+const SAMPLE = `Q: Roughly how many countries does the World Bank Group work in?
+A) About 50
+B) About 100
+C) Over 170
+D) Every country on Earth
+Answer: C
+Fun fact: including small island states most people can't find on a map.
+
+Q: What does "PDO" stand for in a project document?
+A) Project Disbursement Office
+B) Project Development Objective
+C) Primary Data Output
+D) Please Don't Overspend
+Answer: B
+
+Q: Which of these is NOT a real Bank acronym?
+A) ISR
+B) ICR
+C) PAD
+D) PLZ
+Answer: D
+Fun fact: although some emails come close.
+
+Q: An indicator has baseline 40%, target 80%, current 70%. Progress is:
+A) 50%
+B) 70%
+C) 75%
+D) 87.5%
+Answer: C
+Fun fact: (70−40)/(80−40) = 0.75. The Results Tracker in this toolbox does this for you.
+
+Q: The safest place for internal or "Official Use Only" content is:
+A) Any chatbot, as long as you delete the chat after
+B) Copilot or other Bank-approved tools
+C) A group WhatsApp
+D) A sticky note on the monitor
+Answer: B`;
+
+let questions = [], teams = [], idx = 0, timer = null, left = 30, total = 30, revealed = false;
+
+function parse(text) {
+  const blocks = text.split(/\n\s*\n/).map(b => b.trim()).filter(Boolean);
+  const out = [];
+  for (const b of blocks) {
+    const lines = b.split(/\n/).map(l => l.trim()).filter(Boolean);
+    const q = { text: '', opts: [], ans: -1, fact: '' };
+    for (const l of lines) {
+      let m;
+      if ((m = l.match(/^(?:Q\d*[:.)]|\d+[.)])\s*(.+)/i))) q.text = m[1];
+      else if ((m = l.match(/^\*?([A-Da-d])[).:]\s*(.+?)\s*(\*)?$/))) { q.opts.push(m[2]); if (m[3] || l.startsWith('*')) q.ans = q.opts.length - 1; }
+      else if ((m = l.match(/^(?:Answer|Correct)[:\s]+\*?([A-Da-d])/i))) q.ans = 'ABCD'.indexOf(m[1].toUpperCase());
+      else if ((m = l.match(/^(?:Fun fact|Fact|Note|Explanation)[:\s]+(.+)/i))) q.fact = m[1];
+      else if (!q.text) q.text = l;
+    }
+    if (q.text && q.opts.length >= 2) out.push(q);
+  }
+  return out;
+}
+function countQ() { const n = parse(document.getElementById('qtext').value).length; document.getElementById('qcount').textContent = n ? `${n} question${n>1?'s':''} ready` : 'No questions recognised yet'; }
+document.getElementById('qtext').addEventListener('input', countQ);
+function loadSample() { document.getElementById('qtext').value = SAMPLE; countQ(); }
+function copyPrompt() { navigator.clipboard.writeText(document.getElementById('promptText').textContent); }
+
+function renderTeams() { const t = document.getElementById('teams'); t.innerHTML = ''; teams.forEach((tm, i) => { const inp = document.createElement('input'); inp.value = tm.name; inp.placeholder = 'Team name'; inp.oninput = () => { teams[i].name = inp.value; }; t.appendChild(inp); }); }
+function addTeam() { teams.push({ name: 'Team ' + (teams.length + 1), pts: 0 }); renderTeams(); }
+teams = [{ name: 'Team Lima', pts: 0 }, { name: 'Team Bogotá', pts: 0 }, { name: 'Team Quito', pts: 0 }]; renderTeams();
+
+function show(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('on')); document.getElementById(id).classList.add('on'); }
+function startQuiz() {
+  questions = parse(document.getElementById('qtext').value);
+  if (!questions.length) { alert('Paste some questions first (or load the sample).'); return; }
+  teams.forEach(t => t.pts = 0); idx = 0; total = Math.max(5, parseInt(document.getElementById('secs').value) || 30);
+  show('play'); showQ();
+}
+function showQ() {
+  const q = questions[idx]; revealed = false;
+  document.getElementById('counter').textContent = `Question ${idx+1} of ${questions.length}`;
+  document.getElementById('qtxt').textContent = q.text;
+  const o = document.getElementById('opts'); o.innerHTML = '';
+  q.opts.slice(0,4).forEach((t, i) => { const d = document.createElement('div'); d.className = 'opt ' + 'abcd'[i]; d.innerHTML = `<span class="k">${'ABCD'[i]}</span><span>${esc(t)}</span>`; d.onclick = () => reveal(); o.appendChild(d); });
+  document.getElementById('revealBtn').hidden = false; document.getElementById('nextBtn').hidden = true;
+  renderScore(); restartTimer();
+}
+function restartTimer() { clearInterval(timer); left = total; tick(); timer = setInterval(() => { left--; tick(); if (left <= 0) { clearInterval(timer); } }, 1000); }
+function tick() { const t = document.getElementById('timer'); t.textContent = left; t.className = 'timer' + (left <= 0 ? ' zero' : left <= 5 ? ' warn' : ''); document.getElementById('ring').style.width = (left/total*100) + '%'; }
+function reveal() {
+  if (revealed) return; revealed = true; clearInterval(timer);
+  const q = questions[idx];
+  document.querySelectorAll('.opt').forEach((el, i) => { if (q.ans >= 0) el.classList.add(i === q.ans ? 'win' : 'dim'); });
+  if (q.fact) { const f = document.createElement('div'); f.style.cssText = 'text-align:center;color:#cbd5e1;font-size:18px;margin-top:18px;'; f.textContent = '💡 ' + q.fact; document.getElementById('opts').insertAdjacentElement('afterend', f); f.id = 'fact'; }
+  document.getElementById('revealBtn').hidden = true; document.getElementById('nextBtn').hidden = false;
+}
+function next() { const f = document.getElementById('fact'); if (f) f.remove(); idx++; if (idx >= questions.length) finish(); else showQ(); }
+function renderScore() {
+  const s = document.getElementById('scoreboard'); s.innerHTML = '';
+  teams.forEach((t, i) => { const d = document.createElement('div'); d.className = 'team'; d.innerHTML = `<span>${esc(t.name)}</span><span class="pts">${t.pts}</span><button class="minus" onclick="pts(${i},-1)">−</button><button class="plus" onclick="pts(${i},1)">+</button>`; s.appendChild(d); });
+}
+function pts(i, d) { teams[i].pts = Math.max(0, teams[i].pts + d); renderScore(); }
+function finish() {
+  clearInterval(timer); const f = document.getElementById('fact'); if (f) f.remove();
+  const sorted = [...teams].sort((a,b) => b.pts - a.pts);
+  const p = document.getElementById('podium'); p.innerHTML = '';
+  const order = [sorted[1], sorted[0], sorted[2]].filter(Boolean); const cls = { 0: 'second', 1: 'first', 2: 'third' };
+  order.forEach((t, i) => { const d = document.createElement('div'); d.className = 'pod ' + (sorted.length === 1 ? 'first' : cls[i]); d.innerHTML = `<div class="name">${esc(t.name)}</div><div class="pts">${t.pts}</div>`; p.appendChild(d); });
+  sorted.slice(3).forEach(t => { const d = document.createElement('div'); d.className = 'pod third'; d.innerHTML = `<div class="name">${esc(t.name)}</div><div class="pts">${t.pts}</div>`; p.appendChild(d); });
+  show('end');
+}
+function esc(v) { return String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('play').classList.contains('on')) return;
+  if (e.code === 'Space') { e.preventDefault(); revealed ? next() : reveal(); }
+  if (e.key.toLowerCase() === 'r') restartTimer();
+});
+loadSample();
+if (location.hash === '#demo') { startQuiz(); setTimeout(() => { pts(0,2); pts(1,1); }, 100); }
+</script>
+</body>
+</html>

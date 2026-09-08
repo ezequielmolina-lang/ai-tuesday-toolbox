@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Week</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --blue:#002244; --light:#0068B3; --green:#10b981; --amber:#f59e0b; --red:#ef4444; --purple:#7c3aed; --bg:#f4f6fa; --ink:#1e293b; --muted:#64748b; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--ink); }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 26px 20px 60px; }
+  header { display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap: 10px; margin-bottom: 16px; }
+  h1 { font-size: 26px; font-weight: 800; color: var(--blue); }
+  .sub { color: var(--muted); font-size: 14px; margin-top: 4px; }
+  .date { font-size: 13px; color: var(--muted); font-weight: 700; }
+  .tabs { display:flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+  .tab { border: none; background: white; border-radius: 12px; padding: 12px 18px; font-weight: 800; font-size: 14px; cursor: pointer; color: var(--muted); box-shadow: 0 2px 8px rgba(0,0,0,.04); display:flex; gap: 10px; align-items:center; }
+  .tab .n { background: #e2e8f0; color: #334155; border-radius: 99px; padding: 2px 9px; font-size: 12px; }
+  .tab.on { background: var(--blue); color: white; } .tab.on .n { background: rgba(255,255,255,.2); color: white; }
+  .tab.on.red-n .n { background: var(--red); }
+  .panel { display:none; } .panel.on { display:block; }
+  .feed { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+  .card { background: white; border-radius: 16px; padding: 18px 20px; box-shadow: 0 4px 14px rgba(0,0,0,.06); }
+  .card h2 { font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 10px; font-weight: 800; }
+  .step { display:inline-flex; align-items:center; justify-content:center; width: 20px; height: 20px; border-radius: 50%; background: var(--light); color: white; font-size: 11px; font-weight: 800; margin-right: 8px; }
+  .prompt { background: #f5f3ff; border: 1.5px solid #c4b5fd; border-radius: 10px; padding: 10px 12px; font-family: 'Courier New', monospace; font-size: 12px; color: #3730a3; line-height: 1.5; white-space: pre-wrap; max-height: 150px; overflow: auto; }
+  textarea { width: 100%; min-height: 118px; border: 1.5px dashed #94a3b8; border-radius: 10px; padding: 10px; font-size: 13px; font-family: inherit; resize: vertical; color: var(--ink); }
+  textarea:focus { outline: none; border-color: var(--light); border-style: solid; }
+  .row { display:flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; align-items: center; }
+  button.btn, a.btn { border: none; border-radius: 10px; padding: 8px 13px; font-weight: 700; font-size: 13px; cursor: pointer; text-decoration: none; display:inline-block; }
+  .btn.primary { background: var(--light); color: white; } .btn.primary:hover { background: #00568f; }
+  .btn.ghost { background: #eef2f7; color: var(--blue); } .btn.ghost:hover { background: #e2e8f0; }
+  .btn.nudge { background: #fef3c7; color: #92400e; } .btn.nudge:hover { background: #fde68a; }
+  .btn.danger { background: transparent; color: var(--muted); } .btn.danger:hover { color: var(--red); }
+  .hint { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .tiles { display:grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 14px; }
+  .tile { background: white; border-radius: 12px; padding: 12px 14px; box-shadow: 0 4px 14px rgba(0,0,0,.06); }
+  .tile .n { font-size: 26px; font-weight: 900; line-height: 1; } .tile .l { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 5px; font-weight: 700; }
+  .tile.r .n { color: var(--red); } .tile.a .n { color: var(--amber); } .tile.b .n { color: var(--light); } .tile.g .n { color: var(--green); }
+  .group { margin-bottom: 16px; }
+  .group h3 { font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; padding-left: 4px; color: var(--muted); }
+  .group.over h3 { color: var(--red); } .group.today h3 { color: #b45309; } .group.week h3 { color: var(--light); } .group.done h3 { color: var(--green); }
+  .item { display:flex; align-items:flex-start; gap: 12px; background: white; border-radius: 12px; padding: 11px 14px; margin-bottom: 7px; box-shadow: 0 2px 8px rgba(0,0,0,.04); border-left: 4px solid #e2e8f0; }
+  .group.over .item { border-left-color: var(--red); } .group.today .item { border-left-color: var(--amber); } .group.week .item { border-left-color: var(--light); }
+  .item input[type=checkbox] { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--green); cursor: pointer; flex-shrink: 0; }
+  .item .t { flex: 1; min-width: 0; } .item .name { font-size: 15px; font-weight: 600; } .item.d .name { text-decoration: line-through; color: var(--muted); font-weight: 500; }
+  .item .meta { font-size: 12px; color: var(--muted); margin-top: 3px; display:flex; gap: 12px; flex-wrap: wrap; } .item .meta b { color: #334155; }
+  .item .meta .wait { color: #b45309; font-weight: 700; }
+  .item .x { border:none; background: transparent; color: #cbd5e1; font-size: 18px; cursor: pointer; padding: 0 4px; } .item .x:hover { color: var(--red); }
+  .empty { text-align: center; color: var(--muted); padding: 34px 20px; font-size: 14px; background: white; border-radius: 12px; }
+  .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--blue); color: white; padding: 10px 18px; border-radius: 99px; font-size: 13px; font-weight: 700; opacity: 0; transition: opacity .3s; pointer-events: none; }
+  .toast.show { opacity: 1; }
+  .foot { font-size: 12px; color: var(--muted); margin-top: 18px; line-height: 1.6; }
+  @media (max-width: 720px) { .feed { grid-template-columns: 1fr; } .tiles { grid-template-columns: 1fr 1fr; } }
+  @media print { .feed, .x, .row, .tabs, .btn { display:none !important; } .panel { display:block !important; } body { background: white; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div><h1>My Week</h1><div class="sub">Copilot reads your inbox and calendar. This file remembers. Nothing you paste here leaves your browser.</div></div>
+    <div class="date" id="today"></div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab on" data-tab="owe" onclick="showTab('owe')">I owe <span class="n" id="nOwe">0</span></button>
+    <button class="tab" data-tab="wait" onclick="showTab('wait')">Waiting on others <span class="n" id="nWait">0</span></button>
+    <button class="tab" data-tab="prep" onclick="showTab('prep')">Meeting prep <span class="n" id="nPrep">0</span></button>
+  </div>
+
+  <!-- ===== I OWE ===== -->
+  <div class="panel on" id="p-owe">
+    <div class="feed">
+      <div class="card">
+        <h2><span class="step">1</span>Ask Copilot (work mode)</h2>
+        <div class="prompt" id="pr-owe">Go through my emails and Teams messages from the last 7 days. List every action item that someone is expecting from ME (not things I asked others). Include implicit asks ("would be great if you could..."). Return ONLY a table, no commentary, with columns:
+Task | Requested by | Due date (YYYY-MM-DD or blank) | Source (email subject)
+Be specific: "Send comments on the PAD draft to Maria", not "follow up".</div>
+        <div class="row"><button class="btn ghost" onclick="copyPrompt('owe')">Copy prompt</button><span class="hint">Then copy Copilot's table.</span></div>
+      </div>
+      <div class="card">
+        <h2><span class="step">2</span>Paste Copilot's answer</h2>
+        <textarea id="in-owe" placeholder="Paste the table here (also accepts plain lines like: Send ISR comments to Ana, due 2026-09-12)"></textarea>
+        <div class="row"><button class="btn primary" onclick="importList('owe')">Add to my list</button><button class="btn ghost" onclick="sample('owe')">Load sample</button><span class="hint">Already-listed items are skipped.</span></div>
+      </div>
+    </div>
+    <div class="tiles">
+      <div class="tile r"><div class="n" id="owe-over">0</div><div class="l">Overdue</div></div>
+      <div class="tile a"><div class="n" id="owe-today">0</div><div class="l">Due today</div></div>
+      <div class="tile b"><div class="n" id="owe-week">0</div><div class="l">This week</div></div>
+      <div class="tile g"><div class="n" id="owe-done">0</div><div class="l">Done</div></div>
+    </div>
+    <div id="list-owe"></div>
+  </div>
+
+  <!-- ===== WAITING ON ===== -->
+  <div class="panel" id="p-wait">
+    <div class="feed">
+      <div class="card">
+        <h2><span class="step">1</span>Ask Copilot (work mode)</h2>
+        <div class="prompt" id="pr-wait">Go through my SENT emails and Teams messages from the last 21 days. Find every request I made to someone (a document, comments, an approval, an answer, a decision) that has NOT received a reply yet. Return ONLY a table, no commentary, with columns:
+What I asked for | Person | Date I asked (YYYY-MM-DD) | Email subject
+Only include items still open. Be specific about what I asked for.</div>
+        <div class="row"><button class="btn ghost" onclick="copyPrompt('wait')">Copy prompt</button><span class="hint">Then copy Copilot's table.</span></div>
+      </div>
+      <div class="card">
+        <h2><span class="step">2</span>Paste Copilot's answer</h2>
+        <textarea id="in-wait" placeholder="Paste the table here."></textarea>
+        <div class="row"><button class="btn primary" onclick="importList('wait')">Add to my list</button><button class="btn ghost" onclick="sample('wait')">Load sample</button><span class="hint">"Nudge" opens a ready-to-send reminder in Outlook.</span></div>
+      </div>
+    </div>
+    <div class="tiles">
+      <div class="tile r"><div class="n" id="wait-old">0</div><div class="l">Waiting 7+ days</div></div>
+      <div class="tile a"><div class="n" id="wait-mid">0</div><div class="l">3 to 6 days</div></div>
+      <div class="tile b"><div class="n" id="wait-new">0</div><div class="l">Under 3 days</div></div>
+      <div class="tile g"><div class="n" id="wait-done">0</div><div class="l">Received</div></div>
+    </div>
+    <div id="list-wait"></div>
+  </div>
+
+  <!-- ===== MEETING PREP ===== -->
+  <div class="panel" id="p-prep">
+    <div class="feed">
+      <div class="card">
+        <h2><span class="step">1</span>Ask Copilot (work mode)</h2>
+        <div class="prompt" id="pr-prep">Look at my calendar for the next 7 days. For each meeting where I am expected to bring or prepare something (a document, slides, talking points, a decision, comments, reading the pre-read), tell me what. Skip meetings that need no preparation. Return ONLY a table, no commentary, with columns:
+What I need to prepare | Meeting title | Meeting date (YYYY-MM-DD) | Organizer
+Check the invitation body and attachments for what is expected of attendees.</div>
+        <div class="row"><button class="btn ghost" onclick="copyPrompt('prep')">Copy prompt</button><span class="hint">Then copy Copilot's table.</span></div>
+      </div>
+      <div class="card">
+        <h2><span class="step">2</span>Paste Copilot's answer</h2>
+        <textarea id="in-prep" placeholder="Paste the table here."></textarea>
+        <div class="row"><button class="btn primary" onclick="importList('prep')">Add to my list</button><button class="btn ghost" onclick="sample('prep')">Load sample</button><span class="hint">Prep items are due the day before the meeting.</span></div>
+      </div>
+    </div>
+    <div class="tiles">
+      <div class="tile r"><div class="n" id="prep-over">0</div><div class="l">Overdue</div></div>
+      <div class="tile a"><div class="n" id="prep-today">0</div><div class="l">Due today</div></div>
+      <div class="tile b"><div class="n" id="prep-week">0</div><div class="l">This week</div></div>
+      <div class="tile g"><div class="n" id="prep-done">0</div><div class="l">Done</div></div>
+    </div>
+    <div id="list-prep"></div>
+  </div>
+
+  <div class="row" style="margin-top:14px">
+    <button class="btn ghost" onclick="exportCSV()">Export everything (CSV)</button>
+    <button class="btn ghost" onclick="window.print()">Print</button>
+    <button class="btn danger" onclick="clearDone()">Clear done</button>
+    <button class="btn danger" onclick="clearAll()">Clear all</button>
+  </div>
+  <div class="foot">The Monday ritual: open Copilot, paste the three prompts, paste the three answers here. Ten minutes, and the week is on one screen. Saved in this browser only. From the AI Tuesday Toolbox. Want it different? Drop this file into Claude, ChatGPT or Copilot and ask: "add a tab for things I promised counterparts", "add priorities", "make the nudge email friendlier and in Spanish".</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const KEY = 'my-week-v1';
+let items = [];
+try { items = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch(e) { items = []; }
+function off(d) { const x = new Date(); x.setDate(x.getDate() + d); return x.toISOString().slice(0,10); }
+function todayISO() { return new Date().toISOString().slice(0,10); }
+document.getElementById('today').textContent = new Date().toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' });
+
+const SAMPLES = {
+  owe: `Task\tRequested by\tDue date\tSource
+Send comments on the draft PAD results framework\tMaria Lopez\t${off(-1)}\tRE: PAD draft v3 for comments
+Confirm mission dates with the Ministry focal point\tCarlos Diaz\t${off(0)}\tMission planning October
+Review ToR for the impact evaluation firm\tAna Torres\t${off(2)}\tToR IE firm, quick look?
+Fill in the CPIA questionnaire for education\tPortfolio team\t${off(4)}\tCPIA 2026 inputs due
+Share the Romania RCT slides with the FLC team\tJohn Smith\t\tFwd: slides from last week`,
+  wait: `What I asked for\tPerson\tDate I asked\tEmail subject
+No-objection on the revised procurement plan\tPIU Coordinator\t${off(-12)}\tRevised procurement plan for NO
+Comments on the aide-memoire draft\tLuis Herrera\t${off(-5)}\tAide-memoire draft, comments by Friday?
+Updated disbursement projections\tFinance team\t${off(-3)}\tDisbursement projections Q2
+Confirmation of workshop venue\tDRE Lima\t${off(-1)}\tTaller 24 sept: sede`,
+  prep: `What I need to prepare\tMeeting title\tMeeting date\tOrganizer
+Two slides on Component 2 progress\tPortfolio review with CMU\t${off(2)}\tCountry Manager
+Read the 40-page pre-read and bring 3 questions\tDecision meeting: Education strategy\t${off(3)}\tPractice Manager
+Talking points on learning outcomes data\tCall with Vice-Minister\t${off(4)}\tMe
+Draft agenda\tTeam weekly\t${off(1)}\tMe`
+};
+
+function parseDate(s) {
+  if (!s) return ''; s = s.trim();
+  let m = s.match(/(\d{4})-(\d{1,2})-(\d{1,2})/); if (m) return `${m[1]}-${m[2].padStart(2,'0')}-${m[3].padStart(2,'0')}`;
+  m = s.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/); if (m) return `${m[3]}-${m[1].padStart(2,'0')}-${m[2].padStart(2,'0')}`;
+  const d = new Date(s); if (!isNaN(d) && /[a-z]{3}/i.test(s)) return d.toISOString().slice(0,10);
+  return '';
+}
+function parse(text, tab) {
+  const out = [];
+  for (const raw0 of text.split(/\r?\n/)) {
+    const raw = raw0.trim(); if (!raw || /^\|?\s*-{2,}/.test(raw)) continue;
+    let c;
+    if (raw.includes('|')) c = raw.replace(/^\||\|$/g,'').split('|').map(x => x.trim());
+    else if (raw.includes('\t')) c = raw.split('\t').map(x => x.trim());
+    else {
+      const t = raw.replace(/^[-*•\d.)\s]+/, '');
+      const dm = t.match(/(?:due|by|before|on|asked)[:\s]+([^,;)]+)/i); const fm = t.match(/(?:from|for|to|with|requested by)[:\s]+([^,;)]+)/i);
+      c = [t.replace(/[,(]?\s*(due|by|before|from|requested by|asked)[:\s][^,;)]*[)]?/gi,'').trim(), fm ? fm[1].trim() : '', dm ? dm[1].trim() : '', ''];
+    }
+    if (!c[0] || /^(task|what i asked for|what i need to prepare)$/i.test(c[0])) continue;
+    const it = { tab, name: c[0], who: c[1] || '', date: parseDate(c[2] || ''), src: c[3] || '', done: false, id: Date.now() + Math.random() };
+    if (tab === 'prep') { it.meeting = c[1] || ''; it.who = c[3] || ''; it.date = parseDate(c[2] || ''); }
+    out.push(it);
+  }
+  return out;
+}
+function importList(tab) {
+  const ta = document.getElementById('in-' + tab);
+  const parsed = parse(ta.value, tab);
+  const have = new Set(items.filter(i => i.tab === tab).map(i => i.name.toLowerCase()));
+  let added = 0;
+  parsed.forEach(p => { if (!have.has(p.name.toLowerCase())) { items.push(p); have.add(p.name.toLowerCase()); added++; } });
+  ta.value = '';
+  toast(added ? `${added} added` + (parsed.length - added ? `, ${parsed.length - added} already listed` : '') : 'Nothing new found');
+  render();
+}
+function sample(tab) { document.getElementById('in-' + tab).value = SAMPLES[tab]; }
+function copyPrompt(tab) { navigator.clipboard.writeText(document.getElementById('pr-' + tab).textContent).then(() => toast('Prompt copied. Paste it into Copilot.')); }
+function showTab(t) { document.querySelectorAll('.tab').forEach(b => b.classList.toggle('on', b.dataset.tab === t)); document.querySelectorAll('.panel').forEach(p => p.classList.toggle('on', p.id === 'p-' + t)); try { localStorage.setItem(KEY + '-tab', t); } catch(e) {} }
+
+function dueOf(it) { if (it.tab === 'prep' && it.date) { const d = new Date(it.date + 'T00:00:00'); d.setDate(d.getDate() - 1); return d.toISOString().slice(0,10); } return it.date; }
+function bucket(it) {
+  if (it.done) return 'done';
+  const today = todayISO();
+  if (it.tab === 'wait') { if (!it.date) return 'new'; const days = daysSince(it.date); return days >= 7 ? 'old' : days >= 3 ? 'mid' : 'new'; }
+  const due = dueOf(it); if (!due) return 'later';
+  if (due < today) return 'over'; if (due === today) return 'today';
+  const w = new Date(); w.setDate(w.getDate() + 7); if (due <= w.toISOString().slice(0,10)) return 'week';
+  return 'later';
+}
+function daysSince(d) { return Math.floor((new Date(todayISO()) - new Date(d)) / 86400000); }
+const TITLES = { over: 'Overdue', today: 'Due today', week: 'This week', later: 'Later / no date', done: 'Done', old: 'Waiting 7+ days: nudge', mid: 'Waiting 3 to 6 days', new: 'Asked recently', };
+const ORDER = { owe: ['over','today','week','later','done'], prep: ['over','today','week','later','done'], wait: ['old','mid','new','done'] };
+const CLS = { old: 'over', mid: 'today', new: 'week' };
+function fmt(d) { if (!d) return ''; return new Date(d + 'T00:00:00').toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' }); }
+function esc(v) { return String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
+function nudgeLink(it) {
+  const subj = encodeURIComponent((it.src && !/^re:/i.test(it.src) ? 'RE: ' : '') + (it.src || it.name));
+  const first = (it.who || '').split(/[\s,]+/)[0] || 'there';
+  const body = encodeURIComponent(`Hi ${first},\n\nA gentle reminder on this one: ${it.name}${it.date ? ` (I sent the request on ${fmt(it.date)})` : ''}. Would you be able to get it to me this week? Let me know if there is anything I can do to make it easier.\n\nThanks,\n`);
+  return `mailto:?subject=${subj}&body=${body}`;
+}
+function render() {
+  for (const tab of ['owe','wait','prep']) {
+    const list = document.getElementById('list-' + tab); list.innerHTML = '';
+    const mine = items.filter(i => i.tab === tab);
+    const groups = {}; ORDER[tab].forEach(k => groups[k] = []);
+    mine.forEach(i => groups[bucket(i)].push(i));
+    Object.values(groups).forEach(g => g.sort((a,b) => (dueOf(a) || '9999').localeCompare(dueOf(b) || '9999')));
+    if (!mine.length) list.innerHTML = '<div class="empty"><b>Nothing here yet.</b><br>Copy the prompt above, run it in Copilot (work mode), paste the answer on the right. Or click "Load sample" to see how it looks.</div>';
+    for (const k of ORDER[tab]) {
+      if (!groups[k].length) continue;
+      const g = document.createElement('div'); g.className = 'group ' + (CLS[k] || k);
+      g.innerHTML = `<h3>${TITLES[k]} (${groups[k].length})</h3>`;
+      groups[k].forEach(it => {
+        const el = document.createElement('div'); el.className = 'item' + (it.done ? ' d' : '');
+        let meta = '';
+        if (tab === 'owe') meta = `${it.who ? `<span>for <b>${esc(it.who)}</b></span>` : ''}${it.date ? `<span>due <b>${fmt(it.date)}</b></span>` : ''}${it.src ? `<span>✉ ${esc(it.src)}</span>` : ''}`;
+        if (tab === 'wait') meta = `${it.who ? `<span>from <b>${esc(it.who)}</b></span>` : ''}${it.date ? `<span class="wait">waiting ${daysSince(it.date)} day${daysSince(it.date)===1?'':'s'}</span>` : ''}${it.src ? `<span>✉ ${esc(it.src)}</span>` : ''}`;
+        if (tab === 'prep') meta = `${it.meeting ? `<span>for <b>${esc(it.meeting)}</b></span>` : ''}${it.date ? `<span>meeting <b>${fmt(it.date)}</b>, prep by <b>${fmt(dueOf(it))}</b></span>` : ''}${it.who ? `<span>${esc(it.who)}</span>` : ''}`;
+        const nudge = (tab === 'wait' && !it.done) ? `<a class="btn nudge" href="${nudgeLink(it)}">Nudge ✉</a>` : '';
+        el.innerHTML = `<input type="checkbox" ${it.done ? 'checked' : ''} onchange="toggle('${it.id}')" title="${tab === 'wait' ? 'Received' : 'Done'}"><div class="t"><div class="name">${esc(it.name)}</div><div class="meta">${meta}</div></div>${nudge}<button class="x" onclick="remove('${it.id}')">×</button>`;
+        g.appendChild(el);
+      });
+      list.appendChild(g);
+    }
+    // tiles + tab counts
+    const c = k => groups[k] ? groups[k].length : 0;
+    if (tab === 'wait') { set('wait-old', c('old')); set('wait-mid', c('mid')); set('wait-new', c('new')); set('wait-done', c('done')); }
+    else { set(tab + '-over', c('over')); set(tab + '-today', c('today')); set(tab + '-week', c('week')); set(tab + '-done', c('done')); }
+    const open = mine.filter(i => !i.done).length; set('n' + tab[0].toUpperCase() + tab.slice(1), open);
+    const tb = document.querySelector(`.tab[data-tab="${tab}"]`); tb.classList.toggle('red-n', (tab === 'wait' ? c('old') : c('over')) > 0);
+  }
+  try { localStorage.setItem(KEY, JSON.stringify(items)); } catch(e) {}
+}
+function set(id, v) { const el = document.getElementById(id); if (el) el.textContent = v; }
+function toggle(id) { const t = items.find(x => String(x.id) === id); if (t) t.done = !t.done; render(); }
+function remove(id) { items = items.filter(x => String(x.id) !== id); render(); }
+function clearDone() { items = items.filter(t => !t.done); render(); }
+function clearAll() { if (confirm('Remove everything in all three tabs?')) { items = []; render(); } }
+function exportCSV() {
+  const lines = ['Tab,Item,Person/Meeting,Date,Source,Status'].concat(items.map(t => [t.tab, t.name, t.meeting || t.who, t.date, t.src || t.who, t.done ? 'Done' : TITLES[bucket(t)]].map(x => '"' + String(x ?? '').replace(/"/g,'""') + '"').join(',')));
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿' + lines.join('\n')], { type: 'text/csv;charset=utf-8' })); a.download = 'my_week.csv'; a.click();
+}
+let tt; function toast(m) { const el = document.getElementById('toast'); el.textContent = m; el.classList.add('show'); clearTimeout(tt); tt = setTimeout(() => el.classList.remove('show'), 2200); }
+if (location.hash === '#sample' || location.hash === '#sample-wait' || location.hash === '#sample-prep') { items = [...parse(SAMPLES.owe,'owe'), ...parse(SAMPLES.wait,'wait'), ...parse(SAMPLES.prep,'prep')]; }
+render();
+try { const t = localStorage.getItem(KEY + '-tab'); if (t) showTab(t); } catch(e) {}
+if (/wait/.test(location.hash)) showTab('wait'); if (/prep/.test(location.hash)) showTab('prep');
+</script>
+</body>
+</html>

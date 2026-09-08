@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Tuesday Toolbox</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%); min-height: 100vh; color: #e2e8f0; }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 50px 20px 60px; }
+  .tag { display: inline-block; background: rgba(139,92,246,0.3); border: 1px solid rgba(139,92,246,0.5); color: #c4b5fd; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 18px; }
+  h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 900; color: white; line-height: 1.1; margin-bottom: 12px; }
+  .sub { font-size: 17px; color: #cbd5e1; max-width: 720px; line-height: 1.6; margin-bottom: 36px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 30px; }
+  .tool { background: white; color: #1e293b; border-radius: 18px; overflow: hidden; box-shadow: 0 16px 48px rgba(0,0,0,0.3); display:flex; flex-direction: column; }
+  .tool img { width: 100%; aspect-ratio: 16/10; object-fit: cover; object-position: top; border-bottom: 1px solid #e2e8f0; }
+  .tool .body { padding: 18px 20px 20px; flex: 1; display:flex; flex-direction: column; }
+  .tool h2 { font-size: 18px; font-weight: 800; color: #002244; margin-bottom: 6px; }
+  .tool p { font-size: 14px; color: #475569; line-height: 1.55; flex: 1; margin-bottom: 14px; }
+  .tool .pain { font-size: 12px; color: #b45309; font-weight: 700; margin-bottom: 8px; }
+  .btn { display: inline-block; background: #0068B3; color: white; text-decoration: none; padding: 10px 18px; border-radius: 10px; font-weight: 700; font-size: 14px; text-align: center; }
+  .btn:hover { background: #00568f; }
+  .how { background: white; color: #1e293b; border-radius: 18px; padding: 26px 30px; margin-bottom: 18px; }
+  .how h3 { font-size: 20px; font-weight: 800; color: #002244; margin-bottom: 10px; }
+  .how p, .how li { font-size: 15px; line-height: 1.65; color: #334155; }
+  .how ol { margin: 8px 0 0 22px; }
+  .remix { background: rgba(167,139,250,0.1); border: 1px solid rgba(167,139,250,0.35); border-radius: 18px; padding: 26px 30px; }
+  .remix h3 { color: #a78bfa; font-size: 20px; font-weight: 800; margin-bottom: 10px; }
+  .remix p, .remix li { font-size: 15px; color: #cbd5e1; line-height: 1.65; }
+  .remix ol { margin: 10px 0 0 22px; }
+  .remix code { background: rgba(255,255,255,0.08); padding: 2px 6px; border-radius: 6px; font-size: 13.5px; color: #e9d5ff; }
+  .rule { margin-top: 22px; background: rgba(245,158,11,0.12); border-left: 4px solid #f59e0b; border-radius: 0 12px 12px 0; padding: 14px 18px; font-size: 14px; color: #fde68a; line-height: 1.6; }
+  footer { margin-top: 36px; font-size: 13px; color: #64748b; text-align: center; line-height: 1.7; }
+  @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="tag">AI Tuesday &bull; WBG &bull; Toolbox</div>
+  <h1>Three tools for the pains<br>you feel every week.</h1>
+  <p class="sub">Ready to use, no install, no account, no IT ticket. Each one is a single web file: open it in any browser, on any device. Nothing you type leaves your computer. Where a tool needs reading or thinking (your inbox, your calendar, quiz questions), it hands you a prompt for Copilot and takes the answer back.</p>
+
+  <div class="grid">
+    <div class="tool">
+      <img src="my_week_wait_screenshot.png" alt="My Week">
+      <div class="body">
+        <h2>My Week</h2>
+        <div class="pain">The pain: 140 unread emails and no idea what you owe, who owes you, and what you must prepare.</div>
+        <p>Three tabs. <strong>I owe:</strong> everything people expect from you, sorted overdue / today / this week. <strong>Waiting on others:</strong> what you asked and never got back, with a one-click Nudge that opens a polite reminder in Outlook. <strong>Meeting prep:</strong> what each meeting this week needs from you, due the day before. Copilot reads; the file remembers.</p>
+        <a class="btn" href="my_week.html">Open My Week</a>
+      </div>
+    </div>
+    <div class="tool">
+      <img src="meeting_time_finder_screenshot.png" alt="Meeting Time Finder">
+      <div class="body">
+        <h2>Meeting Time Finder</h2>
+        <div class="pain">The pain: "Does 9am work?" Nine emails later, nobody knows whose 9am.</div>
+        <p>Pick the cities on the call (DC, Lima, Delhi, Nairobi, 90 to choose from). One glance shows where everyone is inside working hours, with daylight saving handled. It proposes the three best slots and copies a ready-to-paste line with every city's local time for the invite.</p>
+        <a class="btn" href="meeting_time_finder.html">Open Meeting Time Finder</a>
+      </div>
+    </div>
+    <div class="tool">
+      <img src="workshop_quiz_play_screenshot.png" alt="Workshop Quiz">
+      <div class="body">
+        <h2>Workshop Quiz</h2>
+        <div class="pain">The pain: the post-lunch slot of every training, when the room goes quiet and the phones come out.</div>
+        <p>A live quiz on the projector. Big text, 30-second timer, reveal, team scoreboard, podium. No accounts, no wifi, no app for participants. Copy the built-in prompt, and Copilot writes the questions about your topic in the right format.</p>
+        <a class="btn" href="workshop_quiz.html">Open Workshop Quiz</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="how">
+    <h3>How to keep a tool</h3>
+    <ol>
+      <li>Right-click the button above and choose <strong>"Save link as"</strong>. Put the file on your desktop or in OneDrive.</li>
+      <li>Double-click it whenever you need it. It opens in your browser and remembers what you typed last time (on that computer).</li>
+      <li>Send the file to a colleague like any attachment. It works for them too, empty and ready.</li>
+    </ol>
+  </div>
+
+  <div class="remix">
+    <h3>Want it different? Ask, don't code</h3>
+    <p>You don't need to know how these files work. Drag the file into Claude, ChatGPT, Gemini or Copilot and say what you want in plain English. It returns a new file. Examples that work:</p>
+    <ol>
+      <li><code>Make it Spanish</code></li>
+      <li><code>In My Week, add a fourth tab called "Promised to counterparts"</code></li>
+      <li><code>In the time finder, add a whole-week view and exclude Friday afternoons</code></li>
+      <li><code>In the quiz, play a sound when the timer hits zero and show the fun fact in bigger text</code></li>
+      <li><code>Make it work as an icon on my phone's home screen</code></li>
+    </ol>
+    <p style="margin-top:12px">Want a tool that doesn't exist yet? Describe it the same way: <code>Build a single self-contained HTML file that ... Inputs are ... It should show ... Save everything in the browser. Works on a phone.</code></p>
+    <div class="rule"><strong>Golden rule:</strong> the tool files contain no data, so they're safe to share and to remix in any chatbot. Your real data goes in <em>after</em>, in your own browser. Never paste internal or "Official Use Only" content into a non-Bank chatbot: for anything about your inbox, calendar or projects, the prompt goes to Copilot.</div>
+  </div>
+
+  <footer>AI Tuesday Toolbox &bull; World Bank Group &bull; Informal, unofficial, made with enthusiasm and a chatbot.<br>Not an ITS product. For official tools, contact wbgcopilot@worldbankgroup.org or ai@worldbankgroup.org.</footer>
+</div>
+</body>
+</html>

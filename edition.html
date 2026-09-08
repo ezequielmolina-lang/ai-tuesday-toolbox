@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tuesday: From Prompts to Tools</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --wb-blue: #002244; --wb-light: #0068B3; --purple: #7c3aed; --gold: #f59e0b; --green: #10b981; --dark: #1e293b; --light: #f8fafc; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(180deg, #0f172a 0%, #1e293b 60%, #0f172a 100%); min-height: 100vh; color: var(--dark); }
+        .container { max-width: 780px; margin: 0 auto; padding: 20px; }
+        header { text-align: center; padding: 60px 20px 40px; color: white; }
+        .tag { display: inline-block; background: rgba(139,92,246,0.3); border: 1px solid rgba(139,92,246,0.5); color: #c4b5fd; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 20px; }
+        h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 900; line-height: 1.1; margin-bottom: 14px; background: linear-gradient(90deg, #fff, #a78bfa, #38bdf8); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 4s linear infinite; }
+        @keyframes shine { to { background-position: 200% center; } }
+        .subtitle { font-size: 18px; color: #cbd5e1; line-height: 1.5; }
+        .meta { font-size: 13px; color: #64748b; margin-top: 10px; }
+        .card { background: white; border-radius: 18px; padding: 36px 40px; margin-bottom: 20px; box-shadow: 0 16px 48px rgba(0,0,0,0.3); }
+        .card-dark { background: var(--dark); color: #e2e8f0; border: 1px solid rgba(255,255,255,0.08); }
+        .card-dark p { color: #cbd5e1; }
+        h2 { font-size: 24px; font-weight: 800; margin-bottom: 14px; }
+        .card-dark h2 { color: #f1f5f9; }
+        h3 { font-size: 18px; font-weight: 700; color: var(--wb-light); margin-bottom: 10px; }
+        p { font-size: 16px; line-height: 1.7; color: #334155; margin-bottom: 14px; }
+        ul, ol { margin: 0 0 14px 22px; } li { font-size: 16px; line-height: 1.7; color: #334155; margin-bottom: 6px; }
+        .hook { background: linear-gradient(135deg, #0f172a, #1e1b4b); border-left: 4px solid #a78bfa; border-radius: 0 14px 14px 0; padding: 22px 26px; margin-bottom: 22px; }
+        .hook p { color: #e2e8f0; font-size: 17px; font-style: italic; margin: 0; }
+        .highlight { background: linear-gradient(135deg, #fef3c7, #fde68a); border-left: 4px solid var(--gold); border-radius: 0 10px 10px 0; padding: 18px 22px; margin: 20px 0; }
+        .highlight p { color: #78350f; margin: 0; font-weight: 500; font-size: 15px; }
+        .pain { font-size: 13px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #b45309; margin-bottom: 8px; }
+        .tool-hero { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 16px 0 20px; }
+        .tool-hero img { width: 100%; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 8px 24px rgba(0,0,0,.12); }
+        .btn { display: inline-block; background: linear-gradient(135deg, #a78bfa, #38bdf8); color: #fff !important; text-decoration: none; padding: 12px 26px; border-radius: 8px; font-weight: 700; font-size: 15px; }
+        .btn.blue { background: var(--wb-light); }
+        .steps { counter-reset: step; list-style: none; margin: 18px 0; }
+        .steps li { position: relative; padding-left: 48px; margin-bottom: 12px; }
+        .steps li::before { counter-increment: step; content: counter(step); position: absolute; left: 0; top: 2px; width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #a78bfa, #38bdf8); color: white; font-weight: 900; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+        .prompt-box { background: linear-gradient(135deg, #f5f3ff, #ede9fe); border: 2px solid #8b5cf6; border-radius: 14px; padding: 18px 22px; margin: 16px 0; }
+        .prompt-box .prompt-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #6d28d9; margin-bottom: 8px; }
+        .prompt-box p { font-family: 'Courier New', monospace; font-size: 13.5px; color: #3730a3; margin: 0; line-height: 1.6; white-space: pre-wrap; }
+        .power-section { background: linear-gradient(135deg, #0f172a, #1e1b4b, #0c4a6e); border-radius: 18px; padding: 36px 40px; color: white; margin-bottom: 20px; position: relative; overflow: hidden; }
+        .power-section h2 { color: white; } .power-section p { color: #cbd5e1; } .power-section h3 { color: #a78bfa; } .power-section li { color: #cbd5e1; }
+        .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+        .before-box, .after-box { border-radius: 12px; padding: 20px; }
+        .before-box { background: #fef2f2; border: 2px solid #fca5a5; } .after-box { background: #f0fdf4; border: 2px solid #86efac; }
+        .before-box h4 { color: #991b1b; font-size: 13px; font-weight: 800; margin-bottom: 8px; } .after-box h4 { color: #15803d; font-size: 13px; font-weight: 800; margin-bottom: 8px; }
+        .before-box p, .after-box p { font-size: 14px; margin: 0; } .before-box p { color: #7f1d1d; } .after-box p { color: #14532d; }
+        .small-ai { background: linear-gradient(135deg, rgba(167,139,250,0.1), rgba(56,189,248,0.1)); border: 1px solid rgba(167,139,250,0.3); border-radius: 14px; padding: 22px 26px; margin: 20px 0; }
+        .small-ai p { color: #cbd5e1; font-size: 15px; } .small-ai strong { color: #a78bfa; }
+        .footer-card p { color: #94a3b8; font-size: 14px; }
+        code { background: #eef2f7; padding: 2px 6px; border-radius: 6px; font-size: 14px; color: #3730a3; }
+        @media (max-width: 640px) { .card, .power-section { padding: 24px 20px; } .before-after { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <div class="tag">AI Tuesday &bull; WBG &bull; 4-Minute Read</div>
+        <h1>From Prompts<br>to Tools</h1>
+        <p class="subtitle">Two years of prompts. Time for the next step:<br>three ready-to-use tools for the pains you feel every week.</p>
+        <p class="meta">AI Tuesday &bull; World Bank Group &bull; September 2026</p>
+    </header>
+
+    <!-- HOOK -->
+    <div class="card">
+        <div class="hook">
+            <p>A prompt is a great conversation. But on Monday morning the conversation is gone, the answer is buried in a chat from last Tuesday, and you're retyping "go through my emails and tell me what I owe people" for the fortieth time.</p>
+        </div>
+        <p>Since July 2024 this newsletter has given you prompts. Prompts for ISRs, for missions, for briefs, for ministers with nicknames for your project. They work. They also have a flaw: a prompt gives you an answer, and then you're on your own with it.</p>
+        <p>A <strong>tool</strong> is different. A tool remembers. It sorts. It counts what's overdue. It sits on your desktop with the prompt already inside it, and it's there next Monday too.</p>
+        <p>The news of 2026 is that AI can now build these tools from a plain-English description, so we did. Below are three, made for the World Bank week. <strong>They are finished, not demos.</strong> Open, use, done. No install, no account, no IT ticket, and nothing you type in them leaves your computer.</p>
+        <div style="text-align:center; margin: 22px 0 6px;"><a class="btn" href="https://ezequielmolina-lang.github.io/ai-tuesday-toolbox/">Open the AI Tuesday Toolbox &rarr;</a></div>
+    </div>
+
+    <!-- TOOL 1 -->
+    <div class="card">
+        <div class="pain">Tool 1 · the pain: Monday inbox</div>
+        <h2>My Week</h2>
+        <p>One file, three tabs, and Copilot does the reading.</p>
+        <ul>
+            <li><strong>I owe:</strong> every action item people are expecting from you in the last 7 days of email and Teams, sorted into overdue, today, this week.</li>
+            <li><strong>Waiting on others:</strong> everything you asked for and never got back, with how many days you've been waiting and a <strong>Nudge</strong> button that opens a polite, ready-to-send reminder in Outlook.</li>
+            <li><strong>Meeting prep:</strong> for each meeting in the coming week, what you need to bring (slides, comments, a decision, the pre-read), due the day before.</li>
+        </ul>
+        <div class="tool-hero"><img src="my_week_wait_screenshot.png" alt="My Week: waiting on others tab"></div>
+        <h3>How it works (the Monday ritual, 10 minutes)</h3>
+        <ol class="steps">
+            <li>Open the file. Each tab has a "Copy prompt" button.</li>
+            <li>Paste the prompt into <strong>Copilot (work mode)</strong>, the one that can see your mailbox and calendar. It returns a table.</li>
+            <li>Paste the table back into the tool. Your week appears, sorted. Tick things off during the week. Next Monday, paste again: it only adds what's new.</li>
+        </ol>
+        <div class="prompt-box">
+            <div class="prompt-label">One of the three prompts inside (the "waiting on others" one)</div>
+            <p>Go through my SENT emails and Teams messages from the last 21 days. Find every request I made to someone (a document, comments, an approval, an answer, a decision) that has NOT received a reply yet. Return ONLY a table with columns: What I asked for | Person | Date I asked | Email subject.</p>
+        </div>
+        <div class="before-after">
+            <div class="before-box"><h4>Before</h4><p>Scrolling Sent Items to remember who never answered about the procurement plan. Writing the reminder from scratch. Forgetting the pre-read until 8:55.</p></div>
+            <div class="after-box"><h4>After</h4><p>"Waiting 12 days" in red, one click, reminder drafted with the subject line and the date you asked. Prep items appear the day before the meeting.</p></div>
+        </div>
+        <a class="btn blue" href="https://ezequielmolina-lang.github.io/ai-tuesday-toolbox/my_week.html">Open My Week &rarr;</a>
+    </div>
+
+    <!-- TOOL 2 -->
+    <div class="card">
+        <div class="pain">Tool 2 · the pain: "does 9am work for everyone?"</div>
+        <h2>Meeting Time Finder</h2>
+        <p>Every team with a country office knows the thread: nine emails to discover that 9am in DC is 7:30pm in Delhi and 6am in Lima, and that the one slot that worked was Tuesday, which is now gone.</p>
+        <p>Pick the cities on the call (90 to choose from, presets for LAC and global). The grid shows every half hour of the day in each city's local time, green where everyone is inside working hours. It proposes the three best slots and, with one click, copies a line for the invite with every city's local time. Daylight saving is handled automatically, which is more than can be said for most of us.</p>
+        <div class="tool-hero"><img src="meeting_time_finder_screenshot.png" alt="Meeting Time Finder"></div>
+        <p>No AI in this one. Not everything needs a chatbot. Some things need a grid with the right colours.</p>
+        <a class="btn blue" href="https://ezequielmolina-lang.github.io/ai-tuesday-toolbox/meeting_time_finder.html">Open Meeting Time Finder &rarr;</a>
+    </div>
+
+    <!-- TOOL 3 -->
+    <div class="card">
+        <div class="pain">Tool 3 · the pain: the post-lunch slot of every training</div>
+        <h2>Workshop Quiz</h2>
+        <p>You know the moment. Slide 47, 2:30pm, the room is quiet, the phones are out. Kahoot works, but it needs accounts, wifi that holds, and everyone's phone. This runs from your laptop on the projector: big question, four coloured answers, 30-second timer, reveal, team scoreboard, podium. Participants shout, you click.</p>
+        <div class="tool-hero"><img src="workshop_quiz_play_screenshot.png" alt="Workshop Quiz in play mode"></div>
+        <p>Questions come from AI in one step: the tool includes a prompt ("write 8 quiz questions about [your topic] in exactly this format"). Paste Copilot's answer, add your teams, press Start. Works for counterpart workshops, team retreats, onboarding, and settling arguments about who really knows the procurement framework.</p>
+        <a class="btn blue" href="https://ezequielmolina-lang.github.io/ai-tuesday-toolbox/workshop_quiz.html">Open Workshop Quiz &rarr;</a>
+    </div>
+
+    <!-- MAKE IT YOURS -->
+    <div class="power-section">
+        <h2>Want it different? Ask. Don't code.</h2>
+        <p style="font-size: 17px;">This is the part that changes how you think about tools.</p>
+        <p>You don't need to understand these files. To change anything, drag the file into Claude, ChatGPT, Gemini or Copilot and say what you want in plain English. It gives you back a new file. That's it. Things that work first time:</p>
+        <ul>
+            <li>"Make it Spanish."</li>
+            <li>"In My Week, add a fourth tab called 'Promised to counterparts'."</li>
+            <li>"In the time finder, show a whole week and exclude Friday afternoons."</li>
+            <li>"In the quiz, play a sound at zero and let each team answer on their phones."</li>
+            <li>"Make it an icon on my phone's home screen."</li>
+        </ul>
+        <p>And if the tool you need doesn't exist: "Build a single self-contained HTML file that [does X]. Inputs are [...]. It should show [...]. Save everything in the browser. Works on a phone." Ten minutes later you have version 1. Reply to this email with what you built; the good ones go in the Toolbox with your name on them.</p>
+        <div class="small-ai" style="margin-bottom:0">
+            <p><strong>Why this is safe:</strong> the tool files contain no data. They're empty shells, so they're fine to share, and fine to remix in any chatbot. Your real data goes in afterwards, in your own browser, and stays there. The reading of your inbox and calendar happens in Copilot, the Bank-approved tool. Never paste internal or "Official Use Only" content into a non-Bank chatbot.</p>
+        </div>
+    </div>
+
+    <!-- REALITY CHECK -->
+    <div class="card-dark card">
+        <h2>The reality check</h2>
+        <p><strong style="color:#fff">Copilot's reading is good, not perfect.</strong> It will occasionally miss an implicit ask or invent a due date. Skim the table before you paste it. Thirty seconds, and still faster than reading 140 emails.</p>
+        <p><strong style="color:#fff">These tools live on your computer.</strong> What you tick off on your laptop won't show on your phone. That's the price of nothing leaving your machine. If you need a shared team version, that's a Planner or a SharePoint list, and an ITS conversation.</p>
+        <p><strong style="color:#fff">Informal, unofficial.</strong> Made by colleagues with enthusiasm and a chatbot, not by ITS. Use them, improve them, share them. For official tools, wbgcopilot@worldbankgroup.org and ai@worldbankgroup.org.</p>
+    </div>
+
+    <!-- TRY IT -->
+    <div class="card" style="background: linear-gradient(135deg, #f5f3ff, #eff6ff); border: 2px solid #c4b5fd;">
+        <h2 style="color: #6d28d9;">Try it this week</h2>
+        <p><strong>Monday, 10 minutes:</strong> open My Week, run the three prompts in Copilot, paste. See your week on one screen. Nudge one person.</p>
+        <p><strong>Next scheduling thread:</strong> instead of "does 9am work?", paste the three best slots from the Meeting Time Finder. Watch the thread end in one reply.</p>
+        <p><strong>Next training:</strong> five questions, three teams, one podium. Report back on who won.</p>
+        <p><strong>Reply to this email</strong> with what you changed or built. No "Reply All", please.</p>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="card-dark card footer-card">
+        <h2>About AI Tuesday</h2>
+        <p>We're an informal weekly dose of AI insights, designed to help all of us integrate artificial intelligence into our daily work without requiring a PhD in computer science or a spiritual connection with ChatGPT.</p>
+        <p>Our little newsletter currently brings joy (or at least mild amusement) to colleagues across LAC, People, Poverty, and Infrastructure verticals, plus hundreds of individual subscribers who clearly have excellent taste in newsletters.</p>
+        <p>In a shocking twist that surprised absolutely no one, we at AI Tuesday are not part of the World Bank's IT or AI department. For all your actual WB AI tool support needs, please contact the Copilot team at wbgcopilot@worldbankgroup.org or the AI ITS Team at ai@worldbankgroup.org.</p>
+        <p>🤖 AI Resources: 📫 AI Tuesday (subscribe &amp; past issues) &bull; 🧰 The AI Tuesday Toolbox &bull; 📚 The AI Kitchen 2.0 &bull; 🎬 Smart ISR Guide &bull; 🎓 AI Tutors &bull; 🖥️ All WB AI tools &bull; 🔬 AI Research</p>
+        <p>Got AI wins or questions? Just hit reply (but spare your colleagues: no "Reply All" please 😉)</p>
+    </div>
+
+</div>
+</body>
+</html>
