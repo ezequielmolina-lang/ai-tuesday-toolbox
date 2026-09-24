@@ -50,6 +50,11 @@
   .empty { text-align: center; color: var(--muted); padding: 34px 20px; font-size: 14px; background: white; border-radius: 12px; }
   .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--blue); color: white; padding: 10px 18px; border-radius: 99px; font-size: 13px; font-weight: 700; opacity: 0; transition: opacity .3s; pointer-events: none; }
   .toast.show { opacity: 1; }
+  .banner { background:#fef3c7; border:1px solid #fcd34d; border-radius:12px; padding:12px 16px; font-size:14px; color:#78350f; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+  .banner button { border:none; background:#b45309; color:white; border-radius:8px; padding:7px 12px; font-weight:700; cursor:pointer; }
+  .badge-s { display:inline-block; background:#fef3c7; color:#92400e; font-size:10px; font-weight:800; letter-spacing:1px; padding:2px 7px; border-radius:99px; margin-left:8px; vertical-align:middle; }
+  .todo { background:#eef2ff; border:1px solid #c7d2fe; border-radius:12px; padding:12px 16px; font-size:13px; color:#3730a3; margin-bottom:14px; line-height:1.55; }
+  .todo b { color:#312e81; }
   .foot { font-size: 12px; color: var(--muted); margin-top: 18px; line-height: 1.6; }
   @media (max-width: 720px) { .feed { grid-template-columns: 1fr; } .tiles { grid-template-columns: 1fr 1fr; } }
   @media print { .feed, .x, .row, .tabs, .btn { display:none !important; } .panel { display:block !important; } body { background: white; } }
@@ -68,6 +73,8 @@
     <button class="tab" data-tab="prep" onclick="showTab('prep')">Meeting prep <span class="n" id="nPrep">0</span></button>
   </div>
 
+  <div class="banner" id="sampleBanner" hidden><span><b>You are looking at sample data</b> (invented names and tasks, so you can see how it works). It disappears the moment you paste your own list.</span><button onclick="clearSamples()">Remove sample data</button></div>
+
   <!-- ===== I OWE ===== -->
   <div class="panel on" id="p-owe">
     <div class="feed">
@@ -81,9 +88,10 @@ Be specific: "Send comments on the PAD draft to Maria", not "follow up".</div>
       <div class="card">
         <h2><span class="step">2</span>Paste Copilot's answer</h2>
         <textarea id="in-owe" placeholder="Paste the table here (also accepts plain lines like: Send ISR comments to Ana, due 2026-09-12)"></textarea>
-        <div class="row"><button class="btn primary" onclick="importList('owe')">Add to my list</button><button class="btn ghost" onclick="sample('owe')">Load sample</button><span class="hint">Already-listed items are skipped.</span></div>
+        <div class="row"><button class="btn primary" onclick="importList('owe')">Add to my list</button><span class="hint">Already-listed items are skipped.</span></div>
       </div>
     </div>
+    <div class="todo"><b>Prefer Microsoft To Do?</b> After Copilot gives you the table, reply to it: <i>"Add each of these as a task in my Microsoft To Do, with the due dates."</i> Copilot creates them directly, and you skip this tool for that tab. Use this page when you want the three tabs in one place, the Nudge button, or a list that Copilot can't hold (suggestion from Kamila, thank you).</div>
     <div class="tiles">
       <div class="tile r"><div class="n" id="owe-over">0</div><div class="l">Overdue</div></div>
       <div class="tile a"><div class="n" id="owe-today">0</div><div class="l">Due today</div></div>
@@ -106,7 +114,7 @@ Only include items still open. Be specific about what I asked for.</div>
       <div class="card">
         <h2><span class="step">2</span>Paste Copilot's answer</h2>
         <textarea id="in-wait" placeholder="Paste the table here."></textarea>
-        <div class="row"><button class="btn primary" onclick="importList('wait')">Add to my list</button><button class="btn ghost" onclick="sample('wait')">Load sample</button><span class="hint">"Nudge" opens a ready-to-send reminder in Outlook.</span></div>
+        <div class="row"><button class="btn primary" onclick="importList('wait')">Add to my list</button><span class="hint">"Nudge" opens a ready-to-send reminder in Outlook.</span></div>
       </div>
     </div>
     <div class="tiles">
@@ -131,7 +139,7 @@ Check the invitation body and attachments for what is expected of attendees.</di
       <div class="card">
         <h2><span class="step">2</span>Paste Copilot's answer</h2>
         <textarea id="in-prep" placeholder="Paste the table here."></textarea>
-        <div class="row"><button class="btn primary" onclick="importList('prep')">Add to my list</button><button class="btn ghost" onclick="sample('prep')">Load sample</button><span class="hint">Prep items are due the day before the meeting.</span></div>
+        <div class="row"><button class="btn primary" onclick="importList('prep')">Add to my list</button><span class="hint">Prep items are due the day before the meeting.</span></div>
       </div>
     </div>
     <div class="tiles">
@@ -209,6 +217,7 @@ function parse(text, tab) {
 function importList(tab) {
   const ta = document.getElementById('in-' + tab);
   const parsed = parse(ta.value, tab);
+  if (parsed.length) items = items.filter(i => !(i.sample && i.tab === tab));   // real data replaces the example
   const have = new Set(items.filter(i => i.tab === tab).map(i => i.name.toLowerCase()));
   let added = 0;
   parsed.forEach(p => { if (!have.has(p.name.toLowerCase())) { items.push(p); have.add(p.name.toLowerCase()); added++; } });
@@ -216,7 +225,11 @@ function importList(tab) {
   toast(added ? `${added} added` + (parsed.length - added ? `, ${parsed.length - added} already listed` : '') : 'Nothing new found');
   render();
 }
-function sample(tab) { document.getElementById('in-' + tab).value = SAMPLES[tab]; }
+function loadSample(tab) { items = items.filter(i => !(i.sample && i.tab === tab)); parse(SAMPLES[tab], tab).forEach(p => { p.sample = true; items.push(p); }); render(); }
+function clearSamples() { items = items.filter(i => !i.sample); render(); }
+// Safety net for lists saved by the first version, where sample rows were not tagged.
+const SAMPLE_NAMES = new Set(Object.values(SAMPLES).flatMap(t => t.split(String.fromCharCode(10)).slice(1).map(l => l.split(String.fromCharCode(9))[0].toLowerCase())));
+items.forEach(i => { if (SAMPLE_NAMES.has((i.name || '').toLowerCase())) i.sample = true; });
 function copyPrompt(tab) { navigator.clipboard.writeText(document.getElementById('pr-' + tab).textContent).then(() => toast('Prompt copied. Paste it into Copilot.')); }
 function showTab(t) { document.querySelectorAll('.tab').forEach(b => b.classList.toggle('on', b.dataset.tab === t)); document.querySelectorAll('.panel').forEach(p => p.classList.toggle('on', p.id === 'p-' + t)); try { localStorage.setItem(KEY + '-tab', t); } catch(e) {} }
 
@@ -249,7 +262,7 @@ function render() {
     const groups = {}; ORDER[tab].forEach(k => groups[k] = []);
     mine.forEach(i => groups[bucket(i)].push(i));
     Object.values(groups).forEach(g => g.sort((a,b) => (dueOf(a) || '9999').localeCompare(dueOf(b) || '9999')));
-    if (!mine.length) list.innerHTML = '<div class="empty"><b>Nothing here yet.</b><br>Copy the prompt above, run it in Copilot (work mode), paste the answer on the right. Or click "Load sample" to see how it looks.</div>';
+    if (!mine.length) list.innerHTML = `<div class="empty"><b>Nothing here yet.</b><br>Copy the prompt above, run it in Copilot (work mode), paste the answer on the right. <br><br><button class="btn ghost" onclick="loadSample('${tab}')">See an example with invented data</button></div>`;
     for (const k of ORDER[tab]) {
       if (!groups[k].length) continue;
       const g = document.createElement('div'); g.className = 'group ' + (CLS[k] || k);
@@ -261,7 +274,7 @@ function render() {
         if (tab === 'wait') meta = `${it.who ? `<span>from <b>${esc(it.who)}</b></span>` : ''}${it.date ? `<span class="wait">waiting ${daysSince(it.date)} day${daysSince(it.date)===1?'':'s'}</span>` : ''}${it.src ? `<span>✉ ${esc(it.src)}</span>` : ''}`;
         if (tab === 'prep') meta = `${it.meeting ? `<span>for <b>${esc(it.meeting)}</b></span>` : ''}${it.date ? `<span>meeting <b>${fmt(it.date)}</b>, prep by <b>${fmt(dueOf(it))}</b></span>` : ''}${it.who ? `<span>${esc(it.who)}</span>` : ''}`;
         const nudge = (tab === 'wait' && !it.done) ? `<a class="btn nudge" href="${nudgeLink(it)}">Nudge ✉</a>` : '';
-        el.innerHTML = `<input type="checkbox" ${it.done ? 'checked' : ''} onchange="toggle('${it.id}')" title="${tab === 'wait' ? 'Received' : 'Done'}"><div class="t"><div class="name">${esc(it.name)}</div><div class="meta">${meta}</div></div>${nudge}<button class="x" onclick="remove('${it.id}')">×</button>`;
+        el.innerHTML = `<input type="checkbox" ${it.done ? 'checked' : ''} onchange="toggle('${it.id}')" title="${tab === 'wait' ? 'Received' : 'Done'}"><div class="t"><div class="name">${esc(it.name)}${it.sample ? '<span class="badge-s">SAMPLE</span>' : ''}</div><div class="meta">${meta}</div></div>${nudge}<button class="x" onclick="remove('${it.id}')">×</button>`;
         g.appendChild(el);
       });
       list.appendChild(g);
@@ -273,6 +286,7 @@ function render() {
     const open = mine.filter(i => !i.done).length; set('n' + tab[0].toUpperCase() + tab.slice(1), open);
     const tb = document.querySelector(`.tab[data-tab="${tab}"]`); tb.classList.toggle('red-n', (tab === 'wait' ? c('old') : c('over')) > 0);
   }
+  document.getElementById('sampleBanner').hidden = !items.some(i => i.sample);
   try { localStorage.setItem(KEY, JSON.stringify(items)); } catch(e) {}
 }
 function set(id, v) { const el = document.getElementById(id); if (el) el.textContent = v; }
@@ -285,7 +299,7 @@ function exportCSV() {
   const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿' + lines.join('\n')], { type: 'text/csv;charset=utf-8' })); a.download = 'my_week.csv'; a.click();
 }
 let tt; function toast(m) { const el = document.getElementById('toast'); el.textContent = m; el.classList.add('show'); clearTimeout(tt); tt = setTimeout(() => el.classList.remove('show'), 2200); }
-if (location.hash === '#sample' || location.hash === '#sample-wait' || location.hash === '#sample-prep') { items = [...parse(SAMPLES.owe,'owe'), ...parse(SAMPLES.wait,'wait'), ...parse(SAMPLES.prep,'prep')]; }
+if (location.hash === '#sample' || location.hash === '#sample-wait' || location.hash === '#sample-prep') { items = [...parse(SAMPLES.owe,'owe'), ...parse(SAMPLES.wait,'wait'), ...parse(SAMPLES.prep,'prep')]; items.forEach(i => i.sample = true); }
 render();
 try { const t = localStorage.getItem(KEY + '-tab'); if (t) showTab(t); } catch(e) {}
 if (/wait/.test(location.hash)) showTab('wait'); if (/prep/.test(location.hash)) showTab('prep');
