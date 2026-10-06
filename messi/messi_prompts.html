@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leo, in your language</title>
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="manifest" href="manifest_prompts.json">
+<meta name="theme-color" content="#75AADB">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --sky:#75AADB; --navy:#0f172a; --gold:#f5b800; --ink:#1e293b; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(180deg, #0f172a 0%, #1e3a5f 100%); color: white; min-height: 100vh; }
+  .wrap { max-width: 620px; margin: 0 auto; padding: 24px 18px 60px; }
+  .tag { display:inline-block; background: rgba(117,170,219,.25); border: 1px solid rgba(117,170,219,.6); color: #cfe6f7; font-size: 11px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; }
+  h1 { font-size: clamp(28px, 6vw, 40px); font-weight: 900; margin: 14px 0 6px; line-height: 1.05; } h1 span { color: var(--gold); }
+  .sub { color: #cbd5e1; font-size: 15px; line-height: 1.5; margin-bottom: 18px; }
+  .card { background: white; color: var(--ink); border-radius: 18px; padding: 20px; box-shadow: 0 16px 48px rgba(0,0,0,.35); margin-bottom: 14px; }
+  .card h2 { font-size: 18px; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+  .card .why { font-size: 13.5px; color: #64748b; margin-bottom: 12px; line-height: 1.5; }
+  label { display:block; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #64748b; margin: 10px 0 4px; }
+  input, select, textarea { width: 100%; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 10px 12px; font-size: 15px; font-family: inherit; color: var(--ink); background: white; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--sky); }
+  textarea { min-height: 70px; resize: vertical; }
+  .row { display:flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  a.btn, button.btn { border: none; border-radius: 10px; padding: 11px 14px; font-weight: 800; font-size: 14px; cursor: pointer; text-decoration: none; display:inline-block; }
+  .btn.gpt { background: #10a37f; color: white; } .btn.claude { background: #d97706; color: white; } .btn.gem { background: #1a73e8; color: white; } .btn.copy { background: #eef2f7; color: var(--navy); }
+  .hint { font-size: 12px; color: #64748b; margin-top: 8px; line-height: 1.5; }
+  .foot { color: #94a3b8; font-size: 12px; margin-top: 14px; line-height: 1.6; } .foot a { color: #cfe6f7; }
+  .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--navy); padding: 10px 18px; border-radius: 99px; font-size: 13px; font-weight: 800; opacity: 0; transition: opacity .3s; pointer-events: none; }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="tag">AI Tuesday &bull; Gracias, Leo</div>
+  <h1>Leo, <span>in your language</span></h1>
+  <p class="sub">Three things to ask an AI tonight. Fill in two boxes, tap a button, the chatbot opens with the question ready. Public information only, so any chatbot is fine. Your answers stay on this phone.</p>
+
+  <div class="card">
+    <label>Your country</label><input id="country" placeholder="Peru, Nigeria, Bangladesh…">
+    <label>Your language (and city, if you want the accent)</label><input id="lang" placeholder="Spanish from Lima, Sheng from Nairobi, Hindi…">
+  </div>
+
+  <div class="card">
+    <h2>Messi versus your country</h2>
+    <div class="why">Every match he played against your national team, with dates and sources, plus how your fans relate to him. We tested it with Peru: 10 matches, 48 seconds, and the night in 2023 when Lima chanted his name while losing.</div>
+    <div class="row" id="b1"></div>
+  </div>
+
+  <div class="card">
+    <h2>Relátamelo: your goal, called live</h2>
+    <div class="why">A radio commentator from your city narrates your favourite goal in your language. Headphones, please. On the phone, try voice mode.</div>
+    <label>The goal (match, date, what happened)</label>
+    <textarea id="goal">23 April 2017, Bernabéu, minute 92, Real Madrid 2-2 Barcelona: Messi receives from Jordi Alba at the edge of the box and places it low past Navas, then holds his shirt up to the Madrid crowd.</textarea>
+    <div class="row" id="b2"></div>
+  </div>
+
+  <div class="card">
+    <h2>For the kid who asked why you were crying</h2>
+    <div class="why">A 350-word bedtime story and a colouring page. Celia, the injections, the boy who was too small.</div>
+    <div class="row" id="b3"></div>
+  </div>
+
+  <div class="foot">Copilot has no link to open with a question: use "Copy", then paste. Made for the AI Tuesday newsletter. <a href="messi_daily.html">One Leo fact a day</a> &bull; <a href="messi_quiz.html">The Leo Quiz</a></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+const v = id => $(id).value.trim();
+function p1(){ const c = v('country') || '[your country]'; return `List every official match Lionel Messi played against ${c}'s national team, with date, competition, score, and what he did in each (goals, assists, anything memorable). Then one paragraph on how fans in ${c} relate to him. Cite sources. If a match is uncertain, say so instead of guessing.`; }
+function p2(){ const l = v('lang') || '[your language]'; return `You are a legendary radio football commentator broadcasting live in ${l}. Narrate this goal in real time, 150 words, with the crowd, the build-up, the rising voice, and one phrase that becomes a catchphrase. The goal: ${v('goal')} Use only widely reported facts. If you are not sure of a detail, leave it out.`; }
+function p3(){ const l = v('lang') || 'English'; return `Write a 350-word bedtime story in ${l} for a 6-year-old about Lionel Messi: a boy in Rosario who was smaller than everyone, needed injections every night, moved far away at 13, and never forgot his grandmother Celia (he points to the sky after every goal for her). Simple words, no scores, end with him sleeping at home in Rosario. Then describe a black-and-white colouring page of a small boy in a striped shirt pointing at the sky, and generate it.`; }
+function buttons(id, fn, search){
+  const q = () => encodeURIComponent(fn());
+  $(id).innerHTML = `<a class="btn gpt" target="_blank" rel="noopener" href="#" onclick="this.href='https://chatgpt.com/?q='+${q.toString().replace(/"/g,'&quot;')}()">Open in ChatGPT</a>
+    <a class="btn claude" target="_blank" rel="noopener" href="#" onclick="this.href='https://claude.ai/new?q='+${q.toString().replace(/"/g,'&quot;')}()">Open in Claude</a>
+    <a class="btn gem" target="_blank" rel="noopener" href="https://gemini.google.com/app" onclick="copyTo(${fn.name})">Copy + open Gemini</a>
+    <button class="btn copy" onclick="copyTo(${fn.name})">Copy</button>`;
+  if (search) $(id).insertAdjacentHTML('afterend', '<div class="hint">Turn on web search in the chatbot for this one: it needs dates.</div>');
+}
+function copyTo(fn){ navigator.clipboard.writeText(fn()).then(()=>toast('Prompt copied. Paste it in.')); }
+let tt; function toast(m){ const el=$('toast'); el.textContent=m; el.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>el.classList.remove('show'),2200); }
+buttons('b1', p1, true); buttons('b2', p2, false); buttons('b3', p3, false);
+['country','lang'].forEach(id => { try { $(id).value = localStorage.getItem('leo-'+id) || ''; } catch(e){} $(id).addEventListener('input', () => { try { localStorage.setItem('leo-'+id, $(id).value); } catch(e){} }); });
+</script>
+</body>
+</html>
