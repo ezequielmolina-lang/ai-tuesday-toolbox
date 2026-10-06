@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tuesday: Delegate, Don't Chat</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --wb-blue: #002244; --wb-light: #0068B3; --purple: #7c3aed; --gold: #f59e0b; --green: #10b981; --dark: #1e293b; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(180deg, #0f172a 0%, #1e293b 60%, #0f172a 100%); min-height: 100vh; color: var(--dark); }
+        .container { max-width: 780px; margin: 0 auto; padding: 20px; }
+        header { text-align: center; padding: 60px 20px 40px; color: white; }
+        .tag { display: inline-block; background: rgba(139,92,246,0.3); border: 1px solid rgba(139,92,246,0.5); color: #c4b5fd; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 20px; }
+        h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 900; line-height: 1.1; margin-bottom: 14px; background: linear-gradient(90deg, #fff, #a78bfa, #38bdf8); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 4s linear infinite; }
+        @keyframes shine { to { background-position: 200% center; } }
+        .subtitle { font-size: 18px; color: #cbd5e1; line-height: 1.5; }
+        .meta { font-size: 13px; color: #64748b; margin-top: 10px; }
+        .card { background: white; border-radius: 18px; padding: 36px 40px; margin-bottom: 20px; box-shadow: 0 16px 48px rgba(0,0,0,0.3); }
+        .card-dark { background: var(--dark); color: #e2e8f0; border: 1px solid rgba(255,255,255,0.08); }
+        .card-dark p, .card-dark li { color: #cbd5e1; }
+        h2 { font-size: 24px; font-weight: 800; margin-bottom: 14px; }
+        .card-dark h2 { color: #f1f5f9; }
+        h3 { font-size: 18px; font-weight: 700; color: var(--wb-light); margin: 18px 0 8px; }
+        p { font-size: 16px; line-height: 1.7; color: #334155; margin-bottom: 14px; }
+        ul, ol { margin: 0 0 14px 22px; } li { font-size: 16px; line-height: 1.7; color: #334155; margin-bottom: 6px; }
+        .hook { background: linear-gradient(135deg, #0f172a, #1e1b4b); border-left: 4px solid #a78bfa; border-radius: 0 14px 14px 0; padding: 22px 26px; margin-bottom: 22px; }
+        .hook p { color: #e2e8f0; font-size: 17px; font-style: italic; margin: 0; }
+        .pain { font-size: 13px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #b45309; margin-bottom: 8px; }
+        .ladder { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 18px 0 6px; }
+        .rung { border-radius: 12px; padding: 16px; border: 2px solid #e2e8f0; }
+        .rung.now { border-color: #a78bfa; background: #f5f3ff; }
+        .rung .k { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #64748b; margin-bottom: 6px; }
+        .rung.now .k { color: #6d28d9; }
+        .rung h4 { font-size: 16px; font-weight: 800; color: var(--wb-blue); margin-bottom: 4px; }
+        .rung p { font-size: 13px; margin: 0; color: #475569; }
+        .find { background: #eef2f7; border-radius: 10px; padding: 12px 16px; font-size: 14px; color: #334155; margin: 10px 0 14px; line-height: 1.6; }
+        .find b { color: var(--wb-blue); }
+        .prompt-box { background: linear-gradient(135deg, #f5f3ff, #ede9fe); border: 2px solid #8b5cf6; border-radius: 14px; padding: 18px 22px; margin: 14px 0; }
+        .prompt-box .prompt-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #6d28d9; margin-bottom: 8px; }
+        .prompt-box p { font-family: 'Courier New', monospace; font-size: 13.5px; color: #3730a3; margin: 0; line-height: 1.6; white-space: pre-wrap; }
+        .outside { background: #f0fdf4; border-left: 4px solid var(--green); border-radius: 0 10px 10px 0; padding: 12px 16px; font-size: 14px; color: #14532d; margin: 12px 0 0; line-height: 1.6; }
+        .outside b { color: #166534; }
+        .highlight { background: linear-gradient(135deg, #fef3c7, #fde68a); border-left: 4px solid var(--gold); border-radius: 0 10px 10px 0; padding: 18px 22px; margin: 20px 0; }
+        .highlight p { color: #78350f; margin: 0; font-weight: 500; font-size: 15px; }
+        .compare-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+        .compare-table th { background: var(--wb-blue); color: white; padding: 10px 12px; text-align: left; font-weight: 700; }
+        .compare-table th:first-child { border-radius: 8px 0 0 0; } .compare-table th:last-child { border-radius: 0 8px 0 0; }
+        .compare-table td { padding: 10px 12px; border-bottom: 1px solid #e2e8f0; color: #334155; vertical-align: top; }
+        .compare-table tr:nth-child(even) td { background: #f8fafc; }
+        .btn { display: inline-block; background: linear-gradient(135deg, #a78bfa, #38bdf8); color: #fff !important; text-decoration: none; padding: 12px 26px; border-radius: 8px; font-weight: 700; font-size: 15px; }
+        .btn.blue { background: var(--wb-light); }
+        .power-section { background: linear-gradient(135deg, #0f172a, #1e1b4b, #0c4a6e); border-radius: 18px; padding: 36px 40px; color: white; margin-bottom: 20px; }
+        .power-section h2 { color: white; } .power-section p, .power-section li { color: #cbd5e1; } .power-section h3 { color: #a78bfa; }
+        .brief { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+        .brief div { background: rgba(255,255,255,0.06); border: 1px solid rgba(167,139,250,0.3); border-radius: 12px; padding: 14px 16px; }
+        .brief b { color: #a78bfa; display: block; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+        .brief p { font-size: 14px; margin: 0; }
+        .footer-card p { color: #94a3b8; font-size: 14px; }
+        @media (max-width: 640px) { .card, .power-section { padding: 24px 20px; } .ladder, .brief { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <div class="tag">AI Tuesday &bull; WBG &bull; 4-Minute Read</div>
+        <h1>Delegate,<br>Don't Chat</h1>
+        <p class="subtitle">Copilot now has two colleagues who work for 20 minutes and come back with a report.<br>Most of us have never met them.</p>
+        <p class="meta">AI Tuesday &bull; World Bank Group &bull; October 2026</p>
+    </header>
+
+    <!-- HOOK -->
+    <div class="card">
+        <div class="hook">
+            <p>Imagine hiring a senior analyst, and then only ever asking them questions that fit in one line, while standing at their desk, waiting for an instant answer. That is how most of us have been using AI.</p>
+        </div>
+        <p>Two years ago we taught you to prompt. Last month we gave you tools. This week is the third step, and it's the one that changes the job: <strong>delegation.</strong> You hand over a task with a proper brief, you go to your next meeting, and you come back to a finished piece of work with sources.</p>
+        <div class="ladder">
+            <div class="rung"><div class="k">2024</div><h4>Prompt</h4><p>One question, one instant answer. You do the thinking and the stitching.</p></div>
+            <div class="rung"><div class="k">Last month</div><h4>Tool</h4><p>A file that remembers, sorts and counts. Still you at the keyboard.</p></div>
+            <div class="rung now"><div class="k">This week</div><h4>Delegate</h4><p>A multi-step task runs for minutes across your files, emails and the web. You review the result.</p></div>
+        </div>
+        <p>The difference is not the AI. It is that <strong>Microsoft 365 Copilot now ships with two agents built for delegation, Researcher and Analyst, plus Notebooks</strong>, and they are already in your Copilot at the Bank. Internal documents allowed. Let's meet them.</p>
+    </div>
+
+    <!-- RESEARCHER -->
+    <div class="card">
+        <div class="pain">Hire 1 &middot; the pain: the background note due tomorrow</div>
+        <h2>Researcher: the junior who reads everything</h2>
+        <p>The CD asks for "a quick note on where the sector reform stands" before Thursday. You know the answer is spread across six aide-memoires, forty emails, two ministry announcements and a press piece you half remember. Researcher reads all of it, your work content <em>and</em> the web, and returns a structured report with citations.</p>
+        <div class="find"><b>Where it is:</b> in Copilot, open <b>Agents</b> in the left panel and pick <b>Researcher</b>, or type <b>@Researcher</b> in the chat box. Under the prompt, the <b>Sources</b> button lets you choose work content, web, or both. It will ask you two or three clarifying questions first. <b>Answer them.</b> That is how you steer it. Then it works for 5 to 45 minutes depending on the task.</div>
+        <div class="prompt-box">
+            <div class="prompt-label">Delegation brief to steal (paste into Researcher)</div>
+            <p>Prepare a 2-page background note on the status of [sector] reform in [country] for a Country Director who has not followed the file.
+Sources: my emails, Teams chats and files about [project name] from the last 12 months, plus public news and government sites.
+Structure: (1) what changed since the last mission, (2) key actors and their current positions, (3) what is still blocked and why, (4) three open questions I should raise with the Vice-Minister.
+Flag anything where our internal documents and public statements disagree. Cite every claim. Plain language, no jargon.</p>
+        </div>
+        <p><strong>Why this brief works:</strong> it names the audience, the sources, the structure and the thing to flag. Researcher is excellent at the fourth item, the contradictions between what we wrote internally and what the Ministry said publicly, which is exactly what you want to know before walking into the room.</p>
+        <div class="outside"><b>Outside the Bank, public information only:</b> ChatGPT Deep Research, Gemini Deep Research and Claude's research mode do the same long-running, cited job on the open web. Perfect for the country and sector landscape. Never for your internal files.</div>
+    </div>
+
+    <!-- ANALYST -->
+    <div class="card">
+        <div class="pain">Hire 2 &middot; the pain: the spreadsheet question at 6pm</div>
+        <h2>Analyst: ask your Excel a question</h2>
+        <p>Portfolio review tomorrow. "Which projects are behind on disbursement relative to time elapsed?" You know how to do it: a helper column, a formula, a pivot, twenty minutes and one mistake. Analyst does it differently: it reads the file, plans the analysis, <strong>writes and runs real Python code</strong>, checks itself, and hands you the table, the chart and the explanation. You can click to expand every step and see the code it ran. This is not a chatbot guessing an average. It is computing it.</p>
+        <div class="find"><b>Where it is:</b> <b>Agents &rarr; Analyst</b>, or <b>@Analyst</b> in chat. Attach your Excel or CSV (or several: it can join them). Ask in plain English. Expand "steps" to see the Python.</div>
+        <div class="prompt-box">
+            <div class="prompt-label">Delegation brief to steal (attach your file, paste into Analyst)</div>
+            <p>Using the attached portfolio file: for each project, compute the share of time elapsed between effectiveness and closing date as of today, and the share of commitment disbursed. Rank projects by the gap (time elapsed minus disbursed), largest gap first. Show a table and a scatter chart (time elapsed vs disbursed) with project IDs as labels. Then list the projects closing within 12 months that are below 70% disbursed. Explain your method in three sentences a non-economist can follow.</p>
+        </div>
+        <p><strong>Try it in two minutes, no real data needed.</strong> We made an invented portfolio (24 projects, fake IDs, fake TTLs, two sheets) so you can test Analyst before trusting it with yours. Five questions are written inside the file.</p>
+        <p><a class="btn blue" href="https://ezequielmolina-lang.github.io/ai-tuesday-toolbox/portfolio_sample.xlsx">Download the sample portfolio (Excel) &rarr;</a></p>
+        <div class="highlight"><p><strong>The one rule:</strong> check one row by hand. Pick a project, compute the disbursement rate yourself, compare. If it matches, trust the rest of that answer. Thirty seconds, and it is the difference between a tool and a liability in front of a Country Director.</p></div>
+        <div class="outside"><b>Outside the Bank:</b> ChatGPT and Claude both run code on an uploaded CSV in the same way. Fine for public datasets (WDI, ESCALE, the sample file above). Not for project data.</div>
+    </div>
+
+    <!-- NOTEBOOKS -->
+    <div class="card">
+        <div class="pain">Hire 3 &middot; the pain: re-attaching the same six files every week</div>
+        <h2>Notebooks: pin your project once, ask forever</h2>
+        <p>Every Copilot chat starts from zero. So every week you attach the PAD, the last ISR, two aide-memoires and the results framework again, and explain the project again. <strong>Copilot Notebooks</strong> fixes that: you create a notebook for the project, pin the reference files once (Word, PowerPoint, Excel, PDF, OneNote pages), and every prompt inside that notebook is grounded in them. References stay live: when the ISR is updated, the answers update.</p>
+        <div class="find"><b>Where it is:</b> in the Copilot app, <b>Notebooks</b> in the left panel (also inside OneNote). Create one per project. <b>Add references</b>, then chat. It can also generate Word, Excel and PowerPoint outputs from the pinned content. Share the notebook with your team and they get the same grounded answers from the first prompt.</div>
+        <div class="prompt-box">
+            <div class="prompt-label">Three prompts that only make sense inside a project notebook</div>
+            <p>1. Draft the "Implementation status" section of the next ISR from the latest aide-memoire, keeping the structure of the previous ISR. Mark every number you took from a document with its source.
+2. Which indicators in the results framework have no update since the last two ISRs? List them with the last reported value.
+3. The new Country Manager has 10 minutes. Write the one-page brief on this project, from the pinned documents only.</p>
+        </div>
+        <p>A smaller set of authoritative references beats a big messy pile. Pin the five documents that matter, not the whole SharePoint.</p>
+        <div class="outside"><b>Outside the Bank:</b> NotebookLM is the same idea for public documents (and it now makes video overviews in 80 languages). Gemini Enterprise is piloted for staff; check what your team is allowed to load.</div>
+    </div>
+
+    <!-- THE BRIEF -->
+    <div class="power-section">
+        <h2>How to brief an agent (it's how you'd brief a good STC)</h2>
+        <p>Delegation fails for the same reason it fails with humans: a vague ask. "Look into the education sector" gets you a Wikipedia summary. The briefs above share one shape. Use it for anything you delegate, to Copilot or to a person:</p>
+        <div class="brief">
+            <div><b>Goal + audience</b><p>What is this for, who will read it, what decision does it feed.</p></div>
+            <div><b>Sources</b><p>Which files, which period, work content or web or both. Name them.</p></div>
+            <div><b>Structure + length</b><p>The sections you want, in order, and how long. "2 pages" beats "brief".</p></div>
+            <div><b>What to flag</b><p>Contradictions, gaps, anything below a threshold. The thing a junior would miss.</p></div>
+        </div>
+        <p>And then the step people skip: <strong>answer the clarifying questions.</strong> Researcher asks them for a reason. Thirty seconds there saves you a wrong 40-minute report.</p>
+    </div>
+
+    <!-- QUICK REFERENCE -->
+    <div class="card">
+        <h2>Quick reference: what to delegate where</h2>
+        <table class="compare-table">
+            <thead><tr><th>The task</th><th>Inside the Bank (internal docs OK)</th><th>Outside (public info only)</th></tr></thead>
+            <tbody>
+                <tr><td>Background note, briefing, landscape</td><td><strong>Researcher</strong> (work + web)</td><td>ChatGPT / Gemini Deep Research, Claude research</td></tr>
+                <tr><td>Numbers from a spreadsheet, charts, rankings</td><td><strong>Analyst</strong></td><td>ChatGPT or Claude with an uploaded CSV</td></tr>
+                <tr><td>Living project memory, ISR and brief drafting</td><td><strong>Notebooks</strong></td><td>NotebookLM (public PDFs)</td></tr>
+                <tr><td>A quick question, a rewrite, an email</td><td>Plain Copilot chat</td><td>Any chatbot</td></tr>
+            </tbody>
+        </table>
+        <p style="margin:0"><strong>Golden Rule, unchanged:</strong> internal, "Official Use Only" and project data go to Copilot only. The outside tools get public information and invented samples.</p>
+    </div>
+
+    <!-- REALITY CHECK -->
+    <div class="card-dark card">
+        <h2>The reality check</h2>
+        <p><strong style="color:#fff">It takes minutes, not seconds.</strong> Researcher can run 10 to 45 minutes on a big ask. That is the point. Start it, go to your meeting, read it after.</p>
+        <p><strong style="color:#fff">Citations are claims, not proof.</strong> Open two of them. Researcher is good, and it still occasionally cites an email for something the email does not quite say.</p>
+        <p><strong style="color:#fff">Analyst shows its work. Look at it.</strong> Expand the steps. If the Python filtered out half your rows because of a date format, you will see it there and nowhere else.</p>
+        <p><strong style="color:#fff">English works best.</strong> The agents handle Spanish and Portuguese, but briefs in English get more reliable results today. Ask for the output in the language you need.</p>
+        <p><strong style="color:#fff">Not seeing Agents?</strong> Licenses vary. If Researcher and Analyst are missing from your Copilot, ask the Copilot team at wbgcopilot@worldbankgroup.org, not us. We checked: they are there for most staff.</p>
+    </div>
+
+    <!-- TRY IT -->
+    <div class="card" style="background: linear-gradient(135deg, #f5f3ff, #eff6ff); border: 2px solid #c4b5fd;">
+        <h2 style="color: #6d28d9;">Try it this week</h2>
+        <p><strong>Two minutes:</strong> download the sample portfolio, open Analyst, attach it, ask question 1 from the README sheet. Then check one project by hand.</p>
+        <p><strong>Ten minutes:</strong> paste the Researcher brief with your own country and sector before your next meeting. Read it after.</p>
+        <p><strong>Thirty minutes, once:</strong> create a Notebook for your main project, pin five documents. Next week, draft the ISR section from it and tell us how long it took.</p>
+        <p><strong>Reply to this email</strong> with the best thing an agent found that you had missed. No "Reply All", please.</p>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="card-dark card footer-card">
+        <h2>About AI Tuesday</h2>
+        <p>We're an informal weekly dose of AI insights, designed to help all of us integrate artificial intelligence into our daily work without requiring a PhD in computer science or a spiritual connection with ChatGPT.</p>
+        <p>Our little newsletter currently brings joy (or at least mild amusement) to colleagues across LAC, People, Poverty, and Infrastructure verticals, plus hundreds of individual subscribers who clearly have excellent taste in newsletters.</p>
+        <p>In a shocking twist that surprised absolutely no one, we at AI Tuesday are not part of the World Bank's IT or AI department. For all your actual WB AI tool support needs, please contact the Copilot team at wbgcopilot@worldbankgroup.org or the AI ITS Team at ai@worldbankgroup.org.</p>
+        <p>🤖 AI Resources: 📫 AI Tuesday (subscribe &amp; past issues) &bull; 🧰 <a href="https://ezequielmolina-lang.github.io/ai-tuesday-toolbox/" style="color:#a78bfa">The AI Tuesday Toolbox</a> &bull; 📚 The AI Kitchen 2.0 &bull; 🎬 Smart ISR Guide &bull; 🎓 AI Tutors &bull; 🖥️ All WB AI tools &bull; 🔬 AI Research</p>
+        <p>Got AI wins or questions? Just hit reply (but spare your colleagues: no "Reply All" please 😉)</p>
+    </div>
+
+</div>
+</body>
+</html>
