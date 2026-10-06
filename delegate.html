@@ -129,7 +129,7 @@ Flag anything where our internal documents and public statements disagree. Cite 
 3. The new Country Manager has 10 minutes. Write the one-page brief on this project, from the pinned documents only.</p>
         </div>
         <p>A smaller set of authoritative references beats a big messy pile. Pin the five documents that matter, not the whole SharePoint.</p>
-        <div class="outside"><b>Outside the Bank:</b> NotebookLM is the same idea for public documents (and it now makes video overviews in 80 languages). Gemini Enterprise is piloted for staff; check what your team is allowed to load.</div>
+        <div class="find" style="background:#eef2ff"><b>Two notebooks inside the Bank, pick one:</b> <b>Copilot Notebooks</b> lives next to your Outlook and Teams, so it's the natural home if your project runs on Microsoft files. <b>NotebookLM Enterprise</b>, part of the Gemini Enterprise pilot opened to all staff in March (log in with your Bank account, not the public site), is the stronger reader of long PDFs and makes audio overviews, mind maps and, now, video overviews in 80 languages. Both are cleared for the same content as Copilot. The <b>public NotebookLM</b> at notebooklm.google.com is not: public documents only.</div>
     </div>
 
     <!-- THE BRIEF -->
@@ -145,6 +145,24 @@ Flag anything where our internal documents and public statements disagree. Cite 
         <p>And then the step people skip: <strong>answer the clarifying questions.</strong> Researcher asks them for a reason. Thirty seconds there saves you a wrong 40-minute report.</p>
     </div>
 
+    <!-- DON'T DELEGATE THE FREE KICK -->
+    <div class="card" style="border: 2px solid #fde68a;">
+        <div class="pain" style="color:#0068B3">A note on the day Messi retires</div>
+        <h2>Don't delegate the free kick</h2>
+        <p>Leo Messi hangs up his boots today. Over twenty-plus years he delegated plenty: the running back, most of the defending, the press conferences when he could. He never delegated the free kick. The thing only he could do, he did himself, every time, with everyone watching.</p>
+        <p>Same rule here. Delegate the reading, the counting, the first draft, the forty emails. <strong>Do not delegate the free kick:</strong> the judgment call, the conversation with the Vice-Minister, the decision on what goes in the ISR, and the last read of anything with your name on it. Researcher writes the note. You decide what it means. If an agent's report goes to the CD without you having read every line, you have not delegated, you have abdicated. Messi would not approve.</p>
+    </div>
+
+    <!-- EVIDENCIA PILOT -->
+    <div class="card" style="background: linear-gradient(135deg, #f0fdf4, #ecfeff); border: 2px solid #86efac;">
+        <div class="pain" style="color:#15803d">A small pilot &middot; delegation, but with the right evidence</div>
+        <h2>What if your AI answered from your sector's best studies?</h2>
+        <p>Delegation has a weak spot: an agent researches the whole web, and the whole web includes vendor blogs. So the Education team tried something small. We built a <strong>connector</strong> (the technical name is an MCP server) that you plug into Claude or ChatGPT. Once it's in, when you ask "what works in AI tutoring for math?", the AI answers from a curated base of rigorous studies on AI and learning, sorted by strength of evidence, with the actual passages from the papers and a link on every claim. No vendor blogs. No invented effect sizes.</p>
+        <div class="find"><b>Try it (public information only, so any chatbot is fine):</b> in Claude, Settings &rarr; Connectors &rarr; Add custom connector &rarr; paste <b>https://evidencia-mcp.vercel.app/mcp</b>. In ChatGPT, Apps &rarr; Create &rarr; MCP, same URL, then call it with @EvidencIA. Then ask: <em>"Does AI tutoring improve learning in low-income countries? What's the strongest evidence?"</em> Compare the answer with the one you get without the connector. The difference is the point.</div>
+        <p>It is a pilot: one sector, a few dozen core studies, three people checking every number by hand. The reason it's in this edition is the question it raises for <strong>your</strong> sector. Health, water, social protection, transport: each has twenty studies everyone should be citing and a thousand pages nobody reads. A connector like this takes a week to stand up and makes every delegated task in your GP start from the right evidence. If that's a thing you'd want, reply to this email. We'll show you how we did it.</p>
+        <p style="margin:0"><a class="btn blue" href="https://evidencia-mcp.vercel.app/">See the EvidencIA connector &rarr;</a></p>
+    </div>
+
     <!-- QUICK REFERENCE -->
     <div class="card">
         <h2>Quick reference: what to delegate where</h2>
@@ -153,7 +171,7 @@ Flag anything where our internal documents and public statements disagree. Cite 
             <tbody>
                 <tr><td>Background note, briefing, landscape</td><td><strong>Researcher</strong> (work + web)</td><td>ChatGPT / Gemini Deep Research, Claude research</td></tr>
                 <tr><td>Numbers from a spreadsheet, charts, rankings</td><td><strong>Analyst</strong></td><td>ChatGPT or Claude with an uploaded CSV</td></tr>
-                <tr><td>Living project memory, ISR and brief drafting</td><td><strong>Notebooks</strong></td><td>NotebookLM (public PDFs)</td></tr>
+                <tr><td>Living project memory, ISR and brief drafting</td><td><strong>Copilot Notebooks</strong> or <strong>NotebookLM Enterprise</strong> (Bank login)</td><td>Public NotebookLM (public PDFs)</td></tr>
                 <tr><td>A quick question, a rewrite, an email</td><td>Plain Copilot chat</td><td>Any chatbot</td></tr>
             </tbody>
         </table>
