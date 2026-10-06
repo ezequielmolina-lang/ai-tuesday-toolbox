@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One Leo fact a day</title>
+<link rel="manifest" href='data:application/json,{"name":"One Leo fact a day","short_name":"Leo","start_url":".","display":"standalone","background_color":"%230f172a","theme_color":"%2375AADB"}'>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --sky:#75AADB; --navy:#0f172a; --gold:#f5b800; --ink:#1e293b; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(180deg, #0f172a 0%, #1e3a5f 100%); color: white; min-height: 100vh; display:flex; align-items:center; justify-content:center; padding: 20px; }
+  .card { width: 100%; max-width: 560px; background: white; color: var(--ink); border-radius: 22px; padding: 28px; box-shadow: 0 20px 60px rgba(0,0,0,.4); }
+  .tag { font-size: 11px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: #64748b; }
+  .day { font-size: 13px; color: #64748b; margin-top: 4px; }
+  .num { font-size: 64px; font-weight: 900; color: var(--sky); line-height: 1; margin: 14px 0 4px; }
+  .title { font-size: 22px; font-weight: 800; color: var(--navy); margin-bottom: 10px; }
+  .fact { font-size: 17px; line-height: 1.6; color: #334155; }
+  .year { display:inline-block; margin-top: 12px; background: #fff8e1; color: #5b4300; border-radius: 99px; padding: 4px 12px; font-size: 12px; font-weight: 800; }
+  .src { margin-top: 14px; font-size: 12px; } .src a { color: #0068B3; }
+  .row { display:flex; gap: 8px; margin-top: 20px; flex-wrap: wrap; }
+  button { border: none; border-radius: 10px; padding: 10px 14px; font-weight: 800; font-size: 13px; cursor: pointer; background: #eef2f7; color: var(--navy); }
+  button.main { background: var(--sky); color: var(--navy); }
+  .foot { margin-top: 18px; font-size: 12px; color: #64748b; line-height: 1.6; }
+  .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--navy); padding: 10px 18px; border-radius: 99px; font-size: 13px; font-weight: 800; opacity: 0; transition: opacity .3s; pointer-events: none; }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="tag">One Leo fact a day</div>
+  <div class="day" id="day"></div>
+  <div class="num" id="num"></div>
+  <div class="title" id="title"></div>
+  <div class="fact" id="fact"></div>
+  <div class="year" id="year"></div>
+  <div class="src" id="src"></div>
+  <div class="row">
+    <button onclick="go(-1)">&larr; Yesterday</button>
+    <button class="main" onclick="go(0)">Today</button>
+    <button onclick="go(1)">Tomorrow &rarr;</button>
+    <button onclick="share()">Copy to share</button>
+  </div>
+  <div class="foot">Forty verified facts, one per day, from the napkin to the farewell. Open it every morning with your coffee; on a phone, "Add to Home Screen" turns it into an app. Every fact links to its source, checked by hand. Made for the AI Tuesday newsletter. Want it different? Drop this file into Claude, ChatGPT or Copilot and ask for your own legend.</div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const F = [
+["Born in Rosario","Lionel Andrés Messi was born on 24 June 1987 in Rosario, Santa Fe, Argentina.",1987,"https://en.wikipedia.org/wiki/Lionel_Messi"],
+["Newell's prodigy","He joined Newell's Old Boys at age 7 and is credited with roughly 500 goals in six years there, part of the youth cohort nicknamed 'The Machine of '87'.",1995,"https://en.wikipedia.org/wiki/Lionel_Messi"],
+["The treatment","He was diagnosed with growth hormone deficiency at age 10. The treatment cost at least 1,000 pesos a month, which his family and Argentine clubs struggled to cover.",1997,"https://en.wikipedia.org/wiki/Lionel_Messi"],
+["The napkin","On 14 December 2000, Barcelona director Carles Rexach wrote Messi's first commitment on a paper napkin over lunch. The family moved to Barcelona in February 2001.",2000,"https://en.wikipedia.org/wiki/Lionel_Messi"],
+["Debut at 17","He made his La Liga debut on 16 October 2004 against Espanyol, aged 17, under Frank Rijkaard, wearing number 30.",2004,"https://espndeportes.espn.com/futbol/espana/nota/_/id/15821393/messi-recordo-su-debut-con-barcelona-hace-21-anos"],
+["The first goal","On 1 May 2005 he chipped in his first Barcelona goal against Albacete from a Ronaldinho assist, the club's youngest scorer at the time.",2005,"https://elgrafico.com.ar/articulo/lionel-messi/52165/a-20-anios-del-primer-gol-de-messi-en-barcelona-el-inicio-de-la-leyenda"],
+["U-20 world champion","On 2 July 2005 in Utrecht he scored two penalties in the 2-1 final win over Nigeria at the FIFA World Youth Championship: 6 goals, Golden Ball and Golden Shoe.",2005,"https://en.wikipedia.org/wiki/2005_FIFA_World_Youth_Championship_final"],
+["Red on debut","His senior Argentina debut on 17 August 2005 against Hungary lasted under a minute: on in the 63rd, sent off for an elbow. Argentina won 2-1.",2005,"https://www.cbssports.com/general/news/on-this-date-lionel-messi-debuts-for-argentina-national-team-gets-a-red"],
+["First for Argentina","His first international goal came on 1 March 2006 against Croatia, in a 2-3 loss.",2006,"https://en.wikipedia.org/wiki/List_of_international_goals_scored_by_Lionel_Messi"],
+["Olympic gold","On 23 August 2008 in Beijing, Argentina beat Nigeria 1-0 for Olympic gold with Messi in the side.",2008,"https://en.wikipedia.org/wiki/Football_at_the_2008_Summer_Olympics_%E2%80%93_Men%27s_tournament"],
+["A header in Rome","In the 2009 Champions League final he headed Barcelona's second goal in a 2-0 win over Manchester United, sealing the first treble by a Spanish club. Six trophies that season.",2009,"https://en.wikipedia.org/wiki/2009_UEFA_Champions_League_final"],
+["Wembley 2011","On 28 May 2011 he scored the second goal in a 3-1 Champions League final win over Manchester United and was named man of the match.",2011,"https://en.wikipedia.org/wiki/2011_UEFA_Champions_League_final"],
+["Barça's top scorer","On 20 March 2012, aged 24, a hat-trick against Granada took him past César Rodríguez as Barcelona's all-time top scorer.",2012,"https://www.aljazeera.com/sports/2012/3/20/messi-breaks-barcelonas-scoring-record"],
+["91","In calendar year 2012 he scored 91 goals, 79 for Barcelona and 12 for Argentina, breaking Gerd Müller's 85 from 1972.",2012,"https://www.fcbarcelona.com/en/football/first-team/news/1670444/stat-of-the-day-91-messis-goals-in-a-calendar-year"],
+["Golden Ball in defeat","He won the Golden Ball at the 2014 World Cup even though Argentina lost the final 1-0 to Germany at the Maracanã. The photo of him walking past the trophy explains 2022.",2014,"https://en.wikipedia.org/wiki/2014_FIFA_World_Cup_final"],
+["Second treble","On 6 June 2015 in Berlin, Barcelona beat Juventus 3-1 to become the first European club to win the treble twice.",2015,"https://en.wikipedia.org/wiki/2015_UEFA_Champions_League_final"],
+["The retirement that didn't stick","After the Copa América Centenario final shootout on 26 June 2016 he quit the national team. He reversed the decision on 12 August 2016. That is why we got Lusail.",2016,"https://en.wikipedia.org/wiki/Copa_Am%C3%A9rica_Centenario_final"],
+["672","He scored 672 goals in 778 appearances for Barcelona, the most ever for a single club, and won eight Pichichi awards.",2021,"https://en.wikipedia.org/wiki/Lionel_Messi"],
+["The forced exit","He left Barcelona in August 2021 because La Liga's financial rules blocked a renewal, even after he accepted a 50% pay cut.",2021,"https://en.wikipedia.org/wiki/Lionel_Messi"],
+["Maracanã, at last","On 10 July 2021 Argentina beat Brazil 1-0 at the Maracanã for his first senior international trophy and the country's first major title in 28 years.",2021,"https://en.wikipedia.org/wiki/2021_Copa_Am%C3%A9rica_final"],
+["Paris","At PSG he wore number 30, scored 32 goals with 34 assists in 75 appearances, and won Ligue 1 twice.",2023,"https://www.beinsports.com/en-us/soccer/articles/how-many-goals-does-lionel-messi-have-full-career-breakdown-2026-05-03"],
+["Five in one night","On 5 June 2022 he scored five goals in one match for Argentina against Estonia. He has 11 international hat-tricks.",2022,"https://en.wikipedia.org/wiki/List_of_international_goals_scored_by_Lionel_Messi"],
+["Lusail","On 18 December 2022 he scored twice in the 3-3 World Cup final against France; Argentina won 4-2 on penalties. He is the only player to win the Golden Ball twice.",2022,"https://en.wikipedia.org/wiki/2022_FIFA_World_Cup_final"],
+["Most World Cup games","In Qatar he reached 26 World Cup appearances, passing Lothar Matthäus, and scored in the group stage and every knockout round.",2022,"https://en.wikipedia.org/wiki/2022_FIFA_World_Cup_final"],
+["Free kick, minute 94","On 21 July 2023, on as a substitute in his Inter Miami debut, he curled a 94th-minute free kick to beat Cruz Azul 2-1.",2023,"https://www.bostonglobe.com/2023/07/21/sports/lionel-messi-scores-dramatic-game-winning-goal-his-inter-miami-debut"],
+["Trophy 44","On 19 August 2023 Inter Miami won the Leagues Cup, its first trophy; Messi was top scorer and passed Dani Alves as the most decorated player ever.",2023,"https://en.wikipedia.org/wiki/2023_Leagues_Cup_final"],
+["Eight","On 30 October 2023, aged 36, he won a record eighth Ballon d'Or, the first ever awarded to a player based outside Europe.",2023,"https://en.wikipedia.org/wiki/2023_Ballon_d%27Or"],
+["Six Golden Shoes","He holds six European Golden Shoes, the only player to win five and six, and 129 Champions League goals.",2019,"https://en.wikipedia.org/wiki/List_of_career_achievements_by_Lionel_Messi"],
+["The record Shield","Inter Miami's 2024 Supporters' Shield came with 74 points, the most in MLS history. Messi scored 20 and won MVP.",2024,"https://en.wikipedia.org/wiki/2024_Inter_Miami_CF_season"],
+["They won it for him","He left the 2024 Copa América final injured in the 66th minute and cried on the bench. Lautaro Martínez scored in the 112th. A record 16th title.",2024,"https://en.wikipedia.org/wiki/2024_Copa_Am%C3%A9rica_final"],
+["Through 2028","On 23 October 2025 he signed an extension with Inter Miami through 2028, at the site of the Freedom Park stadium. He will be 41 when it ends.",2025,"https://batimes.com.ar/news/sports/lionel-messi-signs-new-inter-miami-contract-extending-stay-through-2028.phtml"],
+["Golden Boot at 38","He won the 2025 MLS Golden Boot with 29 goals and 19 assists in 28 games, and back-to-back MLS MVP awards.",2025,"https://en.wikipedia.org/wiki/Lionel_Messi"],
+["First MLS Cup","On 6 December 2025 Inter Miami beat Vancouver 3-1 for its first MLS Cup. Messi gave two assists and was MVP of the final.",2025,"https://www.tsn.ca/soccer/mls/article/inter-miami-knocks-off-whitecaps-to-claim-first-mls-cup/"],
+["900","On 18 March 2026, aged 38, he scored his 900th career goal against Nashville. Only one other man has passed 900.",2026,"https://www.standardmedia.co.ke/sports/article/2001543403/messi-scores-900th-career-goal-as-inter-miami-crash-out-of-concacaf-champions-cup"],
+["World Cup record","On 22 June 2026 against Austria he passed Miroslav Klose as the all-time World Cup scorer. He finished with 21.",2026,"https://www.aljazeera.com/sports/2026/6/22/messi-breaks-world-cups-all-time-scoring-record-with-17th-goal-vs-austria"],
+["Egypt, from 0-2","On 7 July 2026 in Atlanta, Argentina trailed Egypt 2-0 late. Messi assisted, then scored, then Enzo Fernández won it 3-2. His ninth consecutive World Cup match with a goal.",2026,"https://www.espn.com/soccer/story/_/id/49297600/argentina-egypt-lionel-messi-2026-world-cup"],
+["Silver","At the 2026 World Cup he scored 8 and assisted 4, taking the Silver Ball and Silver Boot. Spain won the final 1-0 after extra time on 19 July 2026.",2026,"https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_final"],
+["The letter","On 31 August 2026 he announced his retirement from the national team on Instagram, in a letter he said he wrote on 21 July. He leaves as record holder: 207 caps, 125 goals.",2026,"https://www.espn.com/story/_/id/49266819"],
+["100 for Miami","On 16 September 2026 he headed in a Luis Suárez cross for his 100th Inter Miami goal, in the Campeones Cup final win over Cruz Azul.",2026,"https://www.mlssoccer.com/competitions/campeones-cup/news/champions-inter-miami-win-2026-campeones-cup-over-cruz-azul"],
+["The last one in sky blue","On 6 October 2026, at the Monumental, Argentina vs Benin: his farewell match with the national team, cap number 208. The club career goes on. The chant does not stop.",2026,"https://www.lanacion.com.ar/deportes/futbol/que-se-sabe-de-la-despedida-de-lionel-messi-de-la-seleccion-argentina-horario-tv-e-invitados-nid04102026/"]
+];
+const START = new Date('2026-10-06T00:00:00');
+let offset = 0;
+function idxFor(d){ const days = Math.floor((d - START)/86400000); return ((days % F.length) + F.length) % F.length; }
+function render(){
+  const d = new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()+offset);
+  const k = idxFor(d); const f = F[k];
+  document.getElementById('day').textContent = d.toLocaleDateString(undefined,{weekday:'long', day:'numeric', month:'long'}) + (offset===0?' · today':'');
+  document.getElementById('num').textContent = String(k+1).padStart(2,'0');
+  document.getElementById('title').textContent = f[0];
+  document.getElementById('fact').textContent = f[1];
+  document.getElementById('year').textContent = f[2];
+  document.getElementById('src').innerHTML = `Source: <a href="${f[3]}" target="_blank" rel="noopener">${new URL(f[3]).hostname.replace('www.','')}</a>`;
+}
+function go(n){ offset = n===0 ? 0 : offset+n; render(); }
+function share(){ const f=F[idxFor((()=>{const d=new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()+offset); return d;})())]; navigator.clipboard.writeText(`Leo fact of the day: ${f[0]}. ${f[1]} (${f[3]})`).then(()=>toast('Copied')); }
+let tt; function toast(m){ const el=document.getElementById('toast'); el.textContent=m; el.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>el.classList.remove('show'),2000); }
+render();
+</script>
+</body>
+</html>
