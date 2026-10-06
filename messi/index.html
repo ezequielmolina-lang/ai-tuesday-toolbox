@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tuesday: Gracias, Leo</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --wb-blue: #002244; --wb-light: #0068B3; --sky: #75AADB; --gold: #f5b800; --dark: #1e293b; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(180deg, #0f172a 0%, #1e3a5f 60%, #0f172a 100%); min-height: 100vh; color: var(--dark); }
+        .container { max-width: 780px; margin: 0 auto; padding: 20px; }
+        header { text-align: center; padding: 40px 20px 24px; color: white; }
+        .tag { display: inline-block; background: rgba(117,170,219,0.25); border: 1px solid rgba(117,170,219,0.6); color: #cfe6f7; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 20px; }
+        h1 { font-size: clamp(34px, 6vw, 58px); font-weight: 900; line-height: 1.05; margin-bottom: 14px; background: linear-gradient(90deg, #fff, #cfe6f7, #f5b800); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 4s linear infinite; }
+        @keyframes shine { to { background-position: 200% center; } }
+        .subtitle { font-size: 18px; color: #cbd5e1; line-height: 1.5; }
+        .meta { font-size: 13px; color: #94a3b8; margin-top: 10px; }
+        .hero { width: 100%; border-radius: 18px; display: block; margin-bottom: 20px; box-shadow: 0 16px 48px rgba(0,0,0,0.4); }
+        .credit { font-size: 11px; color: #94a3b8; text-align: right; margin: -12px 4px 18px; }
+        .card { background: white; border-radius: 18px; padding: 34px 40px; margin-bottom: 20px; box-shadow: 0 16px 48px rgba(0,0,0,0.3); }
+        .card-dark { background: var(--dark); color: #e2e8f0; border: 1px solid rgba(255,255,255,0.08); }
+        .card-dark p, .card-dark li { color: #cbd5e1; }
+        h2 { font-size: 24px; font-weight: 800; margin-bottom: 10px; line-height: 1.2; }
+        .card-dark h2 { color: #f1f5f9; }
+        p { font-size: 16px; line-height: 1.7; color: #334155; margin-bottom: 14px; }
+        ul { margin: 0 0 14px 22px; } li { font-size: 16px; line-height: 1.7; color: #334155; margin-bottom: 6px; }
+        .hook { background: linear-gradient(135deg, #0f172a, #1e3a5f); border-left: 4px solid var(--sky); border-radius: 0 14px 14px 0; padding: 22px 26px; margin-bottom: 22px; }
+        .hook p { color: #e2e8f0; font-size: 17px; margin: 0; }
+        .kicker { font-size: 13px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #0068B3; margin-bottom: 6px; }
+        .prompt-box { background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 2px solid var(--sky); border-radius: 14px; padding: 18px 22px; margin: 14px 0; }
+        .prompt-box .prompt-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #1d4ed8; margin-bottom: 8px; }
+        .prompt-box p { font-family: 'Courier New', monospace; font-size: 13.5px; color: #1e3a8a; margin: 0; line-height: 1.6; white-space: pre-wrap; }
+        .btn { display: inline-block; background: var(--sky); color: #0f172a !important; text-decoration: none; padding: 13px 28px; border-radius: 10px; font-weight: 800; font-size: 16px; }
+        .btn.gold { background: var(--gold); }
+        .photo { width: 100%; border-radius: 12px; display: block; margin: 14px 0 4px; }
+        .photo-credit { font-size: 11px; color: #64748b; margin-bottom: 14px; }
+        .small { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 18px; font-size: 14px; color: #475569; line-height: 1.6; }
+        .footer-card p { color: #94a3b8; font-size: 14px; }
+        @media (max-width: 640px) { .card { padding: 24px 20px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <div class="tag">AI Tuesday &bull; WBG &bull; Not about productivity</div>
+        <h1>Gracias, Leo</h1>
+        <p class="subtitle">We had a finished edition about delegating work to AI agents.<br>Then we looked at the calendar.</p>
+        <p class="meta">AI Tuesday &bull; World Bank Group &bull; 6 October 2026</p>
+    </header>
+
+    <img class="hero" src="https://ezequielmolina-lang.github.io/ai-tuesday-toolbox/messi/hero_messi.jpg" alt="A small boy in a number 10 striped shirt kicks a ball against a wall in a Rosario street at golden hour; above him, like a memory, a stadium full of raised arms">
+    <div class="credit">Illustration made with ChatGPT for this edition. No real person depicted.</div>
+
+    <!-- OPENING -->
+    <div class="card">
+        <div class="hook">
+            <p>This newsletter has three rules: four minutes, one productivity tip, no feelings. Today we are breaking the third. Tonight at the Monumental, Lionel Messi plays his last match in the Argentina shirt, and the author has been looking at the same cell in the same spreadsheet since 9:14. The agents can wait. That is, technically, their job.</p>
+        </div>
+        <p>So the edition about Copilot's Researcher, Analyst and Cowork is written, reviewed and parked. You will get it next Tuesday, when you can read again. Today is about the boy from Rosario who was too small, and what you can do with AI to remember him properly: a quiz you will argue about, a commentator in your own language, one fact a day until his birthday, and a bedtime story for the kid who asked why you were crying at the kitchen table.</p>
+        <p style="margin:0"><strong>Not a football person?</strong> There is a small box for you below. It is small on purpose.</p>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="card">
+        <div class="kicker">1 &middot; Play</div>
+        <h2>The Leo Quiz: casual, fan, or rosarino?</h2>
+        <p>Twelve questions, from the napkin to Lusail. Every answer links to its source, because the one way to ruin a Messi tribute at the World Bank is to get a number wrong in front of three thousand people who know better. We drafted the questions with an AI research agent and three humans checked every one. It kept saying seven Ballons d'Or. It is eight. Delegate the draft, never the checking.</p>
+        <p>At the end you get a verdict and a line to paste into the team chat. For once, nobody is tracking your completion rate.</p>
+        <p style="margin:0"><a class="btn gold" href="https://ezequielmolina-lang.github.io/ai-tuesday-toolbox/messi/messi_quiz.html">Play the Leo Quiz (3 minutes) &rarr;</a></p>
+    </div>
+
+    <!-- COMMENTATOR -->
+    <div class="card">
+        <div class="kicker">2 &middot; Listen</div>
+        <h2>Relátamelo: your favourite goal, called live, in your language</h2>
+        <p>A radio commentator in your pocket. Headphones, please. Think of the people next to you.</p>
+        <p>Pick your goal (Getafe 2007, the Bernabéu in 2017, Quito at 2,800 metres, the second one in Lusail) and paste this into ChatGPT, Claude or Gemini. Voice mode on the phone makes it unbearable in the best way. Then run it again in Spanish rioplatense and compare. A Peruvian reads it in Lima slang, a Kenyan reads it in Sheng, and both send it to their father.</p>
+        <div class="prompt-box">
+            <div class="prompt-label">Paste into any chatbot (public information, so anything goes)</div>
+            <p>You are a legendary radio football commentator from [your city or country], broadcasting live in [your language]. Narrate this goal in real time, 150 words, with the crowd, the build-up, the rising voice, and one phrase that becomes a catchphrase. The goal: [two lines, for example: "23 April 2017, Bernabéu, minute 92, Real Madrid 2-2 Barcelona, Messi receives from Jordi Alba at the edge of the box and places it low past Navas, then holds his shirt up to the Madrid crowd"]. Use only widely reported facts. If you are not sure of a detail, leave it out.</p>
+        </div>
+    </div>
+
+    <!-- VS YOUR COUNTRY -->
+    <div class="card">
+        <div class="kicker">3 &middot; Discover</div>
+        <h2>Messi versus your country</h2>
+        <p>This building has 189 member countries and, since this morning, one topic of conversation. Every colleague has a chapter: the Nigerian who discovers he scored against them in two World Cups, the Mexican who remembers the Lusail goal in front of the Mexican crowd, the Ecuadorian who was in Quito on 10 October 2017, when a hat-trick at altitude took Argentina to Russia. Ask for yours.</p>
+        <div class="prompt-box">
+            <div class="prompt-label">Paste into Gemini or ChatGPT with search on</div>
+            <p>List every official match Lionel Messi played against [country]'s national team, with date, competition, score, and what he did in each (goals, assists, anything memorable). Then one paragraph on how fans in [country] relate to him. Cite sources. If a match is uncertain, say so instead of guessing.</p>
+        </div>
+        <img class="photo" src="https://ezequielmolina-lang.github.io/ai-tuesday-toolbox/messi/messi_mexico_crowd_cc.jpg" alt="Messi celebrating with the supporters in the stands after Argentina vs Mexico, 2022 World Cup">
+        <div class="photo-credit">Argentina vs Mexico, Lusail, 26 November 2022. Photo: Hossein Zohrevand, Tasnim News Agency, CC BY 4.0, via Wikimedia Commons.</div>
+    </div>
+
+    <!-- DAILY FACT -->
+    <div class="card">
+        <div class="kicker">4 &middot; Keep</div>
+        <h2>One Leo fact a day</h2>
+        <p>Forty verified facts, one per day, so we keep remembering after the hashtags move on: the treatment his family could not afford, the napkin, the red card after 40 seconds on his Argentina debut, the 91, the header in Rome, the walk past the trophy in 2014, the Maracanã, Lusail, the letter. We tested it and finished the week before lunch.</p>
+        <p>On a phone, "Add to Home Screen" turns it into an app. Every fact links to the source it came from.</p>
+        <p style="margin:0"><a class="btn" href="https://ezequielmolina-lang.github.io/ai-tuesday-toolbox/messi/messi_daily.html">Open today's fact &rarr;</a></p>
+    </div>
+
+    <!-- NON FOOTBALL -->
+    <div class="card-dark card">
+        <h2>For colleagues who do not care about football</h2>
+        <p>This box is small on purpose. Two things in it. First, the quiz is a generic tool: Messi is the sample data, and <a href="https://ezequielmolina-lang.github.io/ai-tuesday-toolbox/workshop_quiz.html" style="color:#cfe6f7">the same page</a> makes one on your sector for Friday's team meeting. Second, for the economists, the one Messi story that is really about our work: a boy with a treatable condition his city could not finance, and what happened when someone did. Ask any chatbot: <em>"In 400 words, the story of Messi's growth-hormone treatment, the move to Barcelona, and what it says about talent, health and who gets a chance."</em> It is not a football story. It is a human capital story with a happy ending.</p>
+    </div>
+
+    <!-- KIDS -->
+    <div class="card">
+        <div class="kicker">5 &middot; Tonight</div>
+        <h2>For the kid who asked why you were crying</h2>
+        <p>Parents in the office have been asked a question today. This answers it, in 350 words and one colouring page.</p>
+        <div class="prompt-box">
+            <div class="prompt-label">Paste into ChatGPT or Gemini</div>
+            <p>Write a 350-word bedtime story for a 6-year-old about Lionel Messi: a boy in Rosario who was smaller than everyone, needed injections every night, moved far away at 13, and never forgot his grandmother Celia (he points to the sky after every goal for her). Simple words, no scores, end with him sleeping at home in Rosario. Then describe a black-and-white colouring page of a small boy in a striped shirt pointing at the sky, and generate it.</p>
+        </div>
+        <p style="margin:0">Both index fingers, every goal, for Celia, who took him to training and died when he was ten. A tribute that mentions the eight Ballons d'Or and not Celia was written by a search engine.</p>
+    </div>
+
+    <!-- MEMORY WALL -->
+    <div class="card" style="background: linear-gradient(135deg, #fff8e1, #fef3c7); border: 2px solid var(--gold);">
+        <div class="kicker" style="color:#92400e">6 &middot; Tell us</div>
+        <h2>Where were you on 18 December 2022?</h2>
+        <p>Three lines. Where you were, who you were with, what you did at the final whistle. A hospital corridor in Nairobi watching on a phone. A bar in Rosario, hugging a stranger, missing the Mbappé penalty. A kitchen in Washington, pretending to work. Hit reply (not Reply All, the Bank has suffered enough today). Next Tuesday we will weave them into one piece, first names and countries only, and it will be the best thing this newsletter has ever published, because you will have written it.</p>
+        <img class="photo" src="https://ezequielmolina-lang.github.io/ai-tuesday-toolbox/messi/messi_lusail_celebration_cc.jpg" alt="Messi celebrating his second goal in the 2022 World Cup final">
+        <div class="photo-credit">Lusail, 18 December 2022, the second goal. Photo: Sebas, CC BY 3.0, via Wikimedia Commons.</div>
+    </div>
+
+    <!-- BRIDGE -->
+    <div class="card-dark card">
+        <h2>The productivity part, kept to one line out of respect</h2>
+        <p>Everything above was drafted by AI agents in an hour and checked by humans for three. The edition that teaches you to do exactly that with your own portfolio, <a href="https://ezequielmolina-lang.github.io/ai-tuesday-toolbox/delegate.html" style="color:#cfe6f7">Delegate, Don't Chat</a>, is finished and waiting for a Tuesday when you can read it. Its last section is called "Don't delegate the reading of the game". We wrote it before we knew which day it would land on.</p>
+    </div>
+
+    <!-- CLOSE -->
+    <div class="card" style="text-align:center; padding: 40px;">
+        <p style="font-size: 18px; color:#334155; margin-bottom: 8px;">Tonight, at the Monumental, cap number 208. Then the club career goes on, and the chant does not stop.</p>
+        <p style="font-size: 26px; font-weight: 900; color: var(--wb-blue); margin: 0;">Gracias, Leo. This edition we did not delegate.</p>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="card-dark card footer-card">
+        <h2>About AI Tuesday</h2>
+        <p>We're an informal weekly dose of AI insights, designed to help all of us integrate artificial intelligence into our daily work without requiring a PhD in computer science or a spiritual connection with ChatGPT.</p>
+        <p>Our little newsletter currently brings joy (or at least mild amusement) to colleagues across LAC, People, Poverty, and Infrastructure verticals, plus hundreds of individual subscribers who clearly have excellent taste in newsletters.</p>
+        <p>In a shocking twist that surprised absolutely no one, we at AI Tuesday are not part of the World Bank's IT or AI department. For all your actual WB AI tool support needs, please contact the Copilot team at wbgcopilot@worldbankgroup.org or the AI ITS Team at ai@worldbankgroup.org.</p>
+        <p>🤖 AI Resources: 📫 AI Tuesday (subscribe &amp; past issues) &bull; 🧰 <a href="https://ezequielmolina-lang.github.io/ai-tuesday-toolbox/" style="color:#cfe6f7">The AI Tuesday Toolbox</a> &bull; 📚 The AI Kitchen 2.0 &bull; 🎬 Smart ISR Guide &bull; 🎓 AI Tutors &bull; 🖥️ All WB AI tools &bull; 🔬 AI Research</p>
+        <p>Photos of Lionel Messi are Creative Commons via Wikimedia Commons, credited under each. The illustration was generated for this edition and depicts no real person. All prompts here use public information only.</p>
+    </div>
+
+</div>
+</body>
+</html>
