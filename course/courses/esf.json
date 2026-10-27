@@ -1,0 +1,126 @@
+{
+  "id": "esf",
+  "title": "The ESF in five mornings",
+  "subtitle": "The 121 pages every TTL signed off on, one coffee at a time",
+  "emoji": "🌿",
+  "color": "#0b6e4f",
+  "source": {
+    "name": "World Bank Environmental and Social Framework (2017)",
+    "url": "https://thedocs.worldbank.org/en/doc/837721522762050108-0290022018/original/ESFFramework.pdf",
+    "pages": 121
+  },
+  "made_with": "Built by an AI from the public PDF in one sitting; every quote and page number was checked against the PDF.",
+  "audience": "Task team leaders and anyone who signs an ESCP",
+  "days": [
+    {
+      "n": 1,
+      "title": "Three parts, four ratings, one ESCP",
+      "hook": "Before you argue about any standard, know which of the three parts of the Framework binds you, who rated your project, and which document the lawyers actually read.",
+      "lesson": "<p>The Environmental and Social Framework has three parts, and only two of them bind anyone. The <b>Vision</b> states aspirations. The <b>Policy</b> sets mandatory requirements for the Bank. The ten <b>Environmental and Social Standards</b> (ESSs) set mandatory requirements for the Borrower and the project. The Framework applies to every project financed through Investment Project Financing, and not to Development Policy lending or Program-for-Results, which have their own provisions.</p><p>Early on, the Bank classifies the project into one of four risk categories: High, Substantial, Moderate or Low. The call rests on the type, location, sensitivity and scale of the project, the nature and magnitude of its potential risks and impacts, and the capacity and commitment of the Borrower to manage them. The Bank publishes the classification and its basis, reviews it regularly, including during implementation, and changes it when necessary. For High and Substantial Risk projects, the risk documentation is disclosed before appraisal.</p><p>The hinge that turns standards into obligations is the <b>Environmental and Social Commitment Plan</b> (ESCP). The Bank and the Borrower agree it; it lists the material measures and actions required to meet the ESSs, with a completion date for each; the draft is disclosed before appraisal; and it forms part of the legal agreement. It must also set out a process for adaptive management when the project changes or something unforeseen happens.</p><p>In practice, the ESCP is the page the lawyers read. If a measure matters and it is not in the ESCP with a date, it is a hope, not a commitment.</p>",
+      "quote": {
+        "text": "The ESCP will set out the material measures and actions required for the project to meet the ESSs over a specified timeframe. The ESCP will form part of the legal agreement.",
+        "where": "Policy, paragraph 46 (PDF page 23)"
+      },
+      "question": {
+        "q": "Your project was rated Substantial Risk. Who made that call, and can it change?",
+        "options": [
+          "The Bank, which discloses the basis and reviews the rating regularly, including during implementation",
+          "The Borrower's assessment team, and it is fixed once appraisal is complete",
+          "The Board at approval, and it stays fixed for the life of the project",
+          "The independent specialists retained under ESS1, subject to Bank no-objection"
+        ],
+        "answer": 0,
+        "explain": "The Policy, paragraph 20 (PDF page 20), says the Bank classifies all projects and discloses the classification and its basis; paragraph 21 says the Bank reviews it regularly, including during implementation, and changes it where necessary. The common confusion is to treat the rating as fixed at approval or as the Borrower's decision."
+      },
+      "do": "Open your project's ESCP and check two things: that every action has a completion date, and that the date has not already passed without a status update in your last monitoring report."
+    },
+    {
+      "n": 2,
+      "title": "ESS1: assess, avoid, mind the contractor",
+      "hook": "ESS1 is where the assessment, the mitigation hierarchy and the contractor clauses live, and it is the standard every project has to meet.",
+      "lesson": "<p>ESS1 applies to every project. The Borrower carries out an environmental and social assessment proportionate to the risks, covering direct, indirect and cumulative impacts across the whole project life cycle, including <b>Associated Facilities</b>: things not funded by the project but necessary for it to be viable and built alongside it. For High and Substantial Risk projects, or where capacity is limited, the Borrower must retain independent specialists. The assessment may not be done by the consultants preparing the engineering design unless the Borrower shows there is no conflict of interest.</p><p>The assessment applies the <b>mitigation hierarchy</b>, in order: anticipate and avoid; where avoidance is not possible, minimize or reduce to acceptable levels; then mitigate; and only where significant residual impacts remain, compensate or offset, where technically and financially feasible. Where national requirements and the Bank Group's Environmental, Health and Safety Guidelines differ, the more stringent applies, and any weaker level needs a full and detailed justification in the assessment.</p><p>Timing has teeth. Where the ESCP requires plans or actions before certain activities, the Borrower may not carry out any project activity that could cause material adverse risks or impacts until those plans are complete. Contractors count as under the Borrower's direct control: the ESCP goes into tender documents, contracts must require contractors to apply it with effective non-compliance remedies, compliance is monitored, and subcontractors need equivalent arrangements.</p><p>During implementation the Borrower reports to the Bank no less than annually, notifies the Bank promptly of any incident with a significant adverse effect, including fatalities or serious injuries, and discloses an updated ESCP whenever changes add risks. The contractor did not sign the ESCP. The Borrower signed it on the contractor's behalf.</p>",
+      "quote": {
+        "text": "The borrower will require that all contractors engaged on the project operate in a manner consistent with the requirements of the ESSs, including the specific requirements set out in the ESCP.",
+        "where": "ESS1, Annex 3 (PDF page 43)"
+      },
+      "question": {
+        "q": "The civil works contractor's crew is on site. Under the ESF, who answers for their environmental and social performance?",
+        "options": [
+          "The contractor alone, under national law and its own permits",
+          "The Borrower, since contractors are treated as under its direct control and the ESCP must be built into tenders and contracts",
+          "The Bank, through its supervision missions",
+          "The supervising engineer named in the works contract"
+        ],
+        "answer": 1,
+        "explain": "ESS1, footnote 1 (PDF page 29), states that contractors retained by or acting on behalf of the Borrower are considered under the Borrower's direct control, and Annex 3 (PDF page 43) requires the ESCP in tender documents, contractual obligations with non-compliance remedies, and monitoring. The Bank supervises, but the obligation sits with the Borrower, not with the contractor alone."
+      },
+      "do": "Pull up the bidding documents for your largest works contract and search for the ESCP by name. If it is not there, ask the procurement specialist how the contractor is bound to it."
+    },
+    {
+      "n": 3,
+      "title": "People: workers, neighbours, two complaint boxes",
+      "hook": "ESS2, ESS4 and ESS10 are the standards about human beings, and the detail most teams miss is that workers and communities get separate grievance mechanisms.",
+      "lesson": "<p>ESS2 covers four kinds of <b>project worker</b>: direct workers, contracted workers engaged through third parties for core functions, primary supply workers, and community workers. The Borrower writes labor management procedures, gives workers clear written terms, and pays them regularly. The minimum age is 14 unless national law sets a higher one, and anyone under 18 may not do hazardous work or work that interferes with schooling. Forced labor and the employment of trafficked persons are prohibited outright. Government civil servants stay on their existing terms, but the provisions on protecting the work force and on occupational health and safety still reach them.</p><p>ESS4 turns outward to the communities around the project: structural safety certified by competent professionals, traffic and road safety, diseases that can arrive with labor influx, hazardous materials, and an Emergency Response Plan built on a risk hazard assessment. Security personnel may use force only for preventive and defensive purposes in proportion to the threat, and the Borrower must check that they are not implicated in past abuses. Dams get their own annex.</p><p>ESS10 is the engagement standard. Stakeholders are project-affected parties plus other interested parties. The Borrower prepares a Stakeholder Engagement Plan, disclosed before appraisal, discloses information in local languages and accessible formats, and consults in a way that is free of manipulation, interference, coercion, discrimination and intimidation. The project grievance mechanism must be accessible, at no cost, without retribution, able to take anonymous complaints, and it cannot block access to the courts.</p><p>One detail catches people: workers get their own grievance mechanism under ESS2, explained to them at recruitment, and it is provided separately from the community one. One box is not enough.</p>",
+      "quote": {
+        "text": "Borrowers will provide stakeholders with timely, relevant, understandable and accessible information, and consult with them in a culturally appropriate manner, which is free of manipulation, interference, coercion, discrimination and intimidation.",
+        "where": "ESS10, paragraph 7 (PDF page 112)"
+      },
+      "question": {
+        "q": "A contracted worker on your project wants to complain about unpaid overtime. Which channel does the ESF require?",
+        "options": [
+          "The project grievance mechanism under ESS10, which covers everyone affected by the project",
+          "The Bank's Grievance Redress Service, since the Bank finances the contract",
+          "A separate worker grievance mechanism under ESS2, explained to workers at recruitment and available to contracted workers too",
+          "The Inspection Panel, once Bank Management has had a chance to respond"
+        ],
+        "answer": 2,
+        "explain": "ESS2, paragraph 21 (PDF page 48), requires a grievance mechanism for direct and contracted workers, explained at recruitment, and footnote 17 says it is provided separately from the mechanism required under ESS10. The GRS and the Inspection Panel exist, but they are the Bank's corporate channels for project-affected parties, not the workplace mechanism."
+      },
+      "do": "Check that your project has two grievance mechanisms, not one: find where the labor management procedures describe the workers' mechanism, and confirm it is not simply a pointer to the community one."
+    },
+    {
+      "n": 4,
+      "title": "Land and nature: cut-off dates, critical habitat",
+      "hook": "ESS3, ESS5 and ESS6 are where projects stall: a cut-off date nobody announced, or a habitat nobody classified.",
+      "lesson": "<p>ESS3 asks the project to use energy, water and raw materials efficiently and to control pollution to the more stringent of national law or the Environmental, Health and Safety Guidelines. The assessment estimates gross greenhouse gas emissions where feasible, though not for projects with small, diverse sources or where emissions are unlikely to be significant, such as education and social protection. Pest management favors integrated approaches, and significant pest management issues call for a Pest Management Plan.</p><p>ESS5 covers <b>involuntary resettlement</b>: physical or economic displacement where people cannot refuse the land acquisition or the restriction on land use. Avoid it, then minimize it through design alternatives. Where it is unavoidable, compensation is at replacement cost, and the Borrower takes possession of land only after compensation has been made available. A census establishes who is affected and a <b>cut-off date</b> for eligibility, disseminated throughout the project area in written and nonwritten forms and in local languages, with posted warnings. People without a recognizable legal claim still receive compensation for their structures and assistance in lieu of land. Forced eviction is prohibited, and no displacement happens until the Bank has approved the plan. Significant resettlement ends with an external completion audit.</p><p>ESS6 sorts habitat into modified, natural and critical. In natural habitat, activities proceed only if no technically and financially feasible alternatives exist and mitigation achieves no net loss, preferably a net gain. In critical habitat, a net gain is required, together with a set of further conditions. Offsets come last, after avoidance, minimization and restoration, and some impacts cannot be offset at all: then the project is redesigned, or it is not done.</p>",
+      "quote": {
+        "text": "No physical and/or economic displacement will occur until plans required by this ESS have been finalized and approved by the Bank.",
+        "where": "ESS5, paragraph 25 (PDF page 72)"
+      },
+      "question": {
+        "q": "After the census, new families settle inside the project area. Are they entitled to compensation or assistance?",
+        "options": [
+          "Yes, everyone present when the land is actually taken is eligible",
+          "Yes, but only for structures, at replacement cost",
+          "No, never, whatever the project announced or failed to announce",
+          "No, provided the cut-off date was clearly established and made public, including in nonwritten forms and local languages"
+        ],
+        "answer": 3,
+        "explain": "ESS5, paragraph 30 (PDF page 72), says the Borrower need not compensate or assist those who encroach after the cut-off date, provided the date was clearly established and made public. Paragraph 20 (PDF page 71) requires the date to be disseminated throughout the project area in written and nonwritten forms and in local languages, with posted warnings. The confusion is treating the cut-off as automatic rather than conditional on that publicity."
+      },
+      "do": "If your project touches any land, open the resettlement plan or framework and find the cut-off date and the record of how it was announced. If you cannot find the announcement, that is your next conversation with the social specialist."
+    },
+    {
+      "n": 5,
+      "title": "The confusing ones, and the Bank's homework",
+      "hook": "ESS7, ESS8 and ESS9 are short, often misread, and come with hard stops; and the Policy gives the Bank itself a job list that does not end at Board approval.",
+      "lesson": "<p>ESS7 applies whenever Indigenous Peoples are present in or have collective attachment to the project area, regardless of whether impacts are positive or negative or how significant they are. Identification rests on four characteristics: self-identification, collective attachment to territory, distinct customary institutions, and a distinct language. <b>Free, Prior and Informed Consent</b> is required in three circumstances: adverse impacts on traditionally owned or customarily used land and resources, relocation from such land, or significant impacts on cultural heritage material to identity. FPIC does not mean unanimity: it is collective support reached through a culturally appropriate process, and it can exist even if some object. Where the Bank cannot ascertain it, the relevant aspects of the project are not processed further. Agreements go into the ESCP.</p><p>ESS8 covers tangible and intangible cultural heritage, whether or not it is legally protected or previously known. Every construction contract must include a <b>chance finds procedure</b>: notify the authorities, fence off the find, have experts assess it, and train workers. ESS9 asks financial intermediaries to run an Environmental and Social Management System, apply national law to all subprojects, apply the ESSs to subprojects with resettlement, Indigenous Peoples impacts or significant risks, and send the Bank an annual report.</p><p>The Bank has its own obligations. It conducts due diligence proportionate to the risks, asks for more information where gaps block it, runs a gap analysis when a project is under construction or already permitted, monitors performance against the legal agreement and the ESCP, and can apply its remedies. A project is not considered complete until the ESCP measures have been implemented. Affected people can also go to the Grievance Redress Service and, after that, to the Inspection Panel. Five mornings, 121 pages. Keep the ESCP open.</p>",
+      "quote": {
+        "text": "It does not require unanimity and may be achieved even when individuals or groups within or among affected Indigenous Peoples explicitly disagree.",
+        "where": "Policy, paragraph 55 (PDF page 24)"
+      },
+      "question": {
+        "q": "Several families in an affected Indigenous community oppose the project. Has Free, Prior and Informed Consent failed?",
+        "options": [
+          "Yes, FPIC requires unanimity among all affected individuals",
+          "Not necessarily: consent is collective support reached through a culturally appropriate process, and it may exist even if some individuals or groups object",
+          "Yes, unless the objecting families are compensated first",
+          "FPIC cannot be assessed, because the ESF does not define it"
+        ],
+        "answer": 1,
+        "explain": "The Policy, paragraph 55 (PDF page 24), and ESS7, paragraphs 25 and 26 (PDF page 94), define consent as the collective support of affected communities reached through a culturally appropriate process; it does not require unanimity and may exist even if some individuals or groups object. The hard stop is different: if the Bank cannot ascertain FPIC, the relevant aspects of the project are not processed further."
+      },
+      "do": "Open any construction contract on your project and search for the chance finds procedure. If it is missing, ESS8 says it belongs in every contract that involves excavation, demolition or earth movement."
+    }
+  ]
+}

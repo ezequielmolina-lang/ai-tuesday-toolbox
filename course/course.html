@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Five Mornings</title>
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f172a">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --navy:#0f172a; --blue:#0068B3; --gold:#f5b800; --ink:#1e293b; --muted:#64748b; --line:#e2e8f0; --accent:#0b6e4f; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#f1f5f9; color: var(--ink); min-height:100vh; }
+  .top { background: var(--navy); color:white; padding: 16px 18px 14px; }
+  .top .in { max-width: 640px; margin:0 auto; display:flex; align-items:center; gap:12px; }
+  .top img { width:40px; height:40px; border-radius:10px; }
+  .top .t { font-weight:900; font-size:18px; letter-spacing:-.2px; } .top .t span { color: var(--gold); }
+  .top .s { font-size:12px; color:#cbd5e1; }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 18px 16px 70px; }
+  .tabs { display:flex; gap:6px; margin-bottom:16px; }
+  .tabs button { flex:1; border:1.5px solid var(--line); background:white; padding:9px 6px; border-radius:10px; font-weight:800; font-size:13px; color:var(--muted); cursor:pointer; }
+  .tabs button.on { background: var(--navy); color:white; border-color: var(--navy); }
+  .card { background:white; border-radius:16px; padding:18px; box-shadow:0 6px 24px rgba(15,23,42,.06); margin-bottom:12px; }
+  .ccard { display:flex; gap:14px; align-items:flex-start; cursor:pointer; border-left:6px solid var(--accent); }
+  .ccard .em { font-size:30px; line-height:1; }
+  .ccard h2 { font-size:17px; font-weight:900; color:var(--navy); margin-bottom:3px; }
+  .ccard .sub { font-size:13px; color:var(--muted); line-height:1.45; }
+  .ccard .meta { font-size:11px; color:var(--muted); margin-top:8px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; }
+  .prog { height:6px; background:#e2e8f0; border-radius:3px; margin-top:8px; overflow:hidden; } .prog i { display:block; height:100%; background:var(--accent); }
+  h1 { font-size: clamp(24px, 5vw, 32px); font-weight:900; color:var(--navy); line-height:1.1; margin-bottom:6px; }
+  .lead { color:#475569; font-size:14.5px; line-height:1.55; margin-bottom:14px; }
+  .days { display:grid; gap:8px; }
+  .day { display:flex; align-items:center; gap:12px; background:white; border:1.5px solid var(--line); border-radius:12px; padding:12px 14px; cursor:pointer; }
+  .day.lock { opacity:.55; cursor:default; }
+  .day .n { width:34px; height:34px; border-radius:50%; background:#eef2f7; color:var(--navy); font-weight:900; display:flex; align-items:center; justify-content:center; flex:0 0 34px; }
+  .day.done .n { background:var(--accent); color:white; }
+  .day .dt { font-weight:800; font-size:15px; color:var(--navy); } .day .dh { font-size:12.5px; color:var(--muted); line-height:1.4; }
+  .day .st { margin-left:auto; font-size:11px; font-weight:800; color:var(--muted); white-space:nowrap; }
+  .kick { font-size:11px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:6px; }
+  .lesson p { font-size:16px; line-height:1.6; margin-bottom:12px; }
+  .quote { border-left:4px solid var(--gold); background:#fffbeb; padding:12px 14px; border-radius:0 10px 10px 0; margin:14px 0; }
+  .quote .q { font-size:15px; font-style:italic; line-height:1.5; color:#422006; } .quote .w { font-size:12px; color:#92400e; margin-top:6px; font-weight:700; }
+  .quiz { background:#eff6ff; border:1.5px solid #bfdbfe; border-radius:12px; padding:14px; margin:14px 0; }
+  .quiz .qq { font-weight:800; font-size:15.5px; margin-bottom:10px; color:var(--navy); }
+  .opt { display:block; width:100%; text-align:left; background:white; border:1.5px solid #bfdbfe; border-radius:10px; padding:10px 12px; font-size:14.5px; margin-bottom:7px; cursor:pointer; font-family:inherit; color:var(--ink); }
+  .opt.right { background:#dcfce7; border-color:#16a34a; font-weight:800; } .opt.wrong { background:#fee2e2; border-color:#dc2626; } .opt:disabled { cursor:default; }
+  .explain { font-size:14px; line-height:1.5; color:#1e3a8a; margin-top:8px; display:none; }
+  .doit { background:#f0fdf4; border:1.5px solid #86efac; border-radius:12px; padding:14px; margin:14px 0; }
+  .doit .k { font-size:11px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#15803d; margin-bottom:4px; } .doit p { font-size:15px; line-height:1.5; }
+  .row { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+  .btn { border:none; border-radius:10px; padding:11px 16px; font-weight:800; font-size:14px; cursor:pointer; font-family:inherit; text-decoration:none; display:inline-block; }
+  .btn.p { background:var(--navy); color:white; } .btn.g { background:var(--gold); color:var(--navy); } .btn.l { background:#eef2f7; color:var(--navy); } .btn.gpt { background:#10a37f; color:white; } .btn.cl { background:#d97706; color:white; }
+  .small { font-size:12.5px; color:var(--muted); line-height:1.5; margin-top:10px; }
+  .small a, .lead a, .lesson a { color:var(--blue); }
+  label { display:block; font-size:11px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin:12px 0 4px; }
+  input, textarea, select { width:100%; border:1.5px solid var(--line); border-radius:10px; padding:10px 12px; font-size:15px; font-family:inherit; color:var(--ink); background:white; }
+  textarea { min-height:90px; resize:vertical; font-size:13px; }
+  textarea.code { font-family:Consolas,'Courier New',monospace; font-size:12px; min-height:150px; }
+  .steps { counter-reset: s; } .step { position:relative; padding-left:38px; margin-bottom:16px; } .step:before { counter-increment:s; content:counter(s); position:absolute; left:0; top:0; width:28px; height:28px; border-radius:50%; background:var(--navy); color:white; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:14px; }
+  .step h3 { font-size:16px; font-weight:900; color:var(--navy); margin-bottom:4px; } .step p { font-size:14px; line-height:1.5; color:#475569; }
+  .pill { display:inline-block; font-size:11px; font-weight:800; padding:3px 9px; border-radius:99px; background:#fef3c7; color:#92400e; margin-left:6px; vertical-align:middle; }
+  .toast { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:var(--gold); color:var(--navy); padding:10px 18px; border-radius:99px; font-size:13px; font-weight:800; opacity:0; transition:opacity .3s; pointer-events:none; z-index:9; }
+  .toast.show { opacity:1; }
+  .back { background:none; border:none; color:var(--blue); font-weight:800; font-size:14px; cursor:pointer; padding:0; margin-bottom:12px; font-family:inherit; }
+  .streak { font-size:13px; font-weight:800; color:#92400e; }
+  .hide { display:none; }
+  .foot { font-size:12px; color:var(--muted); text-align:center; margin-top:24px; line-height:1.6; } .foot a { color:var(--blue); }
+  .warn { background:#fff7ed; border:1.5px solid #fdba74; border-radius:12px; padding:12px 14px; font-size:13.5px; line-height:1.5; color:#7c2d12; margin:12px 0; }
+</style>
+</head>
+<body>
+<div class="top"><div class="in"><img src="icon-192.png" alt=""><div><div class="t">Five <span>Mornings</span></div><div class="s">Any long document, one lesson a day. AI Tuesday Toolbox.</div></div></div></div>
+<div class="wrap">
+  <div class="tabs"><button id="tabLib" class="on" onclick="go('lib')">My courses</button><button id="tabMake" onclick="go('make')">Make one</button></div>
+
+  <!-- LIBRARY -->
+  <div id="vLib">
+    <div id="libList"></div>
+    <p class="small">Progress lives on this device only. Nothing you type here leaves your browser. Open this page on your phone and "Add to Home Screen" for the icon.</p>
+  </div>
+
+  <!-- COURSE HOME -->
+  <div id="vCourse" class="hide">
+    <button class="back" onclick="go('lib')">&larr; All courses</button>
+    <div class="card">
+      <div class="kick" id="cKick"></div>
+      <h1 id="cTitle"></h1>
+      <p class="lead" id="cLead"></p>
+      <div class="days" id="cDays"></div>
+      <p class="small" id="cMeta"></p>
+      <div class="row"><button class="btn l" onclick="unlockAll()">I am impatient, unlock all days</button><button class="btn l" onclick="resetCourse()">Start over</button><button class="btn l" onclick="exportCourse()">Download file to share</button><button class="btn l" id="btnDel" onclick="deleteCourse()">Remove</button></div>
+    </div>
+  </div>
+
+  <!-- DAY -->
+  <div id="vDay" class="hide">
+    <button class="back" onclick="openCourse(cur.id)">&larr; Back to the course</button>
+    <div class="card">
+      <div class="kick" id="dKick"></div>
+      <h1 id="dTitle"></h1>
+      <p class="lead" id="dHook"></p>
+      <div class="lesson" id="dLesson"></div>
+      <div class="quote" id="dQuote"><div class="q"></div><div class="w"></div></div>
+      <div class="quiz"><div class="kick" style="color:#1d4ed8">Guess first</div><div class="qq" id="qQ"></div><div id="qOpts"></div><div class="explain" id="qEx"></div></div>
+      <div class="doit"><div class="k">Do this today (2 minutes)</div><p id="dDo"></p></div>
+      <div class="row"><button class="btn p" id="btnDone" onclick="markDone()">Done for today &#10003;</button><button class="btn l" onclick="shareDay()">Copy a line for the team chat</button></div>
+      <p class="small" id="dNext"></p>
+    </div>
+  </div>
+
+  <!-- MAKE -->
+  <div id="vMake" class="hide">
+    <div class="card">
+      <h1>Turn any document into five mornings</h1>
+      <p class="lead">The PAD you are TTL of, the Operations Manual, the legal agreement, the 200-page evaluation. The AI reads it; you get one three-minute lesson a day with a guess-first question and a page reference you can check. Two steps.</p>
+      <div class="steps">
+        <div class="step"><h3>Give the prompt and the document to your AI</h3>
+          <p><b>Internal document</b> (a PAD not yet disclosed, your OM, a legal agreement, anything from WBDocs): use <b>Copilot Cowork</b> or Copilot Chat with the file attached. Internal documents never go to a public chatbot.<br><b>Public document</b> (a disclosed PAD, a WDR, a published report): any of them works. Paste the link or attach the PDF.</p>
+          <label>Document name (and link, if it is public)</label><input id="mDoc" placeholder="e.g. Environmental and Social Framework, https://...">
+          <label>Who is it for, and what should they be able to do after day 5?</label><input id="mWho" placeholder="e.g. new team members; find any ESS requirement in under a minute">
+          <div class="row"><button class="btn p" onclick="copyPrompt()">Copy the prompt</button><a class="btn gpt" target="_blank" rel="noopener" href="#" onclick="this.href='https://chatgpt.com/?q='+encodeURIComponent(makePrompt())">Open in ChatGPT (public docs only)</a><a class="btn cl" target="_blank" rel="noopener" href="#" onclick="this.href='https://claude.ai/new?q='+encodeURIComponent(makePrompt())">Open in Claude (public docs only)</a></div>
+          <p class="small">Copilot has no link that opens with a question: copy, open Copilot, attach the file, paste. The prompt asks for a specific format that this page can read. In Cowork you can also ask for one lesson to be mailed to you every morning at 8, and skip this page entirely.</p>
+        </div>
+        <div class="step"><h3>Paste what the AI returned</h3>
+          <p>It will answer with a block of text that starts with <code>{</code>. Copy all of it and paste it here. The page checks it and builds the course.</p>
+          <label>The AI's answer</label><textarea id="mJson" class="code" placeholder='{"id": "...", "title": "...", "days": [ ... ] }'></textarea>
+          <div class="row"><button class="btn g" onclick="importJson()">Build my course</button><label class="btn l" style="margin:0">Or load a file someone sent you<input type="file" accept=".json,application/json" style="display:none" onchange="importFile(this)"></label></div>
+          <p class="small" id="mErr"></p>
+        </div>
+      </div>
+      <div class="warn"><b>Check before you trust.</b> The page references are the point: open the document at the page the lesson cites and read the sentence. If it is not there, the AI invented it. Five checks, five days, and you will know the document better than the person who wrote it.</div>
+    </div>
+  </div>
+
+  <div class="foot">Made for the <a href="https://ezequielmolina-lang.github.io/ai-tuesday-toolbox/">AI Tuesday Toolbox</a>. Built-in courses were generated by an AI from public documents; every quote was checked against the original page. Your own courses stay on your device.</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+const BUILTIN = ['esf', 'evidence'];
+let courses = {}, cur = null, curDay = null;
+const LS = { get(k, d){ try { const v = localStorage.getItem('fm-'+k); return v==null? d : JSON.parse(v); } catch(e){ return d; } }, set(k,v){ try { localStorage.setItem('fm-'+k, JSON.stringify(v)); } catch(e){} }, del(k){ try { localStorage.removeItem('fm-'+k); } catch(e){} } };
+let tt; function toast(m){ const el=$('toast'); el.textContent=m; el.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>el.classList.remove('show'),2400); }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function dayKey(){ const d = new Date(); return d.getFullYear()*10000 + (d.getMonth()+1)*100 + d.getDate(); }
+function daysBetween(a, b){ const pa = new Date(Math.floor(a/10000), Math.floor(a/100)%100-1, a%100), pb = new Date(Math.floor(b/10000), Math.floor(b/100)%100-1, b%100); return Math.round((pb-pa)/86400000); }
+
+async function loadBuiltin(){
+  for (const id of BUILTIN){
+    try { const r = await fetch('courses/'+id+'.json', {cache:'no-cache'}); if (r.ok){ const c = await r.json(); c._builtin = true; courses[c.id] = c; } } catch(e){}
+  }
+  const mine = LS.get('courses', {}); for (const id in mine) courses[id] = mine[id];
+}
+function state(id){ return LS.get('st-'+id, {start:null, done:{}, unlocked:false}); }
+function saveState(id, s){ LS.set('st-'+id, s); }
+
+function go(v){
+  ['vLib','vCourse','vDay','vMake'].forEach(x => $(x).classList.add('hide'));
+  $('tabLib').classList.toggle('on', v!=='make'); $('tabMake').classList.toggle('on', v==='make');
+  if (v==='lib'){ renderLib(); $('vLib').classList.remove('hide'); location.hash=''; }
+  if (v==='make'){ $('vMake').classList.remove('hide'); location.hash='make'; }
+  window.scrollTo(0,0);
+}
+function renderLib(){
+  const el = $('libList'); el.innerHTML='';
+  const ids = Object.keys(courses);
+  if (!ids.length){ el.innerHTML = '<div class="card"><p class="lead">No courses yet. Open <b>Make one</b> and turn a document into five mornings.</p></div>'; return; }
+  ids.forEach(id => {
+    const c = courses[id], s = state(id), done = Object.keys(s.done).length, n = c.days.length;
+    const d = document.createElement('div'); d.className='card ccard'; d.style.borderLeftColor = c.color || '#0068B3';
+    d.innerHTML = `<div class="em">${esc(c.emoji||'📘')}</div><div style="flex:1"><h2>${esc(c.title)}</h2><div class="sub">${esc(c.subtitle||'')}</div><div class="meta">${n} mornings &bull; ${done ? done+' of '+n+' done' : (s.start? 'started' : 'not started')}${c._builtin?'' : ' &bull; made by you'}</div><div class="prog"><i style="width:${Math.round(100*done/n)}%"></i></div></div>`;
+    d.onclick = () => openCourse(id);
+    el.appendChild(d);
+  });
+}
+function openCourse(id){
+  cur = courses[id]; if (!cur) return go('lib');
+  const s = state(id);
+  ['vLib','vCourse','vDay','vMake'].forEach(x => $(x).classList.add('hide')); $('vCourse').classList.remove('hide');
+  $('cKick').textContent = (cur.emoji||'') + ' ' + (cur.audience ? 'For ' + cur.audience : 'Five mornings');
+  $('cTitle').textContent = cur.title; $('cLead').innerHTML = esc(cur.subtitle||'') + (cur.source ? ` Source: <a href="${esc(cur.source.url)}" target="_blank" rel="noopener">${esc(cur.source.name)}</a>${cur.source.pages? ' ('+cur.source.pages+' pages)':''}.` : '');
+  $('cMeta').innerHTML = esc(cur.made_with||'') + (s.start ? ' Started ' + fmt(s.start) + '.' : '');
+  $('btnDel').style.display = cur._builtin ? 'none' : '';
+  const el = $('cDays'); el.innerHTML='';
+  cur.days.forEach((d, i) => {
+    const st = dayStatus(s, i);
+    const row = document.createElement('div'); row.className = 'day' + (st==='done'?' done':'') + (st==='locked'?' lock':'');
+    row.innerHTML = `<div class="n">${st==='done'?'&#10003;':d.n}</div><div><div class="dt">${esc(d.title)}</div><div class="dh">${esc(d.hook)}</div></div><div class="st">${st==='done'?'DONE':st==='locked'?'&#128274; '+lockText(s,i):'TODAY'}</div>`;
+    if (st!=='locked') row.onclick = () => openDay(i);
+    el.appendChild(row);
+  });
+  location.hash = 'c=' + id; window.scrollTo(0,0);
+}
+function fmt(k){ return `${k%100}/${Math.floor(k/100)%100}/${Math.floor(k/10000)}`; }
+function dayStatus(s, i){
+  if (s.done[i]) return 'done';
+  if (s.unlocked) return 'open';
+  if (i===0) return 'open';
+  if (!s.done[i-1]) return 'locked';
+  const since = daysBetween(s.done[i-1], dayKey());
+  return since >= 1 ? 'open' : 'locked';
+}
+function lockText(s, i){ if (!s.done[i-1]) return 'after day ' + i; return 'tomorrow'; }
+function openDay(i){
+  const d = cur.days[i]; curDay = i; const s = state(cur.id);
+  if (!s.start){ s.start = dayKey(); saveState(cur.id, s); }
+  ['vLib','vCourse','vDay','vMake'].forEach(x => $(x).classList.add('hide')); $('vDay').classList.remove('hide');
+  $('dKick').textContent = `${cur.emoji||''} Morning ${d.n} of ${cur.days.length} · about ${d.minutes||3} minutes`;
+  $('dTitle').textContent = d.title; $('dHook').textContent = d.hook; $('dLesson').innerHTML = d.lesson;
+  if (d.quote && d.quote.text){ $('dQuote').style.display=''; $('dQuote').querySelector('.q').textContent = '“' + d.quote.text + '”'; $('dQuote').querySelector('.w').textContent = d.quote.where || ''; } else $('dQuote').style.display='none';
+  $('qQ').textContent = d.question.q; $('qEx').style.display='none'; $('qEx').textContent = d.question.explain;
+  const o = $('qOpts'); o.innerHTML='';
+  d.question.options.forEach((t, k) => { const b = document.createElement('button'); b.className='opt'; b.textContent = String.fromCharCode(65+k) + '. ' + t; b.onclick = () => answer(k); o.appendChild(b); });
+  $('dDo').textContent = d.do;
+  $('btnDone').textContent = s.done[i] ? 'Done ✓ (tap to undo)' : 'Done for today ✓';
+  $('dNext').textContent = i < cur.days.length-1 ? 'Morning ' + (i+2) + ' unlocks tomorrow. Three minutes a day beats three hours never.' : 'Last morning. After this one, you have read the document. Really.';
+  window.scrollTo(0,0);
+}
+function answer(k){
+  const d = cur.days[curDay]; const btns = $('qOpts').querySelectorAll('.opt');
+  btns.forEach((b, j) => { b.disabled = true; if (j===d.question.answer) b.classList.add('right'); else if (j===k) b.classList.add('wrong'); });
+  $('qEx').style.display='block';
+  const s = state(cur.id); s.answers = s.answers||{}; s.answers[curDay] = (k===d.question.answer); saveState(cur.id, s);
+}
+function markDone(){
+  const s = state(cur.id);
+  if (s.done[curDay]) delete s.done[curDay]; else s.done[curDay] = dayKey();
+  saveState(cur.id, s);
+  const n = Object.keys(s.done).length;
+  if (s.done[curDay]) toast(n===cur.days.length ? 'Five mornings. You have read it.' : 'Saved. See you tomorrow.');
+  openCourse(cur.id);
+}
+function unlockAll(){ const s = state(cur.id); s.unlocked = true; saveState(cur.id, s); toast('All days open. We will not tell.'); openCourse(cur.id); }
+function resetCourse(){ if (!confirm('Start this course over?')) return; LS.del('st-'+cur.id); openCourse(cur.id); }
+function deleteCourse(){ if (!confirm('Remove this course from this device?')) return; const mine = LS.get('courses', {}); delete mine[cur.id]; LS.set('courses', mine); delete courses[cur.id]; LS.del('st-'+cur.id); go('lib'); }
+function exportCourse(){ const c = Object.assign({}, cur); delete c._builtin; const blob = new Blob([JSON.stringify(c, null, 2)], {type:'application/json'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = (cur.id||'course') + '.json'; a.click(); toast('File downloaded. Send it; they load it under Make one.'); }
+function shareDay(){ const d = cur.days[curDay]; const s = state(cur.id); const n = Object.keys(s.done).length; navigator.clipboard.writeText(`Morning ${d.n} of "${cur.title}": ${d.title}. ${n} of ${cur.days.length} done. ${location.href.split('#')[0]}#c=${cur.id}`).then(()=>toast('Copied.')); }
+
+const SCHEMA = `{"id":"short-slug","title":"Course title","subtitle":"one witty line","emoji":"one emoji","color":"#hex","source":{"name":"document title","url":"link or empty","pages":0},"made_with":"one line on how it was made","audience":"who it is for","days":[{"n":1,"title":"max 7 words","hook":"one sentence on why this morning matters","lesson":"HTML with 3 or 4 <p> paragraphs, 230 to 290 words, plain English, teaches the actual content","quote":{"text":"verbatim sentence from the document, 15 to 45 words","where":"section and page number"},"question":{"q":"one guess-first question","options":["A","B","C","D"],"answer":0,"explain":"2 or 3 sentences with the page reference"},"do":"one 2-minute action on the reader's own work"}]}`;
+function makePrompt(){
+  const doc = $('mDoc').value.trim() || '[the attached document]'; const who = $('mWho').value.trim() || 'a busy colleague who should know this document but has never read it fully';
+  return `Read the attached document in full: ${doc}. Turn it into a five-day micro-course for ${who}. One lesson per day, about three minutes to read, that teaches the ACTUAL content (what it requires, of whom, when, the numbers, the exceptions), not generalities. Rules: every quote must be verbatim from the document with a page number I can check; every claim must come from the document, no outside knowledge; plain English, one dry line of humor per day at most; no dashes as punctuation. Return ONLY valid JSON (no markdown fences, no commentary) in exactly this schema, with exactly 5 items in "days" and exactly 4 options per question:\n${SCHEMA}`;
+}
+function copyPrompt(){ navigator.clipboard.writeText(makePrompt()).then(()=>toast('Prompt copied. Attach the document and paste.')); }
+function validate(c){
+  if (!c || typeof c !== 'object') return 'Not a course.';
+  if (!c.title || !Array.isArray(c.days) || !c.days.length) return 'Missing title or days.';
+  for (const d of c.days){ if (!d.title || !d.lesson || !d.question || !Array.isArray(d.question.options) || typeof d.question.answer !== 'number') return 'Day "' + (d.title||'?') + '" is missing a lesson or a question.'; d.hook = d.hook||''; d.do = d.do||''; }
+  c.id = (c.id || c.title).toString().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40) || 'course';
+  if (courses[c.id] && courses[c.id]._builtin) c.id += '-mine';
+  c.days.forEach((d,i) => { d.n = i+1; d.lesson = sanitize(d.lesson); });
+  return null;
+}
+function sanitize(html){ const t = document.createElement('div'); t.innerHTML = html; t.querySelectorAll('script,style,iframe,object,embed,img').forEach(n => n.remove()); t.querySelectorAll('*').forEach(n => { [...n.attributes].forEach(a => { if (/^on/i.test(a.name) || (a.name==='href' && /^\s*javascript:/i.test(a.value))) n.removeAttribute(a.name); }); }); return t.innerHTML; }
+function importJson(){
+  let txt = $('mJson').value.trim(); $('mErr').textContent='';
+  const a = txt.indexOf('{'), b = txt.lastIndexOf('}'); if (a>=0 && b>a) txt = txt.slice(a, b+1);
+  let c; try { c = JSON.parse(txt); } catch(e){ $('mErr').textContent = 'That is not valid JSON. Ask the AI: "return only the JSON, no explanation", and paste again.'; return; }
+  const err = validate(c); if (err){ $('mErr').textContent = err; return; }
+  const mine = LS.get('courses', {}); mine[c.id] = c; LS.set('courses', mine); courses[c.id] = c; $('mJson').value='';
+  toast('Course built. Morning 1 is open.'); openCourse(c.id);
+}
+function importFile(inp){ const f = inp.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => { $('mJson').value = r.result; importJson(); }; r.readAsText(f); inp.value=''; }
+['mDoc','mWho'].forEach(id => { $(id).value = LS.get(id, ''); $(id).addEventListener('input', () => LS.set(id, $(id).value)); });
+
+(async () => {
+  await loadBuiltin();
+  const h = location.hash.replace('#','');
+  if (h === 'make') go('make'); else if (h.startsWith('c=') && courses[h.slice(2)]) openCourse(h.slice(2)); else go('lib');
+})();
+</script>
+</body>
+</html>
