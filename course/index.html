@@ -5,117 +5,68 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Tuesday: Five Mornings</title>
 <link rel="icon" href="icon-96.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@500&display=swap">
 <style>
+  :root { --ink:#0d0d12; --ink2:#4a4a55; --rule:#e6e6ec; --blue:#0068B3; --green:#0b6e4f; --coral:#ff6a3d; --f-display:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif; --f-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace; }
   * { box-sizing:border-box; margin:0; padding:0; }
-  :root { --navy:#0f172a; --blue:#0068B3; --gold:#f5b800; --ink:#1e293b; --muted:#64748b; --green:#0b6e4f; }
-  body { font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:linear-gradient(180deg,#0f172a 0%,#1e3a5f 100%); color:var(--ink); }
-  .wrap { max-width:720px; margin:0 auto; padding:28px 18px 60px; }
-  .hero { border-radius:18px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.4); }
-  .hero img { width:100%; display:block; }
-  .credit { color:#94a3b8; font-size:11px; margin:6px 0 18px; }
-  .kicker { display:inline-block; background:rgba(245,184,0,.18); border:1px solid rgba(245,184,0,.6); color:#fde68a; font-size:11px; font-weight:800; letter-spacing:3px; text-transform:uppercase; padding:5px 14px; border-radius:20px; }
-  h1 { color:white; font-size:clamp(34px,7vw,52px); font-weight:900; line-height:1.02; margin:14px 0 10px; } h1 span { color:var(--gold); }
-  .dek { color:#cbd5e1; font-size:18px; line-height:1.5; margin-bottom:8px; }
-  .date { color:#94a3b8; font-size:13px; margin-bottom:24px; } .date a { color:#cfe6f7; }
-  .card { background:white; border-radius:18px; padding:24px; box-shadow:0 16px 48px rgba(0,0,0,.3); margin-bottom:16px; }
-  .card.dark { background:#1e293b; color:#e2e8f0; } .card.dark h2 { color:white; } .card.dark a { color:#cfe6f7; }
-  .k { font-size:11px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--blue); margin-bottom:6px; }
-  h2 { font-size:24px; font-weight:900; color:var(--navy); line-height:1.15; margin-bottom:10px; }
-  p { font-size:16px; line-height:1.6; margin-bottom:12px; } .card p:last-child { margin-bottom:0; }
-  .card a { color:var(--blue); }
-  .btn { display:inline-block; background:var(--gold); color:var(--navy); font-weight:800; padding:12px 20px; border-radius:12px; text-decoration:none !important; font-size:15px; margin:6px 10px 6px 0; }
-  .btn.b { background:var(--navy); color:white; } .btn.g { background:var(--green); color:white; }
-  .steps { counter-reset:s; margin:12px 0; } .step { position:relative; padding-left:40px; margin-bottom:12px; } .step:before { counter-increment:s; content:counter(s); position:absolute; left:0; top:1px; width:28px; height:28px; border-radius:50%; background:var(--navy); color:white; font-weight:900; display:flex; align-items:center; justify-content:center; font-size:14px; }
-  .step p { font-size:15.5px; }
-  ul { margin:0 0 12px 22px; } li { font-size:15.5px; line-height:1.55; margin-bottom:6px; }
-  .srcs li b { color:var(--navy); }
-  .icon { float:right; width:84px; height:84px; border-radius:18px; margin:0 0 10px 16px; box-shadow:0 6px 18px rgba(0,0,0,.2); }
-  .morning { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin:12px 0; }
-  .m { background:#f1f5f9; border-radius:12px; padding:12px; } .m b { display:block; color:var(--navy); font-size:14px; margin-bottom:3px; } .m span { font-size:13px; color:#475569; line-height:1.4; }
-  .close { text-align:center; color:white; margin:30px 0 20px; } .close .big { font-size:26px; font-weight:900; color:var(--gold); margin-top:8px; }
-  .about { color:#94a3b8; font-size:13px; line-height:1.6; border-top:1px solid rgba(255,255,255,.15); padding-top:18px; } .about a { color:#cfe6f7; } .about p { font-size:13px; margin-bottom:8px; }
-  @media (max-width:520px){ .icon { width:64px; height:64px; } }
+  body { font-family:var(--f-body); background:#fff; color:var(--ink); -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:680px; margin:0 auto; padding:28px 20px 60px; }
+  .k { font-family:var(--f-mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink2); }
+  h1 { font-family:var(--f-display); font-weight:800; font-size:clamp(3rem, 12vw, 5.2rem); line-height:.95; letter-spacing:-.03em; margin:10px 0 14px; }
+  .dek { font-size:1.25rem; line-height:1.4; color:var(--ink2); margin-bottom:22px; }
+  p { font-size:1.05rem; line-height:1.55; margin-bottom:14px; }
+  .hero { margin:26px 0 8px; } .hero img { width:100%; display:block; border-radius:14px; }
+  .cap { font-family:var(--f-mono); font-size:.68rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink2); margin-bottom:30px; }
+  .block { display:grid; grid-template-columns:6px 1fr; gap:18px; margin:0 0 26px; }
+  .block .bar { border-radius:3px; }
+  .block h2 { font-family:var(--f-display); font-weight:800; font-size:clamp(1.6rem, 6vw, 2.1rem); line-height:1.02; letter-spacing:-.02em; margin:4px 0 8px; }
+  .block p { font-size:1rem; color:var(--ink2); margin-bottom:10px; }
+  .btn { display:inline-block; font-weight:700; font-size:.95rem; color:#fff; background:var(--ink); border-radius:999px; padding:10px 18px; text-decoration:none; }
+  .phone { background:var(--ink); color:#fff; border-radius:16px; padding:24px; display:grid; grid-template-columns:1fr auto; gap:18px; align-items:center; margin:8px 0 26px; }
+  .phone h3 { font-family:var(--f-display); font-weight:800; font-size:1.6rem; line-height:1.05; letter-spacing:-.02em; margin:6px 0 8px; }
+  .phone p { color:#cfd2dc; font-size:.95rem; margin:0; }
+  .phone img { width:140px; height:140px; border-radius:8px; display:block; }
+  .close { font-family:var(--f-display); font-weight:800; font-size:clamp(1.6rem, 6vw, 2.2rem); line-height:1.05; letter-spacing:-.02em; margin:30px 0 8px; }
+  .about { border-top:1px solid var(--rule); margin-top:34px; padding-top:16px; font-size:.82rem; color:var(--ink2); line-height:1.5; } .about p { font-size:.82rem; margin-bottom:8px; } .about a { color:var(--blue); }
+  a { color:inherit; }
+  @media (max-width:520px) { .phone { grid-template-columns:1fr; } .phone img { width:120px; height:120px; } }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="hero"><img src="img/hero_course.jpg" alt="A desk at dawn: a leaning tower of navy binders, a phone showing one glowing card, a coffee cup, morning light through the window"></div>
-  <p class="credit">Illustration made with ChatGPT for this edition.</p>
-  <span class="kicker">AI Tuesday &bull; WBG &bull; 4-minute read</span>
-  <h1>Five <span>mornings</span></h1>
-  <p class="dek">There is a report you really wanted to read. You downloaded it. It is 380 pages, and it is November. From this week you do not have to find the time: three minutes a morning, for five mornings, and the report comes to you.</p>
-  <p class="date">3 November 2026 &bull; <a href="https://ezequielmolina-lang.github.io/ai-tuesday-toolbox/">The AI Tuesday Toolbox</a></p>
+  <div class="k">AI Tuesday &bull; WBG &bull; 3 November 2026 &bull; 3-minute read</div>
+  <h1>Five<br>mornings</h1>
+  <p class="dek">The report you downloaded in August. Three minutes a morning, on your phone. Five mornings and you have read it.</p>
+  <p>Everyone has one. The flagship of your sector, the evaluation everyone quotes, the strategy you were cc'd on. You saved it for the flight; on the flight you slept.</p>
+  <p>So we asked AI to turn a long document into something you will actually finish. Each morning: one question before you read, because guessing first is how it sticks; a three-minute lesson; one verbatim quote with its page, so you can check the AI did not make it up; and one thing to do today.</p>
+  <div class="hero"><a href="course.html#c=wdr"><img src="img/hero_phones.jpg" alt="Three phone screens of the Five Mornings app: a question on a blue cover, a quote with its page, and a green cover for the evidence course"></a></div>
+  <div class="cap">Real screens from the app. Tap any of them.</div>
 
-  <div class="card">
-    <p>Everyone has one. The flagship of your sector. The evaluation that everyone quotes. The strategy you were cc'd on. The book a colleague swore would change how you work. You saved it for the flight, and on the flight you slept. Not a failing; the week is the week.</p>
-    <p>So we asked AI to do the one thing it is genuinely good at with a long document: not summarize it, but turn it into something you will actually finish. One short lesson a day. A question you answer before you read, because guessing first is how things stick. One verbatim quote with the page number, so you can check the AI did not make it up. One two-minute thing to do with it. We call it a reverse course: you do not go to it, it comes to you, at breakfast, out of your own download folder.</p>
-    <p>This edition is one small app and two finished courses inside it. The third is yours.</p>
-  </div>
+  <div class="block"><div class="bar" style="background:var(--blue)"></div><div>
+    <div class="k" style="color:var(--blue)">1 &middot; Take</div><h2>The WDR 2026 in five mornings</h2>
+    <p>The Bank's own flagship on AI, 380 pages, out since 4 August. We gave the full PDF to an AI with one instruction: five mornings, the actual content, quote the page. Then we checked every quote against the PDF page. All five were there.</p>
+    <a class="btn" style="background:var(--blue)" href="course.html#c=wdr">Start the WDR course &rarr;</a></div></div>
 
-  <div class="card">
-    <img class="icon" src="icon-192.png" alt="App icon: a stack of navy binders with a coffee cup and a sunrise">
-    <div class="k">1 &middot; Take</div>
-    <h2>The WDR 2026 in five mornings</h2>
-    <p>The World Development Report 2026, <i>The Promise of Artificial Intelligence</i>, came out on 4 August. It is the Bank's own argument about the technology this newsletter is about, and most of us have read the press release. We gave the full PDF to an AI with one instruction: five mornings, teach the actual content, quote the page. Then we checked every quote against the text of the PDF at the page it cited. All five were there. Open the page and read the sentence anyway; that is the habit this edition is really about.</p>
-    <div class="morning">
-      <div class="m"><b>Guess first</b><span>One question before the lesson. Wrong is fine; wrong is how it sticks.</span></div>
-      <div class="m"><b>A three-minute lesson</b><span>The argument, the numbers, the examples. No generalities.</span></div>
-      <div class="m"><b>One verbatim quote</b><span>With the PDF page, so you can open it and see it.</span></div>
-      <div class="m"><b>Do this today</b><span>A two-minute action in your own work, with the lesson still warm.</span></div>
-    </div>
-    <p>Morning 2 opens tomorrow. There is a button for the impatient. We will not tell. It works on your phone: open the link, Add to Home Screen, and the icon above sits next to the ones you actually use.</p>
-    <a class="btn" href="course.html#c=wdr">Start the WDR course &rarr;</a>
-  </div>
+  <div class="block"><div class="bar" style="background:var(--ink)"></div><div>
+    <div class="k">2 &middot; Make</div><h2>Your document, five mornings</h2>
+    <p>Copy the prompt, attach the file, paste what comes back. Internal documents go to Copilot; public ones work in ChatGPT or Claude too. If you have to ask whether a document is public, it is not.</p>
+    <a class="btn" href="course.html#make">Make one from my document &rarr;</a></div></div>
 
-  <div class="card">
-    <div class="k">2 &middot; Make</div>
-    <h2>Now do it with yours</h2>
-    <p>The same page turns any document into five mornings. The prompt is written; you add the file. Internal documents go to <b>Copilot</b> (Cowork or Chat, file attached). Public ones work in Copilot, ChatGPT or Claude. If you have to ask whether a document is public, it is not.</p>
-    <div class="steps">
-      <div class="step"><p><b>Open "Make one" and copy the prompt.</b> Type what the document is and who the course is for, or leave both blank.</p></div>
-      <div class="step"><p><b>Attach the document and paste the prompt.</b> The prompt tells the AI to stop rather than write from memory if it cannot read the file, and to answer in the chat, not as a Word document. It will, eventually.</p></div>
-      <div class="step"><p><b>Paste what comes back.</b> A block of text that starts with a curly bracket. It is the one block of text in this edition you are allowed not to read. The page checks it and opens Morning 1. If the answer was cut off, the page says so and gives you the message to send back.</p></div>
-    </div>
-    <p>Make it on your laptop, take it on your phone. To share a course, download the file from the course page and send it; colleagues load it on the same page. No accounts, no server: the course is a file, and the page reads it on your device. First time? The Make page has three public PDFs to try before you use your own.</p>
-    <a class="btn b" href="course.html#make">Make a course from my document &rarr;</a>
-  </div>
+  <div class="block"><div class="bar" style="background:var(--green)"></div><div>
+    <div class="k" style="color:var(--green)">3 &middot; Read</div><h2>AI and work: the evidence</h2>
+    <p>For the question you get at dinner. The payroll data (19 percent fewer young hires in exposed jobs), two field experiments, two classroom trials from <a href="https://redevidencia.org/">EvidencIA</a>, and Ethan Mollick's new book. Every number checked against the source.</p>
+    <a class="btn" style="background:var(--green)" href="course.html#c=evidence">Start the evidence course &rarr;</a></div></div>
 
-  <div class="card">
-    <div class="k" style="color:var(--green)">3 &middot; Read</div>
-    <h2>AI and work: the evidence, in five mornings</h2>
-    <p>The second finished course is for the question you get at dinner, "so is AI taking the jobs?", and for the meeting where someone quotes a LinkedIn post. Five mornings, each built from the source itself, with the link in the lesson and every number checked against it.</p>
-    <ul class="srcs">
-      <li><b>Morning 1: Canaries in the Coal Mine.</b> Brynjolfsson, Chandar and Chen on US payroll data: no economy-wide displacement, but 22 to 25 year olds in AI-exposed jobs are 19 percent below where they would be had they kept pace, through hiring, not layoffs. The 13 percent you have seen quoted is the 2025 regression estimate; the August 2026 revision uses a simpler gap, 15 percent then, 19 now.</li>
-      <li><b>Morning 2: the jagged frontier.</b> 758 BCG consultants: inside the frontier, 12.2 percent more tasks and 25.1 percent faster; on the one task outside it, 19 percent less likely to be right.</li>
-      <li><b>Morning 3: the cybernetic teammate.</b> 776 Procter and Gamble professionals: one person with AI matched a pair without it, and the silos between R&amp;D and Commercial dissolved.</li>
-      <li><b>Morning 4: in the classroom.</b> Two randomized trials from the <a href="https://redevidencia.org/">EvidencIA</a> base: in Ankara, open ChatGPT during practice meant 48 percent better practice and a 17 percent worse exam; in Benin City, Copilot as a guided tutor with teachers in the room raised English scores by 0.24 standard deviations in six weeks. Same technology. The design did the work.</li>
-      <li><b>Morning 5: Ethan Mollick.</b> Co-author of Mornings 2 and 3, the four rules of Co-Intelligence, his February guide to the agentic era, and Co-Existence, out on 20 October.</li>
-    </ul>
-    <a class="btn g" href="course.html#c=evidence">Start the evidence course &rarr;</a>
-  </div>
+  <div class="phone"><div><div class="k" style="color:var(--coral)">Take it on your phone</div><h3>Point your camera at the code.</h3><p>Then "Add to Home Screen". The icon sits next to the ones you actually use, and Morning 2 is there tomorrow at breakfast.</p></div><img src="img/qr_course.png" alt="QR code to open Five Mornings on your phone"></div>
 
-  <div class="card dark">
-    <h2 style="font-size:19px">Reality check</h2>
-    <ul>
-      <li>The AI will sometimes cite a page that says something slightly different. That is why the page is there. A wrong page is a finding, not a failure, and the fastest way to learn whether your AI read the file or only the first twenty pages.</li>
-      <li>Three minutes is the design. If the AI returns 600-word lessons, you have a document again. Ask for shorter.</li>
-      <li>Internal documents stay inside the Bank's tools. The public chatbots are for public PDFs.</li>
-      <li>Courses live on the device where you built them. The file is the course; keep it in the folder next to the thing it teaches.</li>
-    </ul>
-  </div>
-
-  <div class="close">
-    <p style="color:#cbd5e1">Five mornings, fifteen minutes, one report you can finally say you have read.</p>
-    <p class="big">Which is more than most of us could say about the WDR last week.</p>
-  </div>
+  <p style="color:var(--ink2);font-size:.95rem">One honest line: the AI will sometimes cite a page that says something slightly different. That is why the page is there. A wrong page is a finding, not a failure.</p>
+  <div class="close">Five mornings. Then you can say you have read it.</div>
+  <p style="color:var(--ink2)">Which is more than most of us could say about the WDR last week.</p>
 
   <div class="about">
-    <p><b style="color:white">About AI Tuesday</b></p>
-    <p>We're an informal weekly dose of AI insights, designed to help all of us integrate artificial intelligence into our daily work without requiring a PhD in computer science or a spiritual connection with ChatGPT.</p>
-    <p>Our little newsletter currently brings joy (or at least mild amusement) to colleagues across LAC, People, Poverty, and Infrastructure verticals, plus hundreds of individual subscribers who clearly have excellent taste in newsletters.</p>
-    <p>In a shocking twist that surprised absolutely no one, we at AI Tuesday are not part of the World Bank's IT or AI department. For all your actual WB AI tool support needs, please contact the Copilot team at wbgcopilot@worldbankgroup.org or the AI ITS Team at ai@worldbankgroup.org.</p>
-    <p>&#129302; AI Resources: &#128235; AI Tuesday (subscribe &amp; past issues) &bull; &#129520; <a href="https://ezequielmolina-lang.github.io/ai-tuesday-toolbox/">The AI Tuesday Toolbox</a> &bull; &#128218; The AI Kitchen 2.0 &bull; &#127916; Smart ISR Guide &bull; &#127891; AI Tutors &bull; &#128421; All WB AI tools &bull; &#128300; AI Research</p>
-    <p>The built-in courses were generated by an AI from public documents; every quote was checked against the text of the original at the page cited. The illustration and app icon were generated for this edition. Prompts use public information only unless you are inside the Bank's own tools.</p>
+    <p><b>About AI Tuesday.</b> An informal weekly dose of AI insights for colleagues across LAC, People, Poverty and Infrastructure, plus hundreds of subscribers with excellent taste. We are not part of the World Bank's IT or AI department: for actual support, wbgcopilot@worldbankgroup.org or ai@worldbankgroup.org.</p>
+    <p>&#129520; <a href="https://ezequielmolina-lang.github.io/ai-tuesday-toolbox/">The AI Tuesday Toolbox</a> &bull; &#128218; The AI Kitchen 2.0 &bull; &#127916; Smart ISR Guide &bull; &#127891; AI Tutors. The built-in courses were generated by an AI from public documents; every quote was checked against the original page. Prompts use public information only unless you are inside the Bank's own tools.</p>
   </div>
 </div>
 </body>
