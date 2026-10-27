@@ -1,0 +1,277 @@
+{
+  "id": "regions",
+  "title": "Five regions, five mornings: the October 2026 AI updates",
+  "subtitle": "All five regional Economic Updates of October 2026 took AI as their theme. One finding per region, so you can quote your own report and the neighbours' too.",
+  "emoji": "🗺️",
+  "color": "#8a3b12",
+  "source": {
+    "name": "World Bank regional Economic Updates, October 2026 (East Asia and Pacific, South Asia, Europe and Central Asia, Latin America and the Caribbean, Africa)",
+    "url": "https://openknowledge.worldbank.org/",
+    "pages": 0
+  },
+  "made_with": "Drafted by an AI from the five PDFs, then edited; every number and quote was checked against the PDF text with a phrase search on the page cited, counted from the cover.",
+  "audience": "Bank staff who will be asked what their region's update says about AI, and want the other four in their pocket too",
+  "days": [
+    {
+      "n": 1,
+      "title": "East Asia: making AI, barely using it",
+      "hook": "The region that manufactures the AI boom gets an export windfall. Inside its own firms, the Bank's new survey finds a 12 percent adoption rate.",
+      "lesson": "<p>The <a href=\"https://hdl.handle.net/10986/45545\" target=\"_blank\" rel=\"noopener\">East Asia and Pacific Economic Update, Riding the AI Wave</a>, is the most upbeat of the five regional updates. Growth is expected to average 4.4 percent a year in 2026 to 2028, lifted by a global surge in the production of AI-related goods in the countries that make them.</p><p>The gap shows in the new AI module of the World Bank Enterprise Surveys. In Thailand, 12 percent of firms report using any AI technology and 4 percent pay for it, against 43 and 23 percent in the United States, and 23 and 4 percent in India. Nearly 80 percent of Thai firms expect near-zero productivity gains from faster AI development. The barriers they name are not exotic: lack of relevant knowledge, and cost. The report's reading is that for most Thai firms the expected benefits do not yet outweigh the cost of adopting.</p><p>Two more numbers worth keeping. Only about 13 percent of AI-exposed jobs in the region involve non-routine cognitive tasks, against 39 percent in advanced economies, so the near-term risk of displacement is lower, and so are the gains. And where firms do hire for AI, they hire bundles: analytical skills such as mathematics and critical thinking, and social skills such as communication and collaboration, are 6 to 16 times more likely to appear in postings that require AI skills than in postings generally.</p><p>The risk the report flags is the mirror of the boom: growth that rides AI hardware demand is exposed if that demand slows or reverses. The policy answer is unglamorous, electricity, skills and small AI tools adapted locally, and it argues these pay off whether or not the wave continues.</p>",
+      "quote": {
+        "text": "The influence of AI is unmistakable in the region's industrial sector, but it is less apparent in the rest of the economy.",
+        "where": "East Asia and Pacific Economic Update, October 2026, Executive Summary (PDF page 15)"
+      },
+      "question": {
+        "q": "In the Bank's new firm survey, what share of Thai firms pay for AI software or a subscription?",
+        "options": [
+          "4 percent",
+          "12 percent",
+          "23 percent",
+          "43 percent"
+        ],
+        "answer": 0,
+        "explain": "Chapter 2 (PDF page 81): 12 percent of Thai firms use any AI technology and 4 percent pay for it, against 43 and 23 percent in the United States. Most Thai firms expect no productivity gain from it, and name lack of knowledge and cost as the reasons."
+      },
+      "do": "Ask one client firm or agency you work with whether it pays for any AI tool, as opposed to someone using a free chat window. The answer sorts it into the 4 percent or the 12.",
+      "figure": {
+        "bars": [
+          {
+            "label": "Thailand, use",
+            "value": 12
+          },
+          {
+            "label": "Thailand, pay",
+            "value": 4
+          },
+          {
+            "label": "US, use",
+            "value": 43
+          },
+          {
+            "label": "US, pay",
+            "value": 23
+          }
+        ],
+        "prefix": "",
+        "suffix": "%",
+        "big": "",
+        "caption": "Share of formal firms that use any AI technology, and that pay for AI software or a subscription, Thailand against the United States, 2025 to 2026.",
+        "where": "Chapter 2, PDF page 81, and figure 2.5, PDF page 82 (World Bank Enterprise Surveys AI Module 2025-26)",
+        "unit": "Percent of firms",
+        "note": "India: 23 percent use AI, 4 percent pay for it."
+      },
+      "cover": {
+        "src": "img/cover_eap.jpg",
+        "alt": "Cover of the East Asia and Pacific Economic Update, October 2026, Riding the AI Wave"
+      }
+    },
+    {
+      "n": 2,
+      "title": "South Asia: the teacher beat the app",
+      "hook": "The Bank ran a randomized trial in Quetta with an AI app helping teachers. The teachers without it did better. The report prints the result.",
+      "lesson": "<p>The <a href=\"https://hdl.handle.net/10986/45547\" target=\"_blank\" rel=\"noopener\">South Asia Economic Update, Adopting AI for Growth</a>, has the region growing 6.8 percent a year in 2026 and 2027, the fastest of any developing region, and gives its second chapter to AI. The firm story matches East Asia's: 23.4 percent of Indian firms use some form of AI against 42.7 percent in the United States, only 3.5 percent of Indian firms pay for it against 23.1, and on an index of how deeply AI is embedded, Indian firms average 0.27 against 0.85.</p><p>The finding to carry into a project meeting is the trial. In January and February 2026, in 30 public schools in Quetta, Balochistan, students in grades 2 to 5 were randomly assigned to a control group, a six-week teacher-led winter school with targeted instruction, or the same winter school with an AI app that generated differentiated lesson plans, wrote assessments, graded work and coached teachers from classroom audio. Only the teacher touched the app.</p><p>The control group lost 0.11 standard deviations over the winter break. The teacher-led arm gained 0.10, enough to offset the loss and still there ten weeks after the school ended. The AI-assisted arm gained 0.05, not statistically different from zero. Attendance averaged 26.3 percent, and students who came at least 40 percent of the days gained 0.26 in either arm. The results are preliminary, and the report's own reading is that the promise of AI in public service delivery is clearer in principle than in practice when school systems lack the basics.</p><p>One trial, one app, one province. It does not say AI cannot help teachers. It says the binding constraint in that classroom was attendance and instruction, and an app did not move either.</p>",
+      "quote": {
+        "text": "the results of a randomized trial of an AI-assisted teaching tool suggest that the promise of AI in public service delivery is clearer in principle than in practice when school systems lack the basics",
+        "where": "South Asia Economic Update, October 2026, Chapter 2, Main findings (PDF page 70)"
+      },
+      "question": {
+        "q": "In the Quetta winter school trial, how did the arm where an AI app assisted teachers compare with the plain teacher-led arm?",
+        "options": [
+          "It gained about twice as much",
+          "About the same, both significant",
+          "Half as much, and not distinguishable from zero",
+          "Students in the AI arm lost ground"
+        ],
+        "answer": 2,
+        "explain": "Chapter 2 (PDF page 83): the teacher-led arm improved test scores by 0.10 standard deviations, a significant effect; the AI-assisted arm's estimate was 0.05 and not statistically significant. Attendance in both arms averaged 26.3 percent, and the students who came at least 40 percent of the time gained 0.26 in either arm."
+      },
+      "do": "If a project you touch has an AI component for teachers or health workers, write down the one outcome it must move and the one thing that could stop it (in Quetta, attendance). Then check whether the design measures both.",
+      "figure": {
+        "bars": [
+          {
+            "label": "Control, break",
+            "value": -0.11
+          },
+          {
+            "label": "Teacher-led",
+            "value": 0.1
+          },
+          {
+            "label": "AI-assisted",
+            "value": 0.05
+          },
+          {
+            "label": "Attended 40%+",
+            "value": 0.26
+          }
+        ],
+        "prefix": "",
+        "suffix": "",
+        "big": "",
+        "caption": "Quetta winter school trial, grades 2 to 5: change in a combined Urdu, maths and English score. The AI-assisted arm's 0.05 is not statistically different from zero; the last bar is students in either arm who attended at least 40 percent of days.",
+        "where": "Chapter 2, PDF page 83, and figure 2.11 (Asad et al. 2026, preliminary results)",
+        "unit": "Standard deviations in test scores",
+        "note": "SD means standard deviations, the unit researchers use to compare different tests."
+      },
+      "cover": {
+        "src": "img/cover_sar.jpg",
+        "alt": "Cover of the South Asia Economic Update, October 2026, Adopting AI for Growth"
+      }
+    },
+    {
+      "n": 3,
+      "title": "Europe and Central Asia: exposed, not using",
+      "hook": "One in five workers in the region sits in a job AI could reach. Fewer than one in ten firms use it. The gap is the report.",
+      "lesson": "<p>The <a href=\"https://hdl.handle.net/10986/45622\" target=\"_blank\" rel=\"noopener\">Europe and Central Asia Economic Update, Making AI Work: Jobs, Firms, and Productivity</a>, is the most worried of the five. Growth slows to 2.2 percent in 2026, productivity has slowed for two decades, and the working-age population is set to contract sharply in most of the region by 2060. AI is one of the few technologies that raises output per worker without more workers. The report's fear is that the region will get too little of it.</p><p>Exposure is real and lopsided. Around a fifth of the workforce holds jobs meaningfully exposed to generative AI. Among employed people with less than secondary education, 7 percent are moderately or highly exposed; among those with tertiary education, 34 percent. Workers aged 25 to 34 are the most exposed (27 percent), those 55 to 64 the least (17 percent), and women slightly more than men. That inverts the usual story in which technology hits the least skilled first. The jobs best suited to older workers are also among the most exposed, which the report calls an inclusivity paradox.</p><p>Use lags exposure. Fewer than one in ten firms in western ECA report using AI, against roughly one in five in the EU-27, and most use is shallow: chatbots, back-office support, document drafting that goes from two weeks to a couple of hours. Data center capacity is 2.1 megawatts per million people against 31.6 in high-income countries.</p><p>The constraint the report lands on is not technical. STEM graduates are plentiful; managers who can redesign a workflow are scarce, and usable data sits siloed inside firms. Its policy line is blunt: adopt and adapt, use small AI in local languages, and do not confuse that with building a national model.</p>",
+      "quote": {
+        "text": "Firms in Warsaw, Istanbul, and Astana are running generative models through their design, customer service, and back-office functions, but across the region as a whole, the technology remains something most workers are exposed to rather than use.",
+        "where": "Europe and Central Asia Economic Update, October 2026, Chapter 2, opening paragraph (PDF page 51)"
+      },
+      "question": {
+        "q": "In Europe and Central Asia, what share of employed people with tertiary education are in jobs moderately or highly exposed to AI? (For those with less than secondary education it is 7 percent.)",
+        "options": [
+          "About 12 percent",
+          "About 20 percent",
+          "About 34 percent",
+          "About 60 percent"
+        ],
+        "answer": 2,
+        "explain": "Figure 2.4 and the text below it (PDF page 56): 7 percent of workers with less than secondary education and about 34 percent of those with tertiary education are exposed. The regional average is around a fifth. Exposure also peaks at ages 25 to 34 and is slightly higher for women than for men."
+      },
+      "do": "List the three most AI-exposed roles in your own unit by the report's logic: desk-based, cognitive, degree-holding. Then check whether any of them uses an AI tool for more than a first draft. That gap is the one the report is about.",
+      "figure": {
+        "bars": [
+          {
+            "label": "Below secondary",
+            "value": 7
+          },
+          {
+            "label": "Tertiary",
+            "value": 34
+          },
+          {
+            "label": "25 to 34 years",
+            "value": 27
+          },
+          {
+            "label": "55 to 64 years",
+            "value": 17
+          }
+        ],
+        "prefix": "",
+        "suffix": "%",
+        "big": "",
+        "caption": "Share of employed people in jobs moderately or highly exposed to generative AI in Europe and Central Asia, by education and by age.",
+        "where": "Chapter 2, figure 2.4 and the paragraph below it, PDF page 56",
+        "unit": "Percent of the workforce exposed",
+        "note": "Women 25 percent, men 21 percent. Regional average around a fifth."
+      },
+      "cover": {
+        "src": "img/cover_eca.jpg",
+        "alt": "Cover of the Europe and Central Asia Economic Update, October 2026, Making AI Work"
+      }
+    },
+    {
+      "n": 4,
+      "title": "Latin America: beyond the screen",
+      "hook": "The LAC report refuses the comfortable idea that manual and informal jobs are safe from AI. Its word for that safety is underdevelopment.",
+      "lesson": "<p>The <a href=\"https://hdl.handle.net/10986/45623\" target=\"_blank\" rel=\"noopener\">Latin America and the Caribbean Economic Update, Harnessing the AI Transition</a>, forecasts 2.2 percent growth for 2026 and then argues that the region's binding constraint on AI is not access to frontier models but absorptive capacity: informality, delayed mechanization, and thin managerial and human capital.</p><p>Its best idea is a taxonomy. Most AI debate suffers from what it calls screen bias: AI is treated as software for cognitive work, so a region where 78.1 percent of the workforce handles physical things looks safe. The report sorts 436 occupations by what would actually stop a firm with unlimited software and robotics from automating them. In the intangible economy, 8.4 percent of workers are high-skill cognitive roles that generative AI augments, and 9.5 percent are routine information processors (bank tellers, call centre clerks) exposed to automation now. In the tangible economy, 26.8 percent are routine manual or transactional jobs in structured settings that cheaper robotics will reach next. A further 19.7 percent, street vendors, domestic workers, gig workers, are what it calls fragile endurance: protected only because their wages are too low for a robot to pay off.</p><p>At the firm level the pattern is broad but shallow: AI for drafting and search, not for core processes, and the barrier is knowledge rather than cost. A worker survey cited in the chapter finds that more than four in ten digitally connected workers cannot write a prompt an AI can act on. Powerful model, vague instruction, bad output: Kremer's O-ring, now in a spreadsheet.</p><p>The policy ask is specific: governments as anchor clients with working data systems, extension services for small firms, and retraining aimed at the trades and the human edge before the physical shock arrives.</p>",
+      "quote": {
+        "text": "LAC's workforce is not protected by a structural comparative advantage; rather, it is temporarily buffered by underdevelopment.",
+        "where": "Latin America and the Caribbean Economic Update, October 2026, Chapter 2, Beyond the Screen (PDF page 64)"
+      },
+      "question": {
+        "q": "In the LAC report's taxonomy, what share of the region's workforce is in fragile endurance jobs, such as street vending or domestic work, protected from automation only by low wages?",
+        "options": [
+          "About 5 percent",
+          "About 10 percent",
+          "Nearly 20 percent",
+          "Over 40 percent"
+        ],
+        "answer": 2,
+        "explain": "Figure 2.8 (PDF page 66) and the text on PDF page 65: 19.7 percent of LAC's workforce. The report's warning is that these jobs survive because deploying robots is not worth it at local wages, and that reading this as resilience is a dangerous illusion."
+      },
+      "do": "Take one occupation your project's beneficiaries hold and place it in one of the report's boxes: GenAI augmentation, GenAI automation, routine displacement, fragile endurance, trades, human edge. If it lands in fragile endurance, the skills component has a destination to aim at.",
+      "figure": {
+        "bars": [
+          {
+            "label": "GenAI boost",
+            "value": 8.4
+          },
+          {
+            "label": "GenAI automation",
+            "value": 9.5
+          },
+          {
+            "label": "Routine displacement",
+            "value": 26.8
+          },
+          {
+            "label": "Fragile endurance",
+            "value": 19.7
+          }
+        ],
+        "prefix": "",
+        "suffix": "%",
+        "big": "",
+        "caption": "Share of LAC's workforce in four exposure groups of the report's taxonomy. The resilient rest: 21.2 percent in skilled trades and 10.4 percent in human-edge jobs.",
+        "where": "Chapter 2, figure 2.8, PDF page 66; definitions on PDF pages 64 and 65",
+        "unit": "Percent of employment",
+        "note": "United States for comparison: 23.7 percent augmented, 20.1 percent in routine displacement."
+      },
+      "cover": {
+        "src": "img/cover_lac.jpg",
+        "alt": "Cover of the Latin America and the Caribbean Economic Update, October 2026, Harnessing the AI Transition"
+      }
+    },
+    {
+      "n": 5,
+      "title": "Africa: 18 percent of people, 0.6 of compute",
+      "hook": "The Africa update puts the readiness gap in three shares of the world: people, data centers, training data.",
+      "lesson": "<p>The <a href=\"https://hdl.handle.net/10986/45620\" target=\"_blank\" rel=\"noopener\">Africa Economic Update, Building AI Readiness</a>, raises the region's 2026 growth forecast to 4.3 percent and then spends its special section on foundations. Africa has nearly 18 percent of the world's population, 0.6 percent of global data center capacity, and about 2 percent of global AI training data. Only 5 percent of African data centers are AI-ready. Hugging Face lists 710 data sets tagged Swahili against 88,844 tagged English, one for every 125.</p><p>Use is early and uneven. In the first quarter of 2026 the share of working-age adults using generative AI ranged from 7.2 percent in Rwanda to 23.1 percent in South Africa, with 16 countries below 10 percent. Governments are shallower still: of the AI systems found in procurement records, 90.8 percent served internal functions and 1.4 percent used generative AI, and only three of 15 digital agencies surveyed had given civil servants an enterprise generative AI licence.</p><p>Two findings matter for how we design. Near-term automation risk is low, 2.6 percent of jobs against 14.2 percent in high-income economies, while augmentation potential is 15.2 percent, but only where people are connected: in Mali, 1.2 percent of workers are both in an exposed job and able to reach AI. And a simulation for Ghana finds that broadly shared AI gains lift three times as many people out of poverty as gains concentrated among households already able to use it.</p><p>The report's practical examples are small: an SMS literacy tool in Kenya, a farm advisory chatbot in 27 languages. Its policy question is not coverage. It is whether a poor household can afford a device, keep it charged, get a reliable signal, and find something in its language worth using.</p>",
+      "quote": {
+        "text": "The decisive policy question is not how many people can be covered by a nominal network signal, but how many poor households can afford a suitable device, keep it charged, obtain reliable high-speed service, and use locally relevant AI applications.",
+        "where": "Africa Economic Update, October 2026, Section 1, AI and poverty (PDF page 41)"
+      },
+      "question": {
+        "q": "Africa has nearly 18 percent of the world's population. What share of global data center capacity does it host?",
+        "options": [
+          "0.6 percent",
+          "2 percent",
+          "5 percent",
+          "12 percent"
+        ],
+        "answer": 0,
+        "explain": "Section 2 (PDF page 87): 18 percent of people, 0.6 percent of data center capacity, and only 5 percent of the continent's data centers can run advanced AI workloads (PDF page 88). About 2 percent of global AI training data come from Africa (PDF page 89)."
+      },
+      "do": "Open the AI tool you use most and ask it one work question in a language your clients speak at home, not in English or Spanish. Judge the answer as they would. That is the training-data gap in one minute.",
+      "figure": {
+        "bars": [
+          {
+            "label": "World population",
+            "value": 18
+          },
+          {
+            "label": "Data center capacity",
+            "value": 0.6
+          },
+          {
+            "label": "AI training data",
+            "value": 2
+          }
+        ],
+        "prefix": "",
+        "suffix": "%",
+        "big": "0.6%",
+        "caption": "Africa's share of the world: people, data center capacity, and the data AI models are trained on.",
+        "where": "Section 2, PDF pages 87 and 89; Executive Summary, PDF page 16",
+        "unit": "Percent of the world total",
+        "note": "Only 5 percent of African data centers are AI-ready."
+      },
+      "cover": {
+        "src": "img/cover_afr.jpg",
+        "alt": "Cover of the Africa Economic Update, October 2026, Building AI Readiness"
+      }
+    }
+  ]
+}

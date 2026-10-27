@@ -106,7 +106,7 @@ details .acciones { margin-top:8px; }
 
 <script>
 const $ = id => document.getElementById(id);
-const BUILTIN = ['wdr', 'evidence'];
+const BUILTIN = ['wdr', 'evidence', 'regions'];
 let courses = {}, cur = null, curDay = null, page = 0, view = 'lib';
 const LS = { get(k, d){ try { const v = localStorage.getItem('fm-'+k); return v==null? d : JSON.parse(v); } catch(e){ return d; } }, set(k,v){ try { localStorage.setItem('fm-'+k, JSON.stringify(v)); } catch(e){} }, del(k){ try { localStorage.removeItem('fm-'+k); } catch(e){} } };
 let tt; function toast(m){ const el=$('toast'); el.textContent=m; el.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>el.classList.remove('show'),2600); }
