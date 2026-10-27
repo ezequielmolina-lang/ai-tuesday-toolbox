@@ -4,7 +4,11 @@
   "subtitle": "One payroll dataset, two field experiments, two classroom trials and Ethan Mollick, so you can stop quoting LinkedIn in the team meeting",
   "emoji": "📊",
   "color": "#0b6e4f",
-  "source": {"name": "five public sources, linked in each lesson", "url": "", "pages": 0},
+  "source": {
+    "name": "five public sources, linked in each lesson",
+    "url": "",
+    "pages": 0
+  },
   "made_with": "Drafted by an AI from the sources themselves, then edited; every number and quote was checked against the original paper or page, with the link in the lesson.",
   "audience": "anyone who gets asked \"so is AI going to take the jobs?\" at dinner",
   "days": [
@@ -13,45 +17,217 @@
       "title": "The canaries: who is not being hired",
       "hook": "The most quoted labour paper of the AI era was revised in August 2026 with a year more of payroll data. Here is what it actually says.",
       "lesson": "<p><a href=\"https://digitaleconomy.stanford.edu/publications/canaries-in-the-coal-mine/\" target=\"_blank\" rel=\"noopener\">Canaries in the Coal Mine?</a> by Erik Brynjolfsson, Bharat Chandar and Ruyu Chen at the Stanford Digital Economy Lab uses administrative payroll data from ADP covering millions of US workers, now through June 2026. Six facts carry the paper. There is no evidence of widespread, economy-wide job displacement. Employment of 22 to 25 year olds in the occupations most exposed to AI stands 19 percent below where it would be had it kept pace with their less-exposed peers, and experienced workers show no comparable gap. That divergence has widened steadily since the authors first documented it in August 2025. It works through reduced hiring of young people, not through layoffs. It is concentrated where AI is used to substitute for human tasks; where AI complements workers, employment is flat or rising, especially for experienced staff. And the adjustment happens through jobs, not through base pay.</p><p>You have probably seen 13 percent quoted. The two numbers are not the same measure: 13 was a regression estimate on July 2025 data; the revision reports a plain kept-pace gap, which was 15 percent at that vintage and 19 percent by June 2026. If you cite the paper, cite the measure.</p><p>The authors are careful about what this is: early, descriptive indicators, not a verdict. The patterns weaken when you control for education, some trends predate generative AI, and the ADP sample shows them more sharply than national surveys do. That honesty is the part worth copying.</p><p>For our clients the lesson is about where to look. Headcount in a ministry will not move first. The next cohort of hires, and the tasks they are no longer asked to do, will.</p>",
-      "quote": {"text": "employment of young workers in AI-exposed occupations stands 19% below where it would be had it kept pace with that of their less-exposed peers, with no comparable gap for experienced workers", "where": "Brynjolfsson, Chandar and Chen, Canaries in the Coal Mine?, August 2026 version, introduction (fact 2 of six)"},
-      "question": {"q": "Through which channel does the paper say the gap for young workers mostly operates?", "options": ["Layoffs of young workers", "Reduced hiring of young workers", "Lower starting salaries", "Fewer hours per week"], "answer": 1, "explain": "Fact 4 in the paper: the divergence operates primarily through reduced hiring rather than increased separations, and fact 6 adds that adjustment happens through employment, not base compensation. Layoffs make the news; the empty desk that was never filled does not."},
-      "do": "Think of the last three junior hires in your unit, or the ones that did not happen. Write one line on which of their tasks an AI now does. That is your own canary."
+      "quote": {
+        "text": "employment of young workers in AI-exposed occupations stands 19% below where it would be had it kept pace with that of their less-exposed peers, with no comparable gap for experienced workers",
+        "where": "Brynjolfsson, Chandar and Chen, Canaries in the Coal Mine?, August 2026 version, introduction (fact 2 of six)"
+      },
+      "question": {
+        "q": "Through which channel does the paper say the gap for young workers mostly operates?",
+        "options": [
+          "Layoffs of young workers",
+          "Reduced hiring of young workers",
+          "Lower starting salaries",
+          "Fewer hours per week"
+        ],
+        "answer": 1,
+        "explain": "Fact 4 in the paper: the divergence operates primarily through reduced hiring rather than increased separations, and fact 6 adds that adjustment happens through employment, not base compensation. Layoffs make the news; the empty desk that was never filled does not."
+      },
+      "do": "Think of the last three junior hires in your unit, or the ones that did not happen. Write one line on which of their tasks an AI now does. That is your own canary.",
+      "figure": {
+        "bars": [
+          {
+            "label": "July 2025 data",
+            "value": -15
+          },
+          {
+            "label": "June 2026 data",
+            "value": -19
+          }
+        ],
+        "suffix": "%",
+        "big": "",
+        "caption": "Employment of workers aged 22 to 25 in AI-exposed jobs, relative to where it would be had it kept pace with less-exposed peers. The gap widened in a year.",
+        "where": "Brynjolfsson, Chandar and Chen, Canaries in the Coal Mine?, August 2026 version, introduction (PDF page 3)",
+        "unit": "Kept-pace shortfall, percent",
+        "note": "Experienced workers show no comparable gap.",
+        "prefix": ""
+      }
     },
     {
       "n": 2,
       "title": "The jagged frontier: 758 consultants",
       "hook": "A randomized experiment at BCG explains most of what you have felt using these tools: brilliant on one task, fluently wrong on the next.",
       "lesson": "<p>In 2023, Fabrizio Dell'Acqua, Ethan Mollick, Karim Lakhani and colleagues ran a preregistered experiment with 758 consultants at Boston Consulting Group (<a href=\"https://www.hbs.edu/faculty/Pages/item.aspx?num=64700\" target=\"_blank\" rel=\"noopener\">Navigating the Jagged Technological Frontier</a>, Harvard Business School Working Paper 24-013). After a baseline, people were randomly assigned to no AI, GPT-4, or GPT-4 plus a short prompting overview, and then given realistic consulting tasks.</p><p>On 18 tasks inside what the AI could do well, from creative to analytical, consultants with GPT-4 completed 12.2 percent more tasks, finished them 25.1 percent faster and produced work of significantly higher quality. On one complex managerial task chosen to sit outside that boundary, the AI users were 19 percent less likely to produce the correct answer than the people without it. The authors called the boundary the jagged frontier: AI is excellent and poor at tasks that look equally hard to a human, and the line does not run where you would guess.</p><p>Two details matter for an office like ours. The gains were largest for the consultants who had scored lowest at baseline, so the tool compressed the gap between the best and the rest. And the prompting overview helped little; what helped was knowing which side of the line a task was on, which you only learn by checking the AI's work on tasks where you already know the answer.</p><p>The practical rule is unglamorous. Inside the frontier, delegate and verify lightly. Outside it, the same tool makes a fluent, well-formatted mistake, and fluency is exactly what you are not checking for.</p>",
-      "quote": {"text": "for a complex managerial task selected to be outside the frontier, subjects using AI were 19% less likely to produce correct solutions compared with those without AI", "where": "Dell'Acqua et al., Navigating the Jagged Technological Frontier, HBS Working Paper 24-013 (2023), abstract"},
-      "question": {"q": "In the BCG experiment, what happened on the task chosen to sit outside the AI's frontier?", "options": ["AI users were 19 percent less likely to be right", "AI users were 12.2 percent faster but no more accurate", "AI users and non-users did equally well", "AI users produced higher quality but took longer"], "answer": 0, "explain": "The abstract reports that on the task outside the frontier, subjects using AI were 19 percent less likely to produce correct solutions. The 12.2 percent (more tasks) and 25.1 percent (faster) figures are the gains on the 18 tasks inside the frontier. Same tool, same people, opposite result: that is the jagged line."},
-      "do": "Pick two tasks on your list today: one you are sure AI does well (a summary, a first draft) and one you are not sure about (a judgment call on a counterpart). Hand only the first to AI. Check the second against your own answer before you believe it."
+      "quote": {
+        "text": "for a complex managerial task selected to be outside the frontier, subjects using AI were 19% less likely to produce correct solutions compared with those without AI",
+        "where": "Dell'Acqua et al., Navigating the Jagged Technological Frontier, HBS Working Paper 24-013 (2023), abstract"
+      },
+      "question": {
+        "q": "In the BCG experiment, what happened on the task chosen to sit outside the AI's frontier?",
+        "options": [
+          "AI users were 19 percent less likely to be right",
+          "AI users were 12.2 percent faster but no more accurate",
+          "AI users and non-users did equally well",
+          "AI users produced higher quality but took longer"
+        ],
+        "answer": 0,
+        "explain": "The abstract reports that on the task outside the frontier, subjects using AI were 19 percent less likely to produce correct solutions. The 12.2 percent (more tasks) and 25.1 percent (faster) figures are the gains on the 18 tasks inside the frontier. Same tool, same people, opposite result: that is the jagged line."
+      },
+      "do": "Pick two tasks on your list today: one you are sure AI does well (a summary, a first draft) and one you are not sure about (a judgment call on a counterpart). Hand only the first to AI. Check the second against your own answer before you believe it.",
+      "figure": {
+        "bars": [
+          {
+            "label": "Tasks completed",
+            "value": 12.2
+          },
+          {
+            "label": "Speed",
+            "value": 25.1
+          },
+          {
+            "label": "Correct, outside the frontier",
+            "value": -19
+          }
+        ],
+        "suffix": "%",
+        "big": "",
+        "caption": "Consultants with GPT-4 against consultants without it: better and faster on 18 tasks inside the frontier, less often right on the one task outside it.",
+        "where": "Dell'Acqua et al., Navigating the Jagged Technological Frontier, HBS Working Paper 24-013 (2023), abstract",
+        "unit": "Difference from the no-AI group, percent",
+        "note": "",
+        "prefix": ""
+      }
     },
     {
       "n": 3,
       "title": "The cybernetic teammate: 776 at P&G",
       "hook": "The same team went to Procter and Gamble in 2025 and asked a different question: can one person with AI do the work of a pair?",
       "lesson": "<p>In <a href=\"https://www.nber.org/papers/w33641\" target=\"_blank\" rel=\"noopener\">The Cybernetic Teammate</a> (NBER Working Paper 33641, 2025), Dell'Acqua, Mollick, Lakhani and colleagues ran a preregistered field experiment with 776 professionals at Procter and Gamble. People worked on real product innovation challenges, randomly assigned to work alone or in pairs, with or without AI. The pairs mixed the two tribes every company has: R&amp;D and Commercial.</p><p>The headline: individuals with AI matched the performance of two-person teams without it. Teams with AI did better still. AI also dissolved the silos. Without it, R&amp;D people proposed technical solutions and commercial people proposed commercial ones; with it, both produced balanced proposals regardless of their background. And people working with AI reported more positive emotions, which the authors read as the tool taking on part of the social and motivational role a teammate usually plays. Anyone who has written an aide-memoire alone at 11 pm will recognize the finding.</p><p>Put Morning 2 and Morning 3 together. Inside the frontier, one person with AI is a pair, and the pair with AI is a better pair. Outside it, the same person is fluent and wrong. The experiments do not tell you where the line is for your work; nobody can, because it moves with every model release. They tell you that the line exists and that the cost of not knowing where it is falls on the hardest task of the week, not the easiest.</p><p>What they do not say is as important: this is one session of work per participant, not a year of a reorganized office, and the P&amp;G problems were ones the company had already framed. The jump from \"a person with AI equals a pair\" to \"halve the team\" is yours, not the paper's.</p>",
-      "quote": {"text": "individuals with AI matched the performance of teams without AI, demonstrating that AI can effectively replicate certain benefits of human collaboration", "where": "Dell'Acqua et al., The Cybernetic Teammate, NBER Working Paper 33641 (2025), abstract"},
-      "question": {"q": "In the Procter and Gamble experiment, one person working with AI performed about as well as:", "options": ["A senior expert working alone", "Two people working together without AI", "Two people working together with AI", "Nobody: AI users did worse on every measure"], "answer": 1, "explain": "The NBER abstract states that individuals with AI matched the performance of teams without AI. Teams with AI did better still, and AI users across the board produced more balanced solutions and reported more positive emotions."},
-      "do": "Next time you draft something with a colleague from the other side of the house (economist and sector specialist, say), each of you run the problem through AI first and compare what it added. The silo finding is cheap to test."
+      "quote": {
+        "text": "individuals with AI matched the performance of teams without AI, demonstrating that AI can effectively replicate certain benefits of human collaboration",
+        "where": "Dell'Acqua et al., The Cybernetic Teammate, NBER Working Paper 33641 (2025), abstract"
+      },
+      "question": {
+        "q": "In the Procter and Gamble experiment, one person working with AI performed about as well as:",
+        "options": [
+          "A senior expert working alone",
+          "Two people working together without AI",
+          "Two people working together with AI",
+          "Nobody: AI users did worse on every measure"
+        ],
+        "answer": 1,
+        "explain": "The NBER abstract states that individuals with AI matched the performance of teams without AI. Teams with AI did better still, and AI users across the board produced more balanced solutions and reported more positive emotions."
+      },
+      "do": "Next time you draft something with a colleague from the other side of the house (economist and sector specialist, say), each of you run the problem through AI first and compare what it added. The silo finding is cheap to test.",
+      "figure": {
+        "bars": [
+          {
+            "label": "Team, no AI",
+            "value": 0.24
+          },
+          {
+            "label": "One person with AI",
+            "value": 0.37
+          },
+          {
+            "label": "Team with AI",
+            "value": 0.39
+          }
+        ],
+        "suffix": "",
+        "big": "",
+        "caption": "Quality of the solution, in standard deviations above one person working alone without AI. A person with AI is a pair; a pair with AI is a slightly better pair.",
+        "where": "Dell'Acqua et al., The Cybernetic Teammate, NBER Working Paper 33641 (2025), Table 2, PDF page 14",
+        "unit": "Standard deviations over individuals without AI",
+        "note": "SD means standard deviations, the unit researchers use to compare different tests.",
+        "prefix": ""
+      }
     },
     {
       "n": 4,
       "title": "In the classroom: crutch or tutor",
       "hook": "Two randomized trials from the EvidencIA base, one in Ankara and one in Benin City, show the same technology harming and helping learning. The difference was the design.",
       "lesson": "<p><a href=\"https://redevidencia.org/\" target=\"_blank\" rel=\"noopener\">EvidencIA</a> is an open base of studies on AI and learning, built by a network that the World Bank's education team is part of; each study is checked against the paper and rated by evidence level (level 1 means a verified randomized trial that measured learning on a test taken without AI). Two level 1 trials, read together, are the best short answer to \"does AI help people learn?\"</p><p>In Ankara, <a href=\"https://doi.org/10.1073/pnas.2422633122\" target=\"_blank\" rel=\"noopener\">Bastani and colleagues (PNAS, 2025)</a> randomized about 50 high school classes, 839 students, across four 90-minute maths sessions. Students with open access to GPT-4 during practice scored 48 percent higher on the practice problems. Then they sat a closed-book exam on the same topics at the end of the session and scored 17 percent lower than the students who had used textbooks and notes. A second arm, a GPT-4 tutor with the teacher's solutions that gave hints instead of answers, erased the harm but produced no gain on the exam. The authors' word for the first arm is crutch. The test was in the same session, so this is about what sticks in an afternoon, not a year.</p><p>In Benin City, <a href=\"https://documents.worldbank.org/curated/en/099548105192529324/pdf/IDU-c09f40d8-9ff8-42dc-b315-591157499be7.pdf\" target=\"_blank\" rel=\"noopener\">De Simone and colleagues (World Bank, 2025)</a> randomized 1,328 volunteer students in nine public schools. For six weeks, in pairs, after school, they used Microsoft Copilot as an English tutor with prompts the teachers had written so it would guide rather than answer, and trained teachers circulating in the room. English scores rose by 0.238 standard deviations on a curriculum test at the end, at about 48 dollars per student. The caveats are real: the treatment bundles extra time, supervision and AI, and 43 percent of students did not sit the final test, with more loss among controls. The authors are Bank colleagues, so the base says so next to the result.</p><p>Same technology, opposite outcomes. The variable was never the model. It was whether the design made the student do the thinking.</p>",
-      "quote": {"text": "Without guardrails, students attempt to use GPT-4 as a “crutch” during practice problem sessions, and subsequently perform worse on their own.", "where": "Bastani et al., Generative AI without guardrails can harm learning, PNAS 122(26), 2025, abstract"},
-      "question": {"q": "In the Ankara trial, students with open access to GPT-4 during practice did what on the closed-book exam at the end of the session?", "options": ["Scored 48 percent higher", "Scored about the same as the textbook group", "Scored 17 percent lower", "Did not sit the exam"], "answer": 2, "explain": "The 48 percent is the gain on the practice problems while the AI was open. On the unassisted exam the same students scored 17 percent below the control group. The tutor arm with hints instead of answers removed the harm but did not add a gain. Both numbers are in the paper's abstract and in the EvidencIA record."},
-      "do": "Open redevidencia.org/papers on your phone: fifty of these studies, one a day, same guess-first format as this course. Or ask your AI, with EvidencIA connected, one question about your own sector and see whether it answers with a study or with an opinion."
+      "quote": {
+        "text": "Without guardrails, students attempt to use GPT-4 as a “crutch” during practice problem sessions, and subsequently perform worse on their own.",
+        "where": "Bastani et al., Generative AI without guardrails can harm learning, PNAS 122(26), 2025, abstract"
+      },
+      "question": {
+        "q": "In the Ankara trial, students with open access to GPT-4 during practice did what on the closed-book exam at the end of the session?",
+        "options": [
+          "Scored 48 percent higher",
+          "Scored about the same as the textbook group",
+          "Scored 17 percent lower",
+          "Did not sit the exam"
+        ],
+        "answer": 2,
+        "explain": "The 48 percent is the gain on the practice problems while the AI was open. On the unassisted exam the same students scored 17 percent below the control group. The tutor arm with hints instead of answers removed the harm but did not add a gain. Both numbers are in the paper's abstract and in the EvidencIA record."
+      },
+      "do": "Open redevidencia.org/papers on your phone: fifty of these studies, one a day, same guess-first format as this course. Or ask your AI, with EvidencIA connected, one question about your own sector and see whether it answers with a study or with an opinion.",
+      "figure": {
+        "bars": [
+          {
+            "label": "Practice, GPT-4",
+            "value": 48
+          },
+          {
+            "label": "Practice, GPT Tutor",
+            "value": 127
+          },
+          {
+            "label": "Exam, GPT-4",
+            "value": -17
+          }
+        ],
+        "suffix": "%",
+        "big": "",
+        "caption": "Ankara high-school students against the no-AI class: big gains while the AI was there, a loss on the closed-book exam once it was gone. The tutor version erased the loss.",
+        "where": "Bastani et al., Generative AI without guardrails can harm learning, PNAS 122(26), 2025, abstract",
+        "unit": "Difference from the control class, percent",
+        "note": "",
+        "prefix": ""
+      }
     },
     {
       "n": 5,
       "title": "Mollick: the rules, and the new book",
       "hook": "One professor co-authored both experiments from Mornings 2 and 3, writes the clearest practical advice on all of this, and published his second book on 20 October.",
       "lesson": "<p>Ethan Mollick teaches at Wharton and writes the newsletter <a href=\"https://www.oneusefulthing.org/\" target=\"_blank\" rel=\"noopener\">One Useful Thing</a>. His 2024 book <b>Co-Intelligence</b> gave four rules that still hold. Always invite AI to the table: try it on everything, because you cannot know the frontier without testing it. Be the human in the loop: check, decide, take responsibility. Treat AI like a person, but tell it what kind of person it is: give it a role and context. And assume this is the worst AI you will ever use.</p><p>His <a href=\"https://www.oneusefulthing.org/p/a-guide-to-which-ai-to-use-in-the\" target=\"_blank\" rel=\"noopener\">guide of 18 February 2026</a> marks the shift from chatting to delegating. He has written eight of these guides since ChatGPT came out and calls this one a break with the past, because what it means to use AI has changed. Three pieces of advice travel well. Pay for a serious model if you use AI seriously, because the free models are optimized for chat rather than accuracy, and many of the errors people blame on AI come from them. Pick the advanced model yourself instead of leaving the app on automatic. And start with real work: upload a document you are actually working on, give the AI a very complex task, and have a back-and-forth. His own example of the new category of tools is Claude Cowork, which he describes as Claude Code for non-technical work; at the Bank the lane for internal documents is Copilot.</p><p>The new book, <b>Co-Existence</b> (Portfolio, 20 October 2026), is about working with AI that is sometimes, but not always, better than you, which is the jagged frontier from Morning 2 turned into a way of living with it.</p><p>The honest summary of this course fits in one line. The technology is uneven, the effects are early, and the people who do best are the ones who keep checking.</p>",
-      "quote": {"text": "I have written eight of these guides since ChatGPT came out, but this version represents a very large break with the past, because what it means to \"use AI\" has changed dramatically.", "where": "Ethan Mollick, A Guide to Which AI to Use in the Agentic Era, One Useful Thing, 18 February 2026, first paragraph"},
-      "question": {"q": "Which of these is NOT one of the four principles in Mollick's Co-Intelligence?", "options": ["Always invite AI to the table", "Be the human in the loop", "Never show AI anything internal", "Assume this is the worst AI you will ever use"], "answer": 2, "explain": "The four principles are: always invite AI to the table, be the human in the loop, treat AI like a person (but tell it what kind of person it is), and assume this is the worst AI you will ever use. Data rules are real, but they come from your institution, not from the book. At the Bank, internal documents go to Copilot, not to public chatbots."},
-      "do": "Do what the guide says: take one document you are actually working on today, give your AI a hard task on it, and go two rounds on the answer. If the document is internal, that means Copilot. Then come back to Five Mornings and build a course from it."
+      "quote": {
+        "text": "I have written eight of these guides since ChatGPT came out, but this version represents a very large break with the past, because what it means to \"use AI\" has changed dramatically.",
+        "where": "Ethan Mollick, A Guide to Which AI to Use in the Agentic Era, One Useful Thing, 18 February 2026, first paragraph"
+      },
+      "question": {
+        "q": "Which of these is NOT one of the four principles in Mollick's Co-Intelligence?",
+        "options": [
+          "Always invite AI to the table",
+          "Be the human in the loop",
+          "Never show AI anything internal",
+          "Assume this is the worst AI you will ever use"
+        ],
+        "answer": 2,
+        "explain": "The four principles are: always invite AI to the table, be the human in the loop, treat AI like a person (but tell it what kind of person it is), and assume this is the worst AI you will ever use. Data rules are real, but they come from your institution, not from the book. At the Bank, internal documents go to Copilot, not to public chatbots."
+      },
+      "do": "Do what the guide says: take one document you are actually working on today, give your AI a hard task on it, and go two rounds on the answer. If the document is internal, that means Copilot. Then come back to Five Mornings and build a course from it.",
+      "figure": {
+        "bars": [
+          {
+            "label": "Free model",
+            "value": 0
+          },
+          {
+            "label": "Serious use",
+            "value": 20
+          }
+        ],
+        "prefix": "$",
+        "big": "$20",
+        "caption": "Mollick's first piece of advice in the 2026 guide: if you use AI seriously, pay at least 20 dollars a month for an advanced model. The free ones are tuned for chat, not accuracy.",
+        "where": "Ethan Mollick, A Guide to Which AI to Use in the Agentic Era, One Useful Thing, 18 February 2026",
+        "unit": "US dollars a month",
+        "note": "At the Bank the paid model is already there: Copilot, for internal documents.",
+        "suffix": ""
+      }
     }
   ]
 }

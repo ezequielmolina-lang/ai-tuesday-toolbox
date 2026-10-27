@@ -45,6 +45,9 @@ body { background:#e9e9ee; color:var(--ink); font-family:var(--f-body); margin:0
 .cita { font-family:var(--f-display); font-weight:700; font-size:clamp(1.3rem, 5.6vw, 1.8rem); line-height:1.15; letter-spacing:-.01em; margin:0; }
 .cita::before { content:"\201C"; color:var(--tema); } .cita::after { content:"\201D"; color:var(--tema); }
 .origen { font-family:var(--f-mono); font-size:.7rem; letter-spacing:.03em; color:var(--ink-2); line-height:1.5; margin:0; }
+.cifra-grande { font-family:var(--f-display); font-weight:800; font-size:clamp(3rem, 14vw, 4.4rem); line-height:.9; letter-spacing:-.03em; color:var(--tema); margin:0; }
+.leyenda { font-size:.98rem; line-height:1.45; margin:0; font-weight:700; }
+.grafico { width:100%; height:auto; display:block; } svg text { font-family:var(--f-body); }
 .recuerda { background:var(--tema); color:var(--tema-tinta); padding:16px 18px; border-radius:6px; font-family:var(--f-display); font-weight:700; font-size:1.2rem; line-height:1.2; margin:0; }
 .recuerda small { display:block; font-family:var(--f-mono); font-weight:500; font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; opacity:.85; margin-bottom:6px; }
 .fuente { font-size:.88rem; color:var(--ink-2); line-height:1.6; border-top:1px solid var(--rule); padding-top:10px; }
@@ -159,6 +162,7 @@ function pagesFor(d){
   const half = Math.ceil(paras.length/2);
   const P = [];
   if (q) P.push({k:'q'}); P.push({k:'a'});
+  if (hasFig(d)) P.push({k:'fig'});
   P.push({k:'l', html: paras.slice(0, half).join('')}); if (paras.length > half) P.push({k:'l', html: paras.slice(half).join('')});
   if (d.quote && d.quote.text) P.push({k:'quote'});
   P.push({k:'do'});
@@ -180,6 +184,10 @@ function renderPage(){
   } else if (p.k==='a'){
     const ans = q ? `<p class="etiqueta">The answer</p><h2 class="respuesta"><mark>${esc(q.options[q.answer])}</mark></h2><p class="historia">${esc(q.explain||'')}</p>` : `<p class="etiqueta">Morning ${d.n}</p><h2 class="respuesta">${esc(d.title)}</h2>`;
     paint(Object.assign(common, { html:`${ans}<p class="nota">${esc(d.hook||'')}</p>`, abajo: nav(), onTap: tapNext }));
+  } else if (p.k==='fig'){
+    // "The number": the same page EvidencIA Papers gives every study. The chart is drawn from the figures in the JSON, so a number that is not in the file cannot appear here.
+    const f = d.figure;
+    paint(Object.assign(common, { html:`<p class="etiqueta">The number</p>${f.big ? `<p class="cifra-grande">${esc(f.big)}</p>` : ''}${barras(f)}<p class="leyenda">${esc(f.caption||'')}</p>${f.where ? `<p class="origen">${esc(f.where)}</p>` : ''}${f.note ? `<p class="nota">${esc(f.note)}</p>` : ''}`, abajo: nav(), onTap: tapNext }));
   } else if (p.k==='l'){
     paint(Object.assign(common, { html:`<p class="etiqueta">${esc(d.title)}</p><div class="historia">${p.html}</div>`, abajo: nav(), onTap: tapNext }));
   } else if (p.k==='quote'){
@@ -191,6 +199,29 @@ function renderPage(){
   }
 }
 function tapNext(e){ if (e.target.closest('a,button,input,textarea')) return; next(); }
+function hasFig(d){ return !!(d.figure && Array.isArray(d.figure.bars) && d.figure.bars.length >= 2); }
+function barras(f){
+  // Same bar chart as EvidencIA Papers: up to four bars, the course color first, values printed on top, labels cut to two short lines.
+  const bs = f.bars.slice(0,4), maxV = Math.max(...bs.map(b => Math.abs(b.value)), 1e-9);
+  const neg = bs.some(b => b.value < 0);
+  const W = 320, H = 210, w = (W - 20) / bs.length, top = 30, bottom = H - 46;
+  const cero = neg ? (top + bottom) / 2 : bottom, alto = neg ? (bottom - top) / 2 : bottom - top;
+  const pre = f.prefix || '', suf = f.suffix || '';
+  const valor = v => (v < 0 ? '−' : (neg && v > 0 ? '+' : '')) + pre + String(Math.abs(v)) + suf;
+  const lim = Math.max(10, Math.floor(w / 6.4));
+  const corte = (s, k) => { const out = ['', '']; let j = 0; for (const p of String(s).split(' ')){ if ((out[j] + ' ' + p).trim().length > lim && j === 0 && out[0]) j = 1; out[j] = (out[j] + ' ' + p).trim(); } return out[k].slice(0, lim + 4); };
+  const tema = (cur && cur.color) || '#2f4bff';
+  const tonos = [tema, '#0d0d12', '#9a9aa6', '#c9c9d2'];
+  const aria = bs.map(b => b.label + ' ' + valor(b.value)).join(', ');
+  return `<svg class="grafico" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(aria)}">
+    ${bs.map((b, k) => { const h = (Math.abs(b.value) / maxV) * alto; const cx = 10 + k * w + w / 2; const y = b.value >= 0 ? cero - h : cero; const ty = b.value >= 0 ? cero - h - 9 : cero + h + 20; return `
+      <rect x="${cx - w * 0.32}" y="${y}" width="${w * 0.64}" height="${Math.max(h, 2)}" fill="${tonos[k % 4]}"/>
+      <text x="${cx}" y="${ty}" text-anchor="middle" font-size="17" font-weight="700" fill="#0d0d12">${esc(valor(b.value))}</text>
+      <text x="${cx}" y="${H - 24}" text-anchor="middle" font-size="11.5" fill="#4a4a55">${esc(corte(b.label, 0))}</text>
+      <text x="${cx}" y="${H - 9}" text-anchor="middle" font-size="11.5" fill="#4a4a55">${esc(corte(b.label, 1))}</text>`; }).join('')}
+    <line x1="4" y1="${cero}" x2="${W - 4}" y2="${cero}" stroke="#0d0d12" stroke-width="1.5"/>
+  </svg>${f.unit ? `<p class="nota">${esc(f.unit)}</p>` : ''}`;
+}
 function prev(){ if (page>0){ page--; renderPage(); } }
 function next(){
   const P = pagesFor(cur.days[curDay]);
@@ -224,10 +255,10 @@ function downloadIcs(){
 }
 
 /* MAKE */
-const SCHEMA = `{"id":"short-slug","title":"Course title","subtitle":"one witty line","emoji":"one emoji","color":"#hex","source":{"name":"document title","url":"link or empty","pages":0},"made_with":"one line on how it was made","audience":"who it is for","days":[{"n":1,"title":"max 7 words","hook":"one sentence on why this morning matters","lesson":"plain text, 3 or 4 paragraphs separated by blank lines, 230 to 290 words, teaches the actual content","quote":{"text":"verbatim sentence from the document, 15 to 45 words","where":"section and page number"},"question":{"q":"one guess-first question","options":["...","...","...","..."],"answer":"A","explain":"2 or 3 sentences with the page reference"},"do":"one 2-minute action on the reader's own work"}]}`;
+const SCHEMA = `{"id":"short-slug","title":"Course title","subtitle":"one witty line","emoji":"one emoji","color":"#hex","source":{"name":"document title","url":"link or empty","pages":0},"made_with":"one line on how it was made","audience":"who it is for","days":[{"n":1,"title":"max 7 words","hook":"one sentence on why this morning matters","lesson":"plain text, 3 or 4 paragraphs separated by blank lines, 230 to 290 words, teaches the actual content","quote":{"text":"verbatim sentence from the document, 15 to 45 words","where":"section and page number"},"figure":{"bars":[{"label":"short label","value":12.3},{"label":"short label","value":4.5}],"prefix":"","suffix":"%","big":"optional headline number as text, or empty","caption":"one line saying what the bars measure","where":"table or figure name and page number","note":"one line of context, or empty"},"question":{"q":"one guess-first question","options":["...","...","...","..."],"answer":"A","explain":"2 or 3 sentences with the page reference"},"do":"one 2-minute action on the reader's own work"}]}`;
 function makePrompt(){
   const doc = (LS.get('mDoc','')||'').trim() || 'the attached document'; const who = (LS.get('mWho','')||'').trim() || 'a busy colleague who should know this document but has never read it fully';
-  return `Read the attached document in full: ${doc}. If no document is attached and you cannot open it, say so and stop; never write it from memory. Turn it into a five-day micro-course for ${who}. One lesson per day, about three minutes to read, that teaches the ACTUAL content (what it says, the numbers, the examples, the exceptions), not generalities. Rules: every quote must be verbatim from the document with the PDF page number I can check (count from the cover of the file, not the printed folio); every claim must come from the document, no outside knowledge; plain English, one dry line of humor per day at most; no dashes as punctuation; lessons are plain text with no markdown or HTML. Answer in this chat as text, not as a file. Return ONLY valid JSON (no markdown fences, no commentary before or after) in exactly this schema, with exactly 5 items in "days", exactly 4 options per question, and "answer" as the letter of the correct option:\n${SCHEMA}`;
+  return `Read the attached document in full: ${doc}. If no document is attached and you cannot open it, say so and stop; never write it from memory. Turn it into a five-day micro-course for ${who}. One lesson per day, about three minutes to read, that teaches the ACTUAL content (what it says, the numbers, the examples, the exceptions), not generalities. Rules: every quote must be verbatim from the document with the PDF page number I can check (count from the cover of the file, not the printed folio); every claim must come from the document, no outside knowledge; plain English, one dry line of humor per day at most; no dashes as punctuation; lessons are plain text with no markdown or HTML. Each day has a "figure": 2 to 4 numbers from the document that sit on the same scale (shares, amounts, years, scores), copied exactly, with the page where I can check them; if a day's content has no such numbers, set "figure" to null rather than inventing or mixing scales. Answer in this chat as text, not as a file. Return ONLY valid JSON (no markdown fences, no commentary before or after) in exactly this schema, with exactly 5 items in "days", exactly 4 options per question, and "answer" as the letter of the correct option:\n${SCHEMA}`;
 }
 function renderMake(){
   setTema('#0d0d12'); history.replaceState(null,'','#make');
@@ -257,6 +288,12 @@ function validate(c){
   c.days.forEach((d, i) => {
     if (!d.title || !d.lesson) throw new Error('Morning ' + (i+1) + ' has no title or no lesson. Ask the AI to resend that morning.');
     d.lesson = toParas(d.lesson); d.hook = d.hook||''; d.do = d.do||''; d.n = i+1;
+    const f = d.figure;
+    if (f && typeof f === 'object' && Array.isArray(f.bars)){
+      f.bars = f.bars.slice(0,4).map(b => ({label:String(b && b.label != null ? b.label : ''), value:Number(b && b.value)})).filter(b => isFinite(b.value));
+      ['prefix','suffix','big','caption','where','note','unit'].forEach(k => { f[k] = f[k] == null ? '' : String(f[k]); });
+      if (f.bars.length < 2){ d.figure = null; warns.push(`Morning ${i+1}: the figure had fewer than two numbers, so it is hidden.`); }
+    } else d.figure = null;
     const words = d.lesson.replace(/<[^>]+>/g,' ').split(/\s+/).filter(Boolean).length; if (words > 450) warns.push(`Morning ${i+1} is ${words} words; three minutes is the design.`);
     if (d.question && d.question.q && Array.isArray(d.question.options)){ d.question.options = d.question.options.slice(0,4).map(String); d.question.answer = normAnswer(d.question.answer, d.question.options.length);
       if (d.question.answer < 0 || d.question.answer >= d.question.options.length){ warns.push(`Morning ${i+1}: the answer did not match an option, so the question is hidden.`); d.question = null; } }

@@ -32,7 +32,30 @@
         "answer": 2,
         "explain": "The overview (PDF pages 38 and 58) reports that more than 80 countries had published national AI strategies by June 2026, but among the 25 low-income countries only Rwanda had done so, against more than half of high-income countries. The common confusion is to count strategies in preparation, which the report's map shows separately."
       },
-      "do": "Open the project or strategy document you are working on and ask your AI assistant to find the paragraph that says which pathway it funds: adopting existing AI tools, adapting them to local data and languages, or advancing new models. If no paragraph says so, that is your finding."
+      "do": "Open the project or strategy document you are working on and ask your AI assistant to find the paragraph that says which pathway it funds: adopting existing AI tools, adapting them to local data and languages, or advancing new models. If no paragraph says so, that is your finding.",
+      "figure": {
+        "bars": [
+          {
+            "label": "Steam engine",
+            "value": 80
+          },
+          {
+            "label": "Electricity",
+            "value": 40
+          },
+          {
+            "label": "Internet",
+            "value": 20
+          }
+        ],
+        "suffix": "",
+        "big": "6 months",
+        "caption": "Years it took each technology to reach lower-income countries. ChatGPT: within six months of launch, middle-income countries supplied half of its traffic.",
+        "where": "Overview, PDF page 35",
+        "unit": "Years of adoption lag",
+        "note": "",
+        "prefix": ""
+      }
     },
     {
       "n": 2,
@@ -54,7 +77,26 @@
         "answer": 1,
         "explain": "The overview's note 32 (PDF page 66) and Chapter 2 (PDF page 109) give the fall from about $20 to $0.07 per million tokens. The confusion to avoid: this is the price of a fixed level of capability, not of the latest frontier model, which is exactly why the report says adapting existing models is now affordable."
       },
-      "do": "List the AI components your project or client depends on (model, cloud, chips, data) and where each comes from. If every layer points to one provider, that is the dependence Chapter 2 warns about; ask what switching would cost."
+      "do": "List the AI components your project or client depends on (model, cloud, chips, data) and where each comes from. If every layer points to one provider, that is the dependence Chapter 2 warns about; ask what switching would cost.",
+      "figure": {
+        "bars": [
+          {
+            "label": "Late 2022",
+            "value": 20
+          },
+          {
+            "label": "Late 2024",
+            "value": 0.07
+          }
+        ],
+        "prefix": "$",
+        "big": "$0.07",
+        "caption": "Price of using a model at the level of the first ChatGPT, per million tokens, two years apart.",
+        "where": "Overview, PDF page 66; Chapter 2, PDF page 109",
+        "unit": "US dollars per million tokens",
+        "note": "The report's point: adopting what exists is now cheap. Its warning: the window could close, so do not depend on one provider.",
+        "suffix": ""
+      }
     },
     {
       "n": 3,
@@ -76,7 +118,30 @@
         "answer": 0,
         "explain": "The overview (PDF page 48, figure O.6) gives 4.5 percent for low- and middle-income countries. The usual mix-up: 14.2 percent is the high-income figure, and 16.2 percent is the share of jobs that AI can complement rather than replace, which the report treats as the opportunity rather than the threat."
       },
-      "do": "Ask your AI assistant to sort the five most common occupations in your project's sector into mostly automatable, mostly complementable, or low exposure, then check whether the project's training component targets the second group."
+      "do": "Ask your AI assistant to sort the five most common occupations in your project's sector into mostly automatable, mostly complementable, or low exposure, then check whether the project's training component targets the second group.",
+      "figure": {
+        "bars": [
+          {
+            "label": "Automation, LMICs",
+            "value": 4.5
+          },
+          {
+            "label": "Automation, HICs",
+            "value": 14.2
+          },
+          {
+            "label": "Complement, LMICs",
+            "value": 16.2
+          }
+        ],
+        "suffix": "%",
+        "big": "",
+        "caption": "Share of existing jobs amenable to automation or to complementation by generative AI, by country income group.",
+        "where": "Overview, PDF page 48, and figure O.6, PDF page 49",
+        "unit": "Percent of existing jobs",
+        "note": "LMICs here means low- and middle-income countries; HICs, high-income countries.",
+        "prefix": ""
+      }
     },
     {
       "n": 4,
@@ -98,7 +163,30 @@
         "answer": 3,
         "explain": "Chapter 5 (PDF page 190) reports that only 7.6 percent of procured government AI systems used generative AI, mostly in front-end applications, while 78.5 percent used predictive and optimization models. The confusion is to assume chatbots dominate government AI; the records say forecasting, targeting and monitoring do."
       },
-      "do": "Take one AI pilot you know of in a client government and ask: is it back end (prediction on administrative data) or front end (a tool in a teacher's or nurse's hand)? Then check whether anyone has evaluated it with real users; the report found 17 causal studies in all of frontline health."
+      "do": "Take one AI pilot you know of in a client government and ask: is it back end (prediction on administrative data) or front end (a tool in a teacher's or nurse's hand)? Then check whether anyone has evaluated it with real users; the report found 17 causal studies in all of frontline health.",
+      "figure": {
+        "bars": [
+          {
+            "label": "Built for internal functions",
+            "value": 88.7
+          },
+          {
+            "label": "Predictive or optimization",
+            "value": 78.5
+          },
+          {
+            "label": "Generative AI",
+            "value": 7.6
+          }
+        ],
+        "suffix": "%",
+        "big": "7.6%",
+        "caption": "Government AI systems in procurement records across countries: almost all back end, almost none generative.",
+        "where": "Chapter 5, PDF page 190",
+        "unit": "Percent of AI systems in procurement records",
+        "note": "",
+        "prefix": ""
+      }
     },
     {
       "n": 5,
@@ -120,7 +208,26 @@
         "answer": 1,
         "explain": "The overview (PDF page 58) and Chapter 9 (PDF page 341) say to start with voluntary standards, use existing laws on data protection, consumer protection and cybersecurity to address harms now, and build flexible AI rules over time. The confusion is to read the report as calling for a big new law first; it explicitly warns against one-size-fits-all AI laws."
       },
-      "do": "Pick one government counterpart and write down which of the three roles your operation strengthens: enabler, user or regulator. If the honest answer is none, Table O.2 of the report (PDF page 57) is a menu of what it could do."
+      "do": "Pick one government counterpart and write down which of the three roles your operation strengthens: enabler, user or regulator. If the honest answer is none, Table O.2 of the report (PDF page 57) is a menu of what it could do.",
+      "figure": {
+        "bars": [
+          {
+            "label": "Buying automation equipment or software",
+            "value": 5
+          },
+          {
+            "label": "Hiring workers for the same tasks",
+            "value": 25
+          }
+        ],
+        "suffix": "%",
+        "big": "",
+        "caption": "What a US business pays in tax: under 5 percent on automation purchases against an average 25 percent in payroll and income taxes on hiring.",
+        "where": "Overview, PDF page 59; Chapter 7 notes, PDF page 294",
+        "unit": "Tax rate, percent",
+        "note": "The report's example of a rule that tilts firms toward replacing people when complementing them would do.",
+        "prefix": ""
+      }
     }
   ]
 }
