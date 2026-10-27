@@ -55,6 +55,10 @@
         "unit": "Years of adoption lag",
         "note": "",
         "prefix": ""
+      },
+      "cover": {
+        "src": "img/cover_wdr.jpg",
+        "alt": "Cover of the World Development Report 2026, The Promise of Artificial Intelligence"
       }
     },
     {
@@ -96,6 +100,10 @@
         "unit": "US dollars per million tokens",
         "note": "The report's point: adopting what exists is now cheap. Its warning: the window could close, so do not depend on one provider.",
         "suffix": ""
+      },
+      "cover": {
+        "src": "img/cover_wdr.jpg",
+        "alt": "Cover of the World Development Report 2026, The Promise of Artificial Intelligence"
       }
     },
     {
@@ -141,6 +149,10 @@
         "unit": "Percent of existing jobs",
         "note": "LMICs here means low- and middle-income countries; HICs, high-income countries.",
         "prefix": ""
+      },
+      "cover": {
+        "src": "img/cover_wdr.jpg",
+        "alt": "Cover of the World Development Report 2026, The Promise of Artificial Intelligence"
       }
     },
     {
@@ -186,6 +198,10 @@
         "unit": "Percent of AI systems in procurement records",
         "note": "",
         "prefix": ""
+      },
+      "cover": {
+        "src": "img/cover_wdr.jpg",
+        "alt": "Cover of the World Development Report 2026, The Promise of Artificial Intelligence"
       }
     },
     {
@@ -227,6 +243,10 @@
         "unit": "Tax rate, percent",
         "note": "The report's example of a rule that tilts firms toward replacing people when complementing them would do.",
         "prefix": ""
+      },
+      "cover": {
+        "src": "img/cover_wdr.jpg",
+        "alt": "Cover of the World Development Report 2026, The Promise of Artificial Intelligence"
       }
     }
   ]

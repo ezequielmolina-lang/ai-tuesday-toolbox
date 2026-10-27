@@ -47,7 +47,10 @@ body { background:#e9e9ee; color:var(--ink); font-family:var(--f-body); margin:0
 .origen { font-family:var(--f-mono); font-size:.7rem; letter-spacing:.03em; color:var(--ink-2); line-height:1.5; margin:0; }
 .cifra-grande { font-family:var(--f-display); font-weight:800; font-size:clamp(3rem, 14vw, 4.4rem); line-height:.9; letter-spacing:-.03em; color:var(--tema); margin:0; }
 .leyenda { font-size:.98rem; line-height:1.45; margin:0; font-weight:700; }
-.grafico { width:100%; height:auto; display:block; } svg text { font-family:var(--f-body); }
+.grafico { width:100%; height:auto; display:block; }
+.tapa { display:flex; gap:14px; align-items:flex-start; } .tapa > div { min-width:0; flex:1; }
+.tapa img { width:84px; height:auto; flex:none; border:1px solid var(--rule); border-radius:3px; box-shadow:0 5px 16px rgba(13,13,18,.16); background:#fff; }
+.escena.pagina .tapa img { width:110px; } svg text { font-family:var(--f-body); }
 .recuerda { background:var(--tema); color:var(--tema-tinta); padding:16px 18px; border-radius:6px; font-family:var(--f-display); font-weight:700; font-size:1.2rem; line-height:1.2; margin:0; }
 .recuerda small { display:block; font-family:var(--f-mono); font-weight:500; font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; opacity:.85; margin-bottom:6px; }
 .fuente { font-size:.88rem; color:var(--ink-2); line-height:1.6; border-top:1px solid var(--rule); padding-top:10px; }
@@ -85,6 +88,11 @@ textarea { min-height:110px; resize:vertical; font-family:var(--f-mono); font-si
 details summary { cursor:pointer; font-family:var(--f-mono); font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-2); }
 details .acciones { margin-top:8px; }
 @media (max-height:740px) { .arriba { padding-top:10px; gap:6px; } .lamina { padding:10px 20px; gap:11px; } .pregunta { font-size:clamp(1.5rem, 6.6vw, 2.1rem); } .opcion { padding:9px 12px; font-size:.93rem; } .historia { font-size:.95rem; line-height:1.45; } .recuerda { font-size:1.05rem; padding:12px 14px; } }
+/* Make happens at a desk, next to Copilot: on a laptop it is a normal page, not a phone column. */
+.escena.pagina { height:auto; min-height:100%; place-items:start center; }
+.escena.pagina .reel { width:min(100vw, 860px); height:auto; min-height:100dvh; max-height:none; overflow:visible; }
+.escena.pagina .lamina { overflow:visible; animation:none; }
+@media (min-width:720px) { .escena.pagina .arriba { padding:20px 56px 0; } .escena.pagina .lamina { padding:28px 56px 36px; gap:20px; } .escena.pagina .abajo { padding:12px 56px 28px; } .escena.pagina .titulo { font-size:3.2rem; } .escena.pagina .sub { font-size:1.12rem; max-width:40em; } .escena.pagina .nota { font-size:.92rem; max-width:46em; } .escena.pagina textarea { min-height:160px; } .escena.pagina .paso { padding:18px 20px; border:1.5px solid var(--rule); border-radius:12px; } }
 @media (prefers-reduced-motion: reduce) { .lamina { animation:none; } .reel { transition:none; } }
 </style>
 </head>
@@ -118,7 +126,7 @@ async function loadBuiltin(){
 function state(id){ return LS.get('st-'+id, {start:null, done:{}, unlocked:false}); }
 function saveState(id, s){ LS.set('st-'+id, s); }
 function paint(opts){
-  const r = $('reel'); r.classList.toggle('portada', !!opts.portada);
+  const r = $('reel'); r.classList.toggle('portada', !!opts.portada); document.querySelector('.escena').classList.toggle('pagina', view === 'make');
   $('bar').style.width = (opts.progress||0) + '%';
   $('marca').textContent = opts.marca || 'Five Mornings'; $('num').textContent = opts.num || '';
   const l = $('lamina'); l.className = 'lamina' + (opts.top ? ' arriba-alineada' : ''); l.innerHTML = opts.html; l.onclick = opts.onTap || null;
@@ -183,7 +191,7 @@ function renderPage(){
     paint(Object.assign(common, { portada:true, html:`<span class="tema">Guess first</span><h2 class="pregunta">${esc(q.q)}</h2><div class="opciones">${opts}</div><div class="pista">${answered ? 'Tap next to read why' : 'Wrong is fine. Wrong is how it sticks.'}</div>`, abajo: nav() }));
   } else if (p.k==='a'){
     const ans = q ? `<p class="etiqueta">The answer</p><h2 class="respuesta"><mark>${esc(q.options[q.answer])}</mark></h2><p class="historia">${esc(q.explain||'')}</p>` : `<p class="etiqueta">Morning ${d.n}</p><h2 class="respuesta">${esc(d.title)}</h2>`;
-    paint(Object.assign(common, { html:`${ans}<p class="nota">${esc(d.hook||'')}</p>`, abajo: nav(), onTap: tapNext }));
+    paint(Object.assign(common, { html:`${ans}${tapa(d, `<p class="nota">${esc(d.hook||'')}</p>`)}`, abajo: nav(), onTap: tapNext }));
   } else if (p.k==='fig'){
     // "The number": the same page EvidencIA Papers gives every study. The chart is drawn from the figures in the JSON, so a number that is not in the file cannot appear here.
     const f = d.figure;
@@ -191,20 +199,22 @@ function renderPage(){
   } else if (p.k==='l'){
     paint(Object.assign(common, { html:`<p class="etiqueta">${esc(d.title)}</p><div class="historia">${p.html}</div>`, abajo: nav(), onTap: tapNext }));
   } else if (p.k==='quote'){
-    paint(Object.assign(common, { html:`<p class="etiqueta">In the document, verbatim</p><p class="cita">${esc(d.quote.text)}</p><p class="origen">${esc(d.quote.where||'')}</p><p class="nota">Open the page and read the sentence. If it is not there, the AI invented it, and you learned something about both.</p>`, abajo: nav(), onTap: tapNext }));
+    paint(Object.assign(common, { html:`<p class="etiqueta">In the document, verbatim</p><p class="cita">${esc(d.quote.text)}</p>${tapa(d, `<p class="origen">${esc(d.quote.where||'')}</p>`)}<p class="nota">Open the page and read the sentence. If it is not there, the AI invented it, and you learned something about both.</p>`, abajo: nav(), onTap: tapNext }));
   } else if (p.k==='do'){
     const src = cur.source && cur.source.url ? `<a href="${esc(cur.source.url)}" target="_blank" rel="noopener">Keep reading: ${esc(cur.source.name)}</a>` : (cur.source && cur.source.name ? esc(cur.source.name) : '');
     const next = curDay < cur.days.length-1 ? `Morning ${d.n+1} opens ${fmtDate(nextWeekday(new Date()))}.` : 'Last morning. You have read it.';
     paint(Object.assign(common, { html:`<p class="recuerda"><small>Do this today, two minutes</small>${esc(d.do||'')}</p><p class="nota">${next}</p><div class="acciones"><button class="boton chico" onclick="shareDay()">Copy the question for the chat</button>${curDay < cur.days.length-1 ? '<button class="boton chico" onclick="downloadIcs()">Add the next mornings to my calendar</button>' : ''}</div><p class="fuente">${src}</p>`, abajo: nav() }));
   }
 }
+// The cover of the document, when the course has one: a thumbnail of its first page, so a morning about a report looks like that report.
+function tapa(d, inner){ const c = d.cover && d.cover.src ? `<img src="${esc(d.cover.src)}" alt="${esc(d.cover.alt||'')}" loading="lazy">` : ''; return c ? `<div class="tapa">${c}<div>${inner}</div></div>` : inner; }
 function tapNext(e){ if (e.target.closest('a,button,input,textarea')) return; next(); }
 function hasFig(d){ return !!(d.figure && Array.isArray(d.figure.bars) && d.figure.bars.length >= 2); }
 function barras(f){
   // Same bar chart as EvidencIA Papers: up to four bars, the course color first, values printed on top, labels cut to two short lines.
   const bs = f.bars.slice(0,4), maxV = Math.max(...bs.map(b => Math.abs(b.value)), 1e-9);
   const neg = bs.some(b => b.value < 0);
-  const W = 320, H = 210, w = (W - 20) / bs.length, top = 30, bottom = H - 46;
+  const W = 320, H = 210, w = (W - 20) / bs.length, top = 30, bottom = neg ? H - 70 : H - 46; // negative bars print their value below, so leave room above the labels
   const cero = neg ? (top + bottom) / 2 : bottom, alto = neg ? (bottom - top) / 2 : bottom - top;
   const pre = f.prefix || '', suf = f.suffix || '';
   const valor = v => (v < 0 ? '−' : (neg && v > 0 ? '+' : '')) + pre + String(Math.abs(v)) + suf;
@@ -263,14 +273,15 @@ function makePrompt(){
 function renderMake(){
   setTema('#0d0d12'); history.replaceState(null,'','#make');
   paint({ top:true, progress:0, marca:'Make one', num:'two steps',
-    html: `<h1 class="titulo">Your document, <b>five mornings</b>.</h1><p class="sub">The report you saved for the flight, the evaluation everyone quotes, the strategy you were cc'd on. Make it on your laptop, take it on your phone.</p>
+    html: `<h1 class="titulo">Your document, <b>five mornings</b>.</h1><p class="sub">The report you saved for the flight, the evaluation everyone quotes, the strategy you were cc'd on. Make it on your laptop; the course is saved in this browser only.</p>
     <div class="paso"><h3><span>1</span>Give the prompt and the file to your AI</h3><p class="nota"><b>Internal document</b> (anything from WBDocs, a draft): <b>Copilot</b>, Cowork or Chat, with the file attached as a PDF so the page numbers mean something. If you have to ask whether a document is public, it is not.<br><b>Public document</b>: Copilot, ChatGPT or Claude. Attach the PDF; a link alone is often not read in full.</p>
     <p class="nota"><b>First time?</b> Try a public PDF:</p><div class="chips"><button onclick="tryDoc('World Development Report 2026 overview, https://openknowledge.worldbank.org/bitstreams/00cfb233-585b-41fd-b2cb-d7f6dd5ef6d9/download','a colleague who wants the argument and the numbers of the WDR')">WDR 2026 overview</button><button onclick="tryDoc('World Bank Procurement Regulations for IPF Borrowers, https://thedocs.worldbank.org/en/doc/178331533065871195-0290022020/original/ProcurementRegulations.pdf','a task team member who applies the Procurement Regulations and has only read the summary')">Procurement Regulations</button><button onclick="tryDoc('World Bank Environmental and Social Framework, https://thedocs.worldbank.org/en/doc/837721522762050108-0290022018/original/ESFFramework.pdf','a new team member who needs to find any ESS requirement in under a minute')">The ESF</button></div>
     <label class="campo">Document name, and link if public (optional)</label><input id="mDoc" placeholder="e.g. Country Partnership Framework 2026" value="${esc(LS.get('mDoc',''))}" oninput="LS.set('mDoc', this.value)">
     <label class="campo">Who is it for, what should they manage after day 5 (optional)</label><input id="mWho" placeholder="e.g. new team members; find any covenant in a minute" value="${esc(LS.get('mWho',''))}" oninput="LS.set('mWho', this.value)">
     <div class="acciones"><button class="boton" onclick="copyPrompt()">Copy the prompt</button><a class="boton chico" target="_blank" rel="noopener" href="#" onclick="this.href='https://chatgpt.com/?q='+encodeURIComponent(makePrompt()); toast('Attach the PDF before you send.')">Open in ChatGPT</a><a class="boton chico" target="_blank" rel="noopener" href="#" onclick="this.href='https://claude.ai/new?q='+encodeURIComponent(makePrompt()); toast('Attach the PDF before you send.')">Open in Claude</a></div>
-    <p class="nota">Copilot has no link that opens with a question: copy, open Copilot, attach, paste.</p></div>
+    <p class="nota">Copilot has no link that opens with a question: copy, open Copilot, attach, paste. The ChatGPT and Claude buttons send only the prompt, including the document name you typed above, never the file.</p></div>
     <div class="paso"><h3><span>2</span>Paste what the AI returned</h3><p class="nota">A block of text that starts with a curly bracket. You are allowed not to read it.</p><textarea id="mJson" placeholder='{"id": "...", "title": "...", "days": [ ... ] }'></textarea><div class="acciones"><button class="boton principal" style="margin:0" onclick="importJson()">Build my course</button><label class="boton chico" style="display:inline-block">Load a file<input type="file" accept=".json,application/json" style="display:none" onchange="importFile(this)"></label></div><div class="error" id="mErr" hidden></div></div>
+    <p class="nota"><b>Nothing you paste leaves this browser.</b> This page has no server: the course is kept on this device only, so an internal document stays as internal as it was. To have it on your phone too, open the course, press Download to share, email the file to yourself, and load it here on the phone.</p>
     <p class="nota"><b>Check before you trust.</b> Open the document at the page a lesson cites and read the sentence. A wrong page is a finding, not a failure.</p>`,
     abajo: `<button class="boton" onclick="go('lib')">&larr; Courses</button>` });
 }
@@ -294,6 +305,7 @@ function validate(c){
       ['prefix','suffix','big','caption','where','note','unit'].forEach(k => { f[k] = f[k] == null ? '' : String(f[k]); });
       if (f.bars.length < 2){ d.figure = null; warns.push(`Morning ${i+1}: the figure had fewer than two numbers, so it is hidden.`); }
     } else d.figure = null;
+    const cv = d.cover; d.cover = (cv && typeof cv === 'object' && typeof cv.src === 'string' && /^(https:\/\/|img\/)[^\s"'<>]+$/.test(cv.src)) ? {src: cv.src, alt: String(cv.alt || '')} : null;
     const words = d.lesson.replace(/<[^>]+>/g,' ').split(/\s+/).filter(Boolean).length; if (words > 450) warns.push(`Morning ${i+1} is ${words} words; three minutes is the design.`);
     if (d.question && d.question.q && Array.isArray(d.question.options)){ d.question.options = d.question.options.slice(0,4).map(String); d.question.answer = normAnswer(d.question.answer, d.question.options.length);
       if (d.question.answer < 0 || d.question.answer >= d.question.options.length){ warns.push(`Morning ${i+1}: the answer did not match an option, so the question is hidden.`); d.question = null; } }

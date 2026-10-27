@@ -1,7 +1,7 @@
 {
   "id": "evidence",
   "title": "AI and work: the evidence, in five mornings",
-  "subtitle": "One payroll dataset, two field experiments, two classroom trials and Ethan Mollick, so you can stop quoting LinkedIn in the team meeting",
+  "subtitle": "One payroll dataset, two field experiments, two classroom trials and the inside of Anthropic, so you can stop quoting LinkedIn in the team meeting",
   "emoji": "📊",
   "color": "#0b6e4f",
   "source": {
@@ -51,6 +51,10 @@
         "unit": "Kept-pace shortfall, percent",
         "note": "Experienced workers show no comparable gap.",
         "prefix": ""
+      },
+      "cover": {
+        "src": "img/cover_canaries.jpg",
+        "alt": "First page of Canaries in the Coal Mine? by Brynjolfsson, Chandar and Chen"
       }
     },
     {
@@ -96,6 +100,10 @@
         "unit": "Difference from the no-AI group, percent",
         "note": "",
         "prefix": ""
+      },
+      "cover": {
+        "src": "img/cover_jagged.jpg",
+        "alt": "First page of Navigating the Jagged Technological Frontier, Organization Science"
       }
     },
     {
@@ -141,6 +149,10 @@
         "unit": "Standard deviations over individuals without AI",
         "note": "SD means standard deviations, the unit researchers use to compare different tests.",
         "prefix": ""
+      },
+      "cover": {
+        "src": "img/cover_teammate.jpg",
+        "alt": "First page of The Cybernetic Teammate, NBER Working Paper 33641"
       }
     },
     {
@@ -186,47 +198,63 @@
         "unit": "Difference from the control class, percent",
         "note": "",
         "prefix": ""
+      },
+      "cover": {
+        "src": "img/cover_bastani.jpg",
+        "alt": "Header of Generative AI without guardrails can harm learning, PNAS 2025"
       }
     },
     {
       "n": 5,
-      "title": "Mollick: the rules, and the new book",
-      "hook": "One professor co-authored both experiments from Mornings 2 and 3, writes the clearest practical advice on all of this, and published his second book on 20 October.",
-      "lesson": "<p>Ethan Mollick teaches at Wharton and writes the newsletter <a href=\"https://www.oneusefulthing.org/\" target=\"_blank\" rel=\"noopener\">One Useful Thing</a>. His 2024 book <b>Co-Intelligence</b> gave four rules that still hold. Always invite AI to the table: try it on everything, because you cannot know the frontier without testing it. Be the human in the loop: check, decide, take responsibility. Treat AI like a person, but tell it what kind of person it is: give it a role and context. And assume this is the worst AI you will ever use.</p><p>His <a href=\"https://www.oneusefulthing.org/p/a-guide-to-which-ai-to-use-in-the\" target=\"_blank\" rel=\"noopener\">guide of 18 February 2026</a> marks the shift from chatting to delegating. He has written eight of these guides since ChatGPT came out and calls this one a break with the past, because what it means to use AI has changed. Three pieces of advice travel well. Pay for a serious model if you use AI seriously, because the free models are optimized for chat rather than accuracy, and many of the errors people blame on AI come from them. Pick the advanced model yourself instead of leaving the app on automatic. And start with real work: upload a document you are actually working on, give the AI a very complex task, and have a back-and-forth. His own example of the new category of tools is Claude Cowork, which he describes as Claude Code for non-technical work; at the Bank the lane for internal documents is Copilot.</p><p>The new book, <b>Co-Existence</b> (Portfolio, 20 October 2026), is about working with AI that is sometimes, but not always, better than you, which is the jagged frontier from Morning 2 turned into a way of living with it.</p><p>The honest summary of this course fits in one line. The technology is uneven, the effects are early, and the people who do best are the ones who keep checking.</p>",
+      "title": "Inside Anthropic: agents six to one",
+      "hook": "On 16 October Anthropic opened its own payroll, calendar, Slack and hiring records. The jobs that shrank first were the junior ones.",
+      "lesson": "<p>On 16 October 2026 the Anthropic Institute published <a href=\"https://www.anthropic.com/research/employment-at-anthropic\" target=\"_blank\" rel=\"noopener\">How employment is changing at Anthropic</a> (Wilmers, Catipon, Massenkoff and McCrory), built from the company's own records: headcount, hiring score cards, agent telemetry, calendars, Slack, and 17 interviews. A frontier AI lab is not a ministry, and the authors say many of its practices cannot be copied. It is still the most detailed look yet at an organization that runs on AI agents.</p><p>Three numbers carry it. The share of junior staff in technical departments fell from 21 to 14 percent since early 2025, and the junior share of technical hires from 27 to 9. In March 2026 the hours worked by AI agents passed the hours worked by people, and by August the agents an employee directs worked six times as many hours as the employee. Code commits per engineer run at five times the pace of six months earlier, and lawyers, accounts payable and salespeople all show more output. The same engineer, followed over time, adds much more code after adopting agents, with no rise in lines later removed or reverted. The authors note that adopting the tools was not random, so treat the size with care.</p><p>The surprise is where the bottleneck moved. Agent sessions spend around 80 percent of their time waiting for a human. Reading everything the agents produce would take over half the week even for non-technical staff, so by spring 2026 a fifth of sessions were meta-work (specs, reviews of other agents, dashboards), up from a tenth in the fall. Written standing instructions for agents went from a few hundred to 8,500 in a year. The median employee spends 20 percent more time in meetings than a year ago. Hiring managers now write more about autonomy and judgment and less about domain expertise.</p><p>What the company did about it is the part for a ministry: an early warning system for jobs at risk, and redeployment inside before hiring outside. The authors add the honest line themselves: none of this helps the people who were never hired.</p>",
       "quote": {
-        "text": "I have written eight of these guides since ChatGPT came out, but this version represents a very large break with the past, because what it means to \"use AI\" has changed dramatically.",
-        "where": "Ethan Mollick, A Guide to Which AI to Use in the Agentic Era, One Useful Thing, 18 February 2026, first paragraph"
+        "text": "This acceleration makes human attention the bottleneck for agent output. Even among non-technical employees, reading all the output of their Claude agents would take half their work week.",
+        "where": "Wilmers, Catipon, Massenkoff and McCrory, How employment is changing at Anthropic, The Anthropic Institute, 16 October 2026, Key findings, third bullet"
       },
       "question": {
-        "q": "Which of these is NOT one of the four principles in Mollick's Co-Intelligence?",
+        "q": "By August 2026, how did the hours worked by the AI agents an Anthropic employee directs compare with the employee's own hours?",
         "options": [
-          "Always invite AI to the table",
-          "Be the human in the loop",
-          "Never show AI anything internal",
-          "Assume this is the worst AI you will ever use"
+          "About the same",
+          "Twice as many",
+          "Six times as many",
+          "A tenth as many"
         ],
         "answer": 2,
-        "explain": "The four principles are: always invite AI to the table, be the human in the loop, treat AI like a person (but tell it what kind of person it is), and assume this is the worst AI you will ever use. Data rules are real, but they come from your institution, not from the book. At the Bank, internal documents go to Copilot, not to public chatbots."
+        "explain": "Figure 2 of the report: agent hours passed human hours for the first time in March 2026, and by August the agents an employee directs worked six times as many hours as the employee. Most of that agent time, around 80 percent, is spent waiting for the human to answer."
       },
-      "do": "Do what the guide says: take one document you are actually working on today, give your AI a hard task on it, and go two rounds on the answer. If the document is internal, that means Copilot. Then come back to Five Mornings and build a course from it.",
+      "do": "Count the tasks you handed to an AI this week, then the minutes you spent reading what came back. If the second number is the bigger one, you are the bottleneck the report describes: write one standing instruction, a saved prompt, for the task you repeat most.",
       "figure": {
         "bars": [
           {
-            "label": "Free model",
-            "value": 0
+            "label": "Staff, early 2025",
+            "value": 21
           },
           {
-            "label": "Serious use",
-            "value": 20
+            "label": "Staff, latest",
+            "value": 14
+          },
+          {
+            "label": "Hires, early 2025",
+            "value": 27
+          },
+          {
+            "label": "Hires, latest",
+            "value": 9
           }
         ],
-        "prefix": "$",
-        "big": "$20",
-        "caption": "Mollick's first piece of advice in the 2026 guide: if you use AI seriously, pay at least 20 dollars a month for an advanced model. The free ones are tuned for chat, not accuracy.",
-        "where": "Ethan Mollick, A Guide to Which AI to Use in the Agentic Era, One Useful Thing, 18 February 2026",
-        "unit": "US dollars a month",
-        "note": "At the Bank the paid model is already there: Copilot, for internal documents.",
-        "suffix": ""
+        "prefix": "",
+        "suffix": "%",
+        "big": "9%",
+        "caption": "Junior positions as a share of Anthropic's technical departments, in headcount and in new hires, since early 2025.",
+        "where": "Wilmers, Catipon, Massenkoff and McCrory, How employment is changing at Anthropic, 16 October 2026, Figure 1 and the paragraph above it",
+        "unit": "Percent of technical staff and of technical hires",
+        "note": "By August 2026 the AI agents employees direct worked six times as many hours as the employees."
+      },
+      "cover": {
+        "src": "img/cover_anthropic.jpg",
+        "alt": "Cover of How Employment is Changing at Anthropic, The Anthropic Institute, October 2026"
       }
     }
   ]
