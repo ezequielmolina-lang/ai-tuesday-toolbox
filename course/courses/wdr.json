@@ -1,0 +1,126 @@
+{
+  "id": "wdr",
+  "title": "The WDR 2026 in five mornings",
+  "subtitle": "The 380 pages you downloaded in August, three minutes at a time.",
+  "emoji": "🌍",
+  "color": "#0068B3",
+  "source": {
+    "name": "World Development Report 2026: The Promise of Artificial Intelligence",
+    "url": "https://openknowledge.worldbank.org/bitstreams/4df724a5-2e0d-4e66-bcb8-1d3bf4e22390/download",
+    "pages": 380
+  },
+  "made_with": "Built by an AI from the public PDF in one sitting; every quote and page number was checked against the PDF text.",
+  "audience": "anyone who meant to read the WDR in August",
+  "days": [
+    {
+      "n": 1,
+      "title": "Adopt, adapt, then advance",
+      "hook": "The whole argument in one morning: why a country with too few doctors and teachers cannot wait for AI, and what it should do first.",
+      "lesson": "<p>The WDR 2026 treats AI as a general-purpose technology, alongside steam, electricity and the internet, and its first move is to show how much faster this one travels. The steam engine took about 80 years to reach lower-income countries, electricity 40, the internet 20. Middle-income countries supplied half of ChatGPT's global traffic within six months of its launch. The lesson from history: the countries that gained most from earlier technologies were rarely the inventors; they built the foundations and moved fast on applications.</p><p>The core argument is about <b>scarce skills</b>. Unlike computers, AI can perform nonroutine cognitive tasks that normally need an expert: diagnosing a disease, forecasting weather, advising a farmer. Developing countries have too few doctors, agronomists and skilled officials, and building that expertise takes generations. AI can lower the entry requirements for an occupation, shift medical-image screening from scarce specialists to lower-level health workers, or make existing workers more productive. Chapter 1 opens with both faces of this: a WhatsApp chatbot advising maize farmers in Kenya, and customer-service staff in India watching the same technology take over their scripted tasks.</p><p>The prescription is a sequence: <b>adopt</b> the tools that exist, <b>adapt</b> them to local languages and data, and <b>advance</b> to frontier models only where resources justify it. Advancing is the expensive path; US hyperscalers are expected to spend more than $750 billion on AI infrastructure in 2026. Adapting is where the report expects the biggest gains, naming Latam-GPT, SEA-LION, Sarvam AI and InkubaLM as examples under way.</p><p>One dry fact to keep: as of mid-2026 more than 80 countries had published national AI strategies, but only one of the 25 low-income countries, Rwanda. The countries with the most to gain look the least prepared.</p>",
+      "quote": {
+        "text": "AI, when it is adapted to local languages and context, can radically speed up the pace of transformation. It can put expert knowledge within reach of millions instead of just a small elite.",
+        "where": "Overview, Doing in a decade what once took a century (PDF page 37)"
+      },
+      "question": {
+        "q": "As of mid-2026, how many of the world's 25 low-income countries had published a national AI strategy?",
+        "options": [
+          "None",
+          "Five",
+          "One (Rwanda)",
+          "Twelve"
+        ],
+        "answer": 2,
+        "explain": "The overview (PDF pages 38 and 58) reports that more than 80 countries had published national AI strategies by June 2026, but among the 25 low-income countries only Rwanda had done so, against more than half of high-income countries. The common confusion is to count strategies in preparation, which the report's map shows separately."
+      },
+      "do": "Open the project or strategy document you are working on and ask your AI assistant to find the paragraph that says which pathway it funds: adopting existing AI tools, adapting them to local data and languages, or advancing new models. If no paragraph says so, that is your finding."
+    },
+    {
+      "n": 2,
+      "title": "Who owns the building blocks",
+      "hook": "Why Bank clients can use frontier AI without owning any of it, and why that is both the opportunity and the risk.",
+      "lesson": "<p>Chapter 2 walks the AI value chain from minerals to applications and finds the top layers concentrated in a handful of companies in the United States and China. One ASML machine for the most advanced chips costs at least $220 million. The advice: do not copy the whole stack, target the layers where a country has an advantage; developing countries already supply about half of global exports of products used to build AI systems.</p><p><b>Concentration cuts both ways.</b> It creates dependency, but it also lets countries build on what exists rather than train models from scratch. The cost of using a model with GPT-3.5-level performance fell from about $20 per million tokens in late 2022 to $0.07 by late 2024, and open models such as Llama, Gemma, Mistral, Qwen and DeepSeek can be downloaded and adapted. The warning: this window could close, so avoid depending on a single provider.</p><p>Chapter 3 explains why imported AI fails locally. A COVID-19 triage model trained on UK hospital data lost accuracy sharply on patients in Viet Nam. A diabetic eye-screening tool in Thai clinics rejected more than 20 percent of the images nurses took because the lighting differed from the training data. The report calls these <b>contextual mismatches</b> and separates customization complements (local data and technical capacity) from deployment complements (electricity, connectivity, skills, regulation). In rural Sub-Saharan Africa 32 percent of schools lack regular electricity, 68 percent lack consistent internet, and 89 percent of ten-year-olds cannot read a simple text.</p><p>Its answer to the sovereignty debate is a middle path: open models plus shared regional computing, and small AI built for narrow tasks and weak networks, like Rori, which tutors maths by text message in Ghana for about five dollars a student.</p>",
+      "quote": {
+        "text": "Unlike the tractor, however, whose contextual mismatch is physically visible, AI models, when mismatched to their intended or deployment context, hide that mismatch behind seemingly confident and expert outputs.",
+        "where": "Chapter 3, The technology that learns (PDF page 118)"
+      },
+      "question": {
+        "q": "By how much did the cost of using a model with GPT-3.5-level performance fall between late 2022 and late 2024, per million tokens?",
+        "options": [
+          "From about $20 to $5",
+          "From about $20 to $0.07",
+          "From about $2 to $0.50",
+          "It did not fall; prices rose with demand"
+        ],
+        "answer": 1,
+        "explain": "The overview's note 32 (PDF page 66) and Chapter 2 (PDF page 109) give the fall from about $20 to $0.07 per million tokens. The confusion to avoid: this is the price of a fixed level of capability, not of the latest frontier model, which is exactly why the report says adapting existing models is now affordable."
+      },
+      "do": "List the AI components your project or client depends on (model, cloud, chips, data) and where each comes from. If every layer points to one provider, that is the dependence Chapter 2 warns about; ask what switching would cost."
+    },
+    {
+      "n": 3,
+      "title": "Jobs: smaller shock, sharper edges",
+      "hook": "The numbers to have ready when a minister asks whether AI will take the jobs.",
+      "lesson": "<p>Chapter 4 opens with Perlah, a Philippine call-center agent serving an American bank beside an AI tool that suggests replies, and Chioma, who builds agricultural software in Nigeria faster because AI writes much of the code. The central labor finding: in low- and middle-income countries about <b>4.5 percent</b> of existing jobs are amenable to automation by generative AI, against <b>14.2 percent</b> in high-income countries, while <b>16.2 percent</b> are amenable to being complemented by it. The exposed sectors, ICT, finance and business services, employ relatively few people in developing countries.</p><p>Smaller does not mean painless. The launch of ChatGPT reduced postings for automatable jobs, most strongly in high-income countries, but in China and India the cuts fell disproportionately on entry-level, highly educated workers. Business process outsourcing employs about 1.3 million people in the Philippines, and one major freelance platform reported that work outsourced to developing countries fell by 39 percent in 2025.</p><p>The productivity story runs through small firms. In low- and lower-middle-income countries nearly 90 percent of workers are in firms with fewer than ten people. About a fifth of small firms surveyed in India, Jordan, Kenya, Mexico, Nigeria and Thailand already use AI chatbots, against a quarter in the United States. A Kenyan WhatsApp business adviser helped only firms already performing well: complements decide who gains.</p><p>On growth, the report expects AI's productivity gains to be more than double in advanced economies, two-thirds of the gap being wider adoption. In its most optimistic scenario Chapter 4 has 2020s potential growth rising from 1.2 to 3 percent in advanced economies and from 4.1 to 4.8 percent in developing ones.</p>",
+      "quote": {
+        "text": "Nevertheless, several studies have documented concentrated job displacement effects for certain groups of workers, such as entry-level college-educated workers, software developers, and those working in occupations like clerical work, in which AI can readily substitute for work and workers.",
+        "where": "Chapter 4, Concentrated adoption is resulting in concentrated disruption in labor markets (PDF page 159)"
+      },
+      "question": {
+        "q": "According to the report, what share of existing jobs in low- and middle-income countries is amenable to automation by generative AI?",
+        "options": [
+          "About 4.5 percent",
+          "About 14.2 percent",
+          "About 16.2 percent",
+          "About 25 percent"
+        ],
+        "answer": 0,
+        "explain": "The overview (PDF page 48, figure O.6) gives 4.5 percent for low- and middle-income countries. The usual mix-up: 14.2 percent is the high-income figure, and 16.2 percent is the share of jobs that AI can complement rather than replace, which the report treats as the opportunity rather than the threat."
+      },
+      "do": "Ask your AI assistant to sort the five most common occupations in your project's sector into mostly automatable, mostly complementable, or low exposure, then check whether the project's training component targets the second group."
+    },
+    {
+      "n": 4,
+      "title": "Public services, power and propaganda",
+      "hook": "What AI already does inside governments, where it has failed, and the four power shifts the report wants you to watch.",
+      "lesson": "<p>Chapter 5 sorts government AI into the <b>front end</b>, where teachers, nurses and tax officers meet citizens, and the <b>back end</b>, where data gets processed. The back end dominates: 88.7 percent of AI systems in procurement records were built for internal government functions, 78.5 percent use predictive or optimization models, and only 7.6 percent use generative AI. Kenya's judiciary uses an algorithm to assign more than 10,000 cases a year to more than 1,500 mediators; assignments that took up to ten days now mostly happen within a day. Brazil uses audit data to predict which municipalities carry higher corruption risk.</p><p>Front-line evidence is thinner. Singapore's tax assistant saved taxpayers nearly 12,000 hours in 2024. Teachers in Sierra Leone chose a WhatsApp AI assistant over web search because it used less data and gave more useful advice. In Bangladesh AI-based screening raised the number of patients checked for diabetic eye disease by 39.5 percent per day. Yet a review of 9,762 studies of AI in health found only 57 tested with real patients in low-resource settings and 17 with causal evidence. Failures count too: a mobile-data algorithm for targeting cash transfers in Bangladesh identified poor households less accurately than traditional methods.</p><p>Chapter 6 maps power along <b>four axes</b>: between countries, between governments and firms, between firms and individuals, and between states and citizens. Kenyan gig workers labeling data for frontier models earned $1.32 to $2.00 an hour in 2023. Africa had 66 active fact-checking organizations for 1.5 billion people in 2025; Europe had 139 for 750 million. Autocracies and weak democracies are more likely to import surveillance technology after unrest. AI decides none of this by itself; institutions do.</p>",
+      "quote": {
+        "text": "AI does not determine political outcomes on its own. It expands the range of possibilities for surveillance as well as transparency, for manipulation as well as mobilization, and for concentration as well as diffusion of power.",
+        "where": "Chapter 6, Introduction (PDF page 236)"
+      },
+      "question": {
+        "q": "In the procurement records the report analyzed, what share of government AI systems used generative AI?",
+        "options": [
+          "About 78.5 percent",
+          "About 50 percent",
+          "About 21 percent",
+          "About 7.6 percent"
+        ],
+        "answer": 3,
+        "explain": "Chapter 5 (PDF page 190) reports that only 7.6 percent of procured government AI systems used generative AI, mostly in front-end applications, while 78.5 percent used predictive and optimization models. The confusion is to assume chatbots dominate government AI; the records say forecasting, targeting and monitoring do."
+      },
+      "do": "Take one AI pilot you know of in a client government and ask: is it back end (prediction on administrative data) or front end (a tool in a teacher's or nurse's hand)? Then check whether anyone has evaluated it with real users; the report found 17 causal studies in all of frontline health."
+    },
+    {
+      "n": 5,
+      "title": "Enabler, user, regulator",
+      "hook": "The report's to-do list for governments, in the order it says to do it.",
+      "lesson": "<p>The last three chapters assign governments three roles. As <b>enabler</b> (Chapter 7) the first job is analog: reliable electricity, broadband and foundational literacy, where private investors rarely go. In Mali, a more reliable community health worker app more than doubled the chance that workers completed the expected home visits. Then the digital complements: affordable compute (developing countries attract about 40 percent of new foreign direct investment projects in data centers), open local-language data such as India's BHASHINI and Africa's Masakhane, technical skills, and start-up finance. It also warns against tax rules that favor automation over hiring; US businesses pay under 5 percent tax on automation equipment against an average 25 percent on hiring.</p><p>As <b>user</b> (Chapter 8) first ask whether AI is the right answer at all, against simpler options. Then make the data AI-ready: Brazil's VICTOR turns scanned court files into text and cut a Supreme Court appeal check from 40 minutes to 5 seconds. Buy against performance benchmarks like the WHO's for tuberculosis screening, write contracts that let you switch vendors and keep your data, and pay for results. The skills a ministry needs are not model training but understanding workflows, judging vendor claims and connecting data safely. India's iGOT Karmayogi has put more than 1.3 million officials through AI courses.</p><p>As <b>regulator</b> (Chapter 9) start with voluntary standards, more than 800 of which already exist or are coming, then use existing laws: Senegal's data protection commission blocked facial recognition of employees, Colombia's Constitutional Court set rules for generative AI in judgments, and the Philippines blocked Grok. Then build flexible rules, try sandboxes, and keep them internationally compatible. In a 47-country survey only 46 percent of people trust AI systems and 70 percent want more regulation.</p>",
+      "quote": {
+        "text": "Visible failures in areas that can have severe consequences erode societal trust much faster than successful deployments build it.",
+        "where": "Chapter 9, Introduction (PDF page 342)"
+      },
+      "question": {
+        "q": "Where does the report tell governments as regulators to begin?",
+        "options": [
+          "A comprehensive AI act modeled on the European Union's",
+          "Voluntary standards, backed by existing laws where they fall short",
+          "A moratorium on high-risk AI until regulatory capacity exists",
+          "A dedicated AI regulator before any rules are written"
+        ],
+        "answer": 1,
+        "explain": "The overview (PDF page 58) and Chapter 9 (PDF page 341) say to start with voluntary standards, use existing laws on data protection, consumer protection and cybersecurity to address harms now, and build flexible AI rules over time. The confusion is to read the report as calling for a big new law first; it explicitly warns against one-size-fits-all AI laws."
+      },
+      "do": "Pick one government counterpart and write down which of the three roles your operation strengthens: enabler, user or regulator. If the honest answer is none, Table O.2 of the report (PDF page 57) is a menu of what it could do."
+    }
+  ]
+}
